@@ -1,0 +1,48 @@
+.planning-intro,
+.planning-day-column {
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+body.planning-animations-ready .planning-intro {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.55s ease 0.1s, transform 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.1s;
+}
+
+body.planning-animations-ready .planning-day-column.is-visible {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.55s ease,
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+body.planning-animations-ready .planning-day-column.is-visible:nth-child(1) {
+  transition-delay: 0.08s;
+}
+
+body.planning-animations-ready .planning-day-column.is-visible:nth-child(2) {
+  transition-delay: 0.14s;
+}
+
+body.planning-animations-ready .planning-day-column.is-visible:nth-child(3) {
+  transition-delay: 0.2s;
+}
+
+body.planning-animations-ready .planning-day-column.is-visible:nth-child(4) {
+  transition-delay: 0.26s;
+}
+
+body.planning-animations-ready .planning-day-column.is-visible:nth-child(5) {
+  transition-delay: 0.32s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .planning-intro,
+  .planning-day-column {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

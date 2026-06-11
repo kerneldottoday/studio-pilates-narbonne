@@ -1,0 +1,84 @@
+{
+  "bsportCalendar": "https://backoffice.bsport.io/m/Studio%20Pilates%20Narbonne/1625/calendar/?tabSelected=0",
+  "instructor": "Souhila Chekara",
+  "classes": {
+    "1-hour-pilates.html": {
+      "title": "Pilates Reformer",
+      "metaDescription": "Cours Pilates Reformer en petit groupe à Narbonne avec Souhila Chekara. Travail précis sur machine, 1 h, 32 €. Réservez sur bsport.",
+      "level": "Tous niveaux",
+      "duration": "1 heure",
+      "discipline": "Pilates",
+      "priceTag": "32 €",
+      "subtitle": "Cours en petit groupe sur Reformer, travail précis et complet, fidèle à la méthode originale de Joseph Pilates.",
+      "bodyFile": "1-hour-pilates-body.html",
+      "image": "6593a20f89ac2c9812942be2/6593a777ccedd2e92659c122_Youga%20You%20Webflow%20Template%20Class%206-min.jpg",
+      "imageSrcset": "6593a20f89ac2c9812942be2/6593a777ccedd2e92659c122_Youga%20You%20Webflow%20Template%20Class%206-min-p-500.jpg 500w, 6593a20f89ac2c9812942be2/6593a777ccedd2e92659c122_Youga%20You%20Webflow%20Template%20Class%206-min-p-800.jpg 800w, 6593a20f89ac2c9812942be2/6593a777ccedd2e92659c122_Youga%20You%20Webflow%20Template%20Class%206-min.jpg 1036w",
+      "related": ["30-minutes-morning-yoga.html", "yoga-for-focus.html", "intense-1-hour-pilates.html"]
+    },
+    "intense-1-hour-pilates.html": {
+      "title": "Reformer Homme",
+      "metaDescription": "Cours Pilates Reformer réservé aux hommes à Narbonne. Petit groupe, 1 h avec Souhila Chekara. Réservez sur bsport.",
+      "level": "Homme",
+      "duration": "1 heure",
+      "discipline": "Pilates",
+      "priceTag": "32 €",
+      "subtitle": "Séance Reformer dédiée aux hommes, dans un cadre bienveillant, pour gagner en force, posture et mobilité.",
+      "bodyFile": "intense-1-hour-pilates-body.html",
+      "image": "6593a20f89ac2c9812942be2/6593a68254176ac6688c4a66_Youga%20You%20Webflow%20Template%20Class%202-min.jpg",
+      "imageSrcset": "6593a20f89ac2c9812942be2/6593a68254176ac6688c4a66_Youga%20You%20Webflow%20Template%20Class%202-min.jpg 1036w",
+      "related": ["1-hour-pilates.html", "30-minutes-morning-yoga.html", "30-minutes-chair-yoga.html"]
+    },
+    "30-minutes-morning-yoga.html": {
+      "title": "Pilates Mat",
+      "metaDescription": "Pilates Mat au sol à Narbonne : renforcement, posture et alignement. Cours d'1 h, 12,50 €. Réservez sur bsport.",
+      "level": "Débutant",
+      "duration": "1 heure",
+      "discipline": "Pilates",
+      "priceTag": "12,50 €",
+      "subtitle": "Renforcement en profondeur au sol : centre, posture et alignement optimisés, en petit groupe.",
+      "bodyFile": "30-minutes-morning-yoga-body.html",
+      "image": "6593a20f89ac2c9812942be2/6593a7647a7ca5bdd0dfbfb0_Youga%20You%20Webflow%20Template%20Class%205-min.jpg",
+      "imageSrcset": "6593a20f89ac2c9812942be2/6593a7647a7ca5bdd0dfbfb0_Youga%20You%20Webflow%20Template%20Class%205-min-p-500.jpg 500w, 6593a20f89ac2c9812942be2/6593a7647a7ca5bdd0dfbfb0_Youga%20You%20Webflow%20Template%20Class%205-min-p-800.jpg 800w, 6593a20f89ac2c9812942be2/6593a7647a7ca5bdd0dfbfb0_Youga%20You%20Webflow%20Template%20Class%205-min.jpg 1036w",
+      "related": ["1-hour-pilates.html", "yoga-for-focus.html", "disconnect-breathwork.html"]
+    },
+    "yoga-for-focus.html": {
+      "title": "Yoga Ashtanga",
+      "metaDescription": "Yoga Ashtanga à Narbonne : pratique dynamique et fluide, 1 h 30 avec Souhila Chekara. 12,50 €. Réservez sur bsport.",
+      "level": "Intermédiaire",
+      "duration": "1 h 30",
+      "discipline": "Yoga",
+      "priceTag": "12,50 €",
+      "subtitle": "Pratique dynamique et fluide pour améliorer force et souplesse, adaptée à tous les niveaux avec progressions guidées.",
+      "bodyFile": "yoga-for-focus-body.html",
+      "image": "6593a20f89ac2c9812942be2/6593a74b7da1e8db63c03ce6_Youga%20You%20Webflow%20Template%20Class%204-min.jpg",
+      "imageSrcset": "6593a20f89ac2c9812942be2/6593a74b7da1e8db63c03ce6_Youga%20You%20Webflow%20Template%20Class%204-min-p-500.jpg 500w, 6593a20f89ac2c9812942be2/6593a74b7da1e8db63c03ce6_Youga%20You%20Webflow%20Template%20Class%204-min-p-800.jpg 800w, 6593a20f89ac2c9812942be2/6593a74b7da1e8db63c03ce6_Youga%20You%20Webflow%20Template%20Class%204-min.jpg 1036w",
+      "related": ["30-minutes-morning-yoga.html", "1-hour-pilates.html", "disconnect-breathwork.html"]
+    },
+    "disconnect-breathwork.html": {
+      "title": "RESET",
+      "metaDescription": "Cours RESET au studio Pilates Narbonne : relâchement, mobilité et respiration consciente. 1 h, tous niveaux. Réservez sur bsport.",
+      "level": "Tous niveaux",
+      "duration": "1 heure",
+      "discipline": "Bien-être",
+      "priceTag": "Sur bsport",
+      "subtitle": "Séance de relâchement et de recentrage : mobilité douce, respiration et lâcher-prise, accessible à tous.",
+      "bodyFile": "disconnect-breathwork-body.html",
+      "image": "6593a20f89ac2c9812942be2/6593a6a4cd176c4b0f76fdce_Youga%20You%20Webflow%20Template%20Class%203-min.jpg",
+      "imageSrcset": "6593a20f89ac2c9812942be2/6593a6a4cd176c4b0f76fdce_Youga%20You%20Webflow%20Template%20Class%203-min-p-500.jpg 500w, 6593a20f89ac2c9812942be2/6593a6a4cd176c4b0f76fdce_Youga%20You%20Webflow%20Template%20Class%203-min-p-800.jpg 800w, 6593a20f89ac2c9812942be2/6593a6a4cd176c4b0f76fdce_Youga%20You%20Webflow%20Template%20Class%203-min.jpg 1036w",
+      "related": ["30-minutes-morning-yoga.html", "yoga-for-focus.html", "30-minutes-chair-yoga.html"]
+    },
+    "30-minutes-chair-yoga.html": {
+      "title": "Cours privé",
+      "metaDescription": "Cours privé Pilates ou Yoga à Narbonne avec Souhila Chekara. Séance sur mesure, 1 h. Réservez sur bsport.",
+      "level": "Tous niveaux",
+      "duration": "1 heure",
+      "discipline": "Sur mesure",
+      "priceTag": "Sur bsport",
+      "subtitle": "Séance individuelle entièrement adaptée à vos objectifs : Pilates, Reformer ou Yoga, sur rendez-vous.",
+      "bodyFile": "30-minutes-chair-yoga-body.html",
+      "image": "6593a20f89ac2c9812942be2/6593a5708d3b52db9297390c_Youga%20You%20Webflow%20Template%20Class%201-min.jpg",
+      "imageSrcset": "6593a20f89ac2c9812942be2/6593a5708d3b52db9297390c_Youga%20You%20Webflow%20Template%20Class%201-min-p-500.jpg 500w, 6593a20f89ac2c9812942be2/6593a5708d3b52db9297390c_Youga%20You%20Webflow%20Template%20Class%201-min-p-800.jpg 800w, 6593a20f89ac2c9812942be2/6593a5708d3b52db9297390c_Youga%20You%20Webflow%20Template%20Class%201-min.jpg 1036w",
+      "related": ["1-hour-pilates.html", "yoga-for-focus.html", "intense-1-hour-pilates.html"]
+    }
+  }
+}

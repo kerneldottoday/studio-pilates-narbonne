@@ -1,0 +1,81 @@
+.pricing-note {
+  max-width: 640px;
+  margin-top: 1rem;
+  opacity: 0.82;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.pricing-group-title {
+  z-index: 10;
+  position: relative;
+  margin: 0 0 1.25rem;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--color--light-darker, #f9f5e8);
+}
+
+.pricing-group-title--spaced {
+  margin-top: 2.75rem;
+}
+
+.pricing-all-formulas {
+  z-index: 10;
+  position: relative;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(249, 245, 232, 0.16);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.pricing-all-formulas .cta {
+  display: inline-block;
+}
+
+.hero-pricing .color-fill-pricing {
+  background-color: var(--color--dark, #22221f);
+}
+
+.pricing-all-formulas .pricing-pass-cta {
+  background-color: var(--color--accent, #ffe146);
+  color: var(--color--dark, #22221f);
+  border: none;
+}
+
+.pricing-all-formulas .pricing-pass-cta:hover {
+  background-color: #ffe560;
+  color: var(--color--dark, #22221f);
+}
+
+.tile-pricing--featured {
+  outline: 2px solid var(--color--accent, #ffe146);
+  outline-offset: -2px;
+}
+
+.pricing-badge {
+  display: inline-block;
+  margin-bottom: 0.35rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  background: var(--color--accent, #ffe146);
+  color: var(--color--dark, #22221f);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.pricing-faq-note {
+  margin-bottom: 1rem;
+  font-size: 0.92rem;
+  color: rgba(34, 34, 31, 0.62);
+}
+
+@media (max-width: 991px) {
+  .pricing-group-title--spaced {
+    margin-top: 2rem;
+  }
+}

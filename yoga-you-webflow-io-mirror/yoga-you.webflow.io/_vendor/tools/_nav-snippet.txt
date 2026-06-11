@@ -1,0 +1,45 @@
+navbar w-nav" data-easing2="ease" data-easing="ease" data-collapse="medium" data-w-id="b63629cf-a39d-9727-d08c-fe57fc16a05f" role="banner" data-no-scroll="1" data-duration="400">
+<div class="container-navbar">
+<a href="homepage.html" class="brand-link-navbar w-nav-brand">
+<span class="brand-text brand-navbar">Studio Pilates Narbonne</span>
+</a>
+<div class="right-navbar">
+<nav role="navigation" class="nav-menu w-nav-menu">
+<a href="homepage.html" class="nav-link w-nav-link" data-i18n="nav.home">Accueil</a>
+<a href="classes.html" class="nav-link w-nav-link" data-i18n="nav.classes">Cours</a>
+<a href="planning.html" class="nav-link w-nav-link">Planning</a>
+<a href="contact.html" aria-current="page" class="nav-link w-nav-link w--current">Contact</a>
+<div data-hover="false" data-delay="0" class="dropdown w-dropdown">
+<div class="dropdown-toggle w-dropdown-toggle">
+<div>Plus</div>
+<img src="65939d1f139e1daa37da455f/6593af87c996e8209505c48f_nav-arrow-down.svg" loading="lazy" alt="" class="icon-drodown"/>
+</div>
+<nav class="dropdown-list w-dropdown-list">
+<a href="classes/yoga-for-focus.html" class="dropdown-link w-dropdown-link">Détail cours</a>
+<a href="planning.html" class="dropdown-link w-dropdown-link">Planning</a>
+<a href="pricing.html" class="dropdown-link w-dropdown-link">Tarifs</a>
+<a href="legal.html" class="dropdown-link w-dropdown-link">Mentions</a>
+</nav>
+</div>
+</nav>
+<div class="wrap-nav-buttons">
+<div class="divider-nav">
+</div>
+<div class="lang-switch" data-lang-switch>
+<button type="button" class="lang-link w--current" data-lang="fr" aria-pressed="true">FR</button>
+<span class="lang-sep">/</span>
+<button type="button" class="lang-link" data-lang="en" aria-pressed="false">EN</button>
+</div>
+<a href="https://backoffice.bsport.io/m/Studio%20Pilates%20Narbonne/1625/calendar/?tabSelected=0" class="cta navbar-cta w-button w-inline-block" target="_blank" rel="noopener noreferrer" data-i18n="hero.cta1">Réserver un cours</a>
+<div class="menu-button w-nav-button">
+<div class="wrap-menu-button">
+<div class="line-menu first-line">
+</div>
+<div class="line-menu second-line">
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>

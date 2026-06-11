@@ -1,0 +1,3 @@
+.single-contact-list-footer[href*="google.com/maps"]:hover {
+  opacity: 0.85;
+}

@@ -1,0 +1,9 @@
+.firecrawl/
+.vercel/
+.DS_Store
+Thumbs.db
+*.pyc
+__pycache__/
+.env
+.env.local
+.env*.local

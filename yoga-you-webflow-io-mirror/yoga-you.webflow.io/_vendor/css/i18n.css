@@ -1,0 +1,82 @@
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-right: 0.75rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.lang-link {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.55;
+  font: inherit;
+}
+
+.lang-link.w--current,
+.lang-link[aria-pressed="true"] {
+  opacity: 1;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.lang-sep {
+  opacity: 0.45;
+}
+
+.brand-text {
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.brand-navbar.brand-text {
+  font-size: 1.38rem;
+  color: var(--color--dark, #22221f);
+}
+
+.brand-footer.brand-text {
+  font-size: 1.15rem;
+  color: var(--color--accent, #ffe146);
+}
+
+.brand-link-navbar {
+  height: auto;
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 767px) {
+  .brand-link-navbar {
+    max-width: 52vw;
+  }
+
+  .brand-navbar.brand-text {
+    font-size: 1rem;
+    white-space: normal;
+    line-height: 1.2;
+  }
+}
+
+.w-webflow-badge {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+@media (max-width: 767px) {
+  .cta.navbar-cta {
+    display: flex;
+    height: 40px;
+    padding-left: 14px;
+    padding-right: 14px;
+    font-size: 13px;
+  }
+}

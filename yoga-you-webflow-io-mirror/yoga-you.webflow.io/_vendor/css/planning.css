@@ -1,0 +1,133 @@
+.planning-section {
+  background-color: var(--color--light, #fffbf0);
+}
+
+.planning-intro {
+  max-width: 720px;
+  margin-bottom: 3rem;
+}
+
+.planning-lead {
+  margin-top: 1rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.planning-note {
+  margin-bottom: 1.5rem;
+  color: rgba(34, 34, 31, 0.72);
+  line-height: 1.55;
+}
+
+.planning-cta {
+  display: inline-block;
+}
+
+.planning-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: start;
+}
+
+.planning-day-column {
+  min-width: 0;
+}
+
+.planning-day-header {
+  margin-bottom: 0.85rem;
+  padding: 0.85rem 1rem;
+  background-color: var(--color--light-darker, #f9f5e8);
+  border-radius: 16px;
+  text-align: center;
+}
+
+.planning-day-name {
+  margin: 0;
+  font-family: var(--font--heading, inherit);
+  font-size: 1.05rem;
+  line-height: 1.2;
+}
+
+.planning-day-classes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.planning-class-card {
+  background-color: var(--color--white, #fff);
+  border: 1px solid rgba(34, 34, 31, 0.08);
+  border-radius: 18px;
+  padding: 1rem 1rem 0.95rem;
+  box-shadow: 0 8px 24px rgba(34, 34, 31, 0.04);
+}
+
+.planning-class-time {
+  margin: 0 0 0.45rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+  color: rgba(34, 34, 31, 0.62);
+}
+
+.planning-class-title {
+  margin: 0 0 0.65rem;
+  font-family: var(--font--heading, inherit);
+  font-size: 1.05rem;
+  line-height: 1.25;
+}
+
+.planning-level {
+  display: inline-block;
+  margin-bottom: 0.65rem;
+  padding: 0.22rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.planning-level--beginner {
+  background-color: #d8f0e3;
+  color: #1f5f3f;
+}
+
+.planning-level--intermediate {
+  background-color: #d8f0e3;
+  color: #1f5f3f;
+}
+
+.planning-level--all {
+  background-color: #ffe8b8;
+  color: #7a4d00;
+}
+
+.planning-level--men {
+  background-color: #ffe8b8;
+  color: #7a4d00;
+}
+
+.planning-class-meta {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: rgba(34, 34, 31, 0.58);
+}
+
+@media (max-width: 991px) {
+  .planning-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .planning-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .planning-intro {
+    margin-bottom: 2rem;
+  }
+}
