@@ -6,6 +6,19 @@ const data = JSON.parse(
   fs.readFileSync(path.join(root, "_vendor/content/classes-data.json"), "utf8")
 );
 
+function prefixSrcset(prefix, srcset) {
+  return srcset
+    .split(",")
+    .map(function (part) {
+      const bits = part.trim().split(/\s+/);
+      if (!bits[0].startsWith("http") && !bits[0].startsWith("../")) {
+        bits[0] = prefix + bits[0];
+      }
+      return bits.join(" ");
+    })
+    .join(", ");
+}
+
 function buildListingTile(slug, prefix) {
   const cls = data.classes[slug];
   if (!cls) return "";
@@ -17,8 +30,7 @@ function buildListingTile(slug, prefix) {
     prefix +
     cls.image +
     '" sizes="(max-width: 479px) 93vw, (max-width: 767px) 90vw, (max-width: 991px) 46vw, 31vw" srcset="' +
-    prefix +
-    cls.imageSrcset +
+    prefixSrcset(prefix, cls.imageSrcset) +
     '" class="image-class"/><div class="flex-tags-class"><div class="tag-class-tile"><img src="' +
     prefix +
     '65939d1f139e1daa37da455f/6593fffc48204b86a5f22f20_reports.svg" loading="lazy" alt="" class="icon-class-tag-tile"/><div>' +
@@ -101,12 +113,12 @@ function buildPage(options) {
 
   let tail = extractSharedTail(classPage, prefix);
   tail = tail.replace(
-    /\.\.\/65939d1f139e1daa37da455f\/\.\.\/_vendor\/media\/souhila-combo\.png/g,
-    prefix + "_vendor/media/souhila-combo.png"
+    /(?:\.\.\/)?65939d1f139e1daa37da455f\/\.\.\/_vendor\/media\/souhila-combo\.png/g,
+    prefix + "_vendor/media/stock/combo-side.jpg"
   );
   tail = tail.replace(
     /6593c9481778903621823550_Combo%20Image%20Yoga%20You%20Webflow%20Template\.webp/g,
-    prefix + "_vendor/media/souhila-combo.png"
+    prefix + "_vendor/media/stock/combo-side.jpg"
   );
   tail = tail.replace(
     /Hey! I[\u2019']m Jessica Kent and I[\u2019']m a certified yoga and breathwork coach\./g,

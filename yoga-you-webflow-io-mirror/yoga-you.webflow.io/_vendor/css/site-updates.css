@@ -1,3 +1,15 @@
 .single-contact-list-footer[href*="google.com/maps"]:hover {
   opacity: 0.85;
 }
+
+/* Hero accueil — yoga (Unsplash) */
+.master-hero-home {
+  background-image: url("../_vendor/media/stock/hero-home-1080.jpg");
+  background-position: 50% 35%;
+}
+
+@media (min-width: 1200px) {
+  .master-hero-home {
+    background-image: url("../_vendor/media/stock/hero-home-1600.jpg");
+  }
+}

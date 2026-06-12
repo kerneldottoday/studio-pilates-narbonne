@@ -1,0 +1,49 @@
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+body.scroll-reveal-ready .reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.55s ease,
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+body.scroll-reveal-ready .title-wrap-pricing.is-visible,
+body.scroll-reveal-ready .legal-intro.is-visible {
+  transition-delay: 0.08s;
+}
+
+body.scroll-reveal-ready .grid-pricing-thirds .tile-pricing.is-visible:nth-child(1) {
+  transition-delay: 0.06s;
+}
+
+body.scroll-reveal-ready .grid-pricing-thirds .tile-pricing.is-visible:nth-child(2) {
+  transition-delay: 0.12s;
+}
+
+body.scroll-reveal-ready .grid-pricing-thirds .tile-pricing.is-visible:nth-child(3) {
+  transition-delay: 0.18s;
+}
+
+body.scroll-reveal-ready .legal-section > .main-container > .legal-document.is-visible:nth-of-type(2) {
+  transition-delay: 0.1s;
+}
+
+body.scroll-reveal-ready .legal-section > .main-container > .legal-document.is-visible:nth-of-type(3) {
+  transition-delay: 0.18s;
+}
+
+body.scroll-reveal-ready .legal-section > .main-container > .legal-document.is-visible:nth-of-type(4) {
+  transition-delay: 0.26s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

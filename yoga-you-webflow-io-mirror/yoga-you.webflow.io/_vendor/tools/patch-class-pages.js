@@ -30,6 +30,19 @@ function escapeRegex(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
+function prefixSrcset(prefix, srcset) {
+  return srcset
+    .split(",")
+    .map(function (part) {
+      const bits = part.trim().split(/\s+/);
+      if (!bits[0].startsWith("http") && !bits[0].startsWith("../")) {
+        bits[0] = prefix + bits[0];
+      }
+      return bits.join(" ");
+    })
+    .join(", ");
+}
+
 function buildRelatedTiles(relatedSlugs, assetPrefix) {
   return relatedSlugs
     .map(function (slug) {
@@ -43,8 +56,7 @@ function buildRelatedTiles(relatedSlugs, assetPrefix) {
         assetPrefix +
         cls.image +
         '" sizes="(max-width: 479px) 93vw, (max-width: 767px) 90vw, (max-width: 991px) 46vw, 31vw" srcset="' +
-        assetPrefix +
-        cls.imageSrcset +
+        prefixSrcset(assetPrefix, cls.imageSrcset) +
         '" class="image-class"/><div class="flex-tags-class"><div class="tag-class-tile"><img src="' +
         assetPrefix +
         "65939d1f139e1daa37da455f/6593fffc48204b86a5f22f20_reports.svg" +
@@ -81,8 +93,7 @@ function buildListingTile(slug, prefix) {
     (prefix === "" ? "" : "../") +
     cls.image +
     '" sizes="(max-width: 479px) 93vw, (max-width: 767px) 90vw, (max-width: 991px) 46vw, 31vw" srcset="' +
-    (prefix === "" ? "" : "../") +
-    cls.imageSrcset +
+    prefixSrcset(prefix === "" ? "" : "../", cls.imageSrcset) +
     '" class="image-class"/><div class="flex-tags-class"><div class="tag-class-tile"><img src="' +
     (prefix === "" ? "" : "../") +
     '65939d1f139e1daa37da455f/6593fffc48204b86a5f22f20_reports.svg" loading="lazy" alt="" class="icon-class-tag-tile"/><div>' +
@@ -120,11 +131,24 @@ function patchSharedSections(html, prefix) {
 
   html = html.replace(
     /6593c9481778903621823550_Combo%20Image%20Yoga%20You%20Webflow%20Template\.webp/g,
-    prefix + "_vendor/media/souhila-combo.png"
+    prefix + "_vendor/media/stock/combo-side.jpg"
   );
   html = html.replace(
     /6593c9481778903621823550_Combo%20Image%20Yoga%20You%20Webflow%20Template-p-500\.webp 500w, [^"]+6593c9481778903621823550_Combo%20Image%20Yoga%20You%20Webflow%20Template\.webp 1328w/g,
-    prefix + "_vendor/media/souhila-combo.png 1328w"
+    prefix +
+      "_vendor/media/stock/combo-side-500.jpg 500w, " +
+      prefix +
+      "_vendor/media/stock/combo-side-800.jpg 800w, " +
+      prefix +
+      "_vendor/media/stock/combo-side.jpg 1328w"
+  );
+  html = html.replace(
+    /(?:\.\.\/)?65939d1f139e1daa37da455f\/\.\.\/_vendor\/media\/souhila-combo\.png/g,
+    prefix + "_vendor/media/stock/combo-side.jpg"
+  );
+  html = html.replace(
+    new RegExp(prefix.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "_vendor/media/souhila-combo\\.png", "g"),
+    prefix + "_vendor/media/stock/combo-side.jpg"
   );
 
   html = html.replace(

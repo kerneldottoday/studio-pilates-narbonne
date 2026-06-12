@@ -45,5 +45,16 @@ if (!html.includes('href="_vendor/css/pricing.css"')) {
   );
 }
 
+if (!html.includes('href="_vendor/css/scroll-reveal.css"')) {
+  html = html.replace(
+    '<link href="_vendor/css/pricing.css" rel="stylesheet" type="text/css"/>',
+    '<link href="_vendor/css/pricing.css" rel="stylesheet" type="text/css"/><link href="_vendor/css/scroll-reveal.css" rel="stylesheet" type="text/css"/>'
+  );
+}
+
+if (!html.includes("_vendor/js/scroll-reveal.js")) {
+  html = html.replace("</body>", '<script src="_vendor/js/scroll-reveal.js" defer></script></body>');
+}
+
 fs.writeFileSync(pricingPath, html, "utf8");
 console.log("pricing.html updated");

@@ -9,7 +9,7 @@ let html = fs.readFileSync(legalPath, "utf8");
 const section = fs.readFileSync(sectionPath, "utf8").trim();
 
 const sectionRegex =
-  /<section class="section"><div class="w-layout-blockcontainer container-small w-container">[\s\S]*?<\/section>/;
+  /<section class="section(?: legal-section)?">[\s\S]*?<\/section>/;
 
 if (!sectionRegex.test(html)) {
   console.error("Legal section placeholder not found");
@@ -28,6 +28,17 @@ if (!html.includes('href="_vendor/css/legal.css"')) {
     '<link href="_vendor/css/i18n.css" rel="stylesheet" type="text/css"/>',
     '<link href="_vendor/css/i18n.css" rel="stylesheet" type="text/css"/><link href="_vendor/css/legal.css" rel="stylesheet" type="text/css"/>'
   );
+}
+
+if (!html.includes('href="_vendor/css/scroll-reveal.css"')) {
+  html = html.replace(
+    '<link href="_vendor/css/legal.css" rel="stylesheet" type="text/css"/>',
+    '<link href="_vendor/css/legal.css" rel="stylesheet" type="text/css"/><link href="_vendor/css/scroll-reveal.css" rel="stylesheet" type="text/css"/>'
+  );
+}
+
+if (!html.includes("_vendor/js/scroll-reveal.js")) {
+  html = html.replace("</body>", '<script src="_vendor/js/scroll-reveal.js" defer></script></body>');
 }
 
 html = html.replace(

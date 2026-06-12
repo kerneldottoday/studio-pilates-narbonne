@@ -11,9 +11,13 @@
       "priceTag": "32 €",
       "subtitle": "Cours en petit groupe sur Reformer, travail précis et complet, fidèle à la méthode originale de Joseph Pilates.",
       "bodyFile": "1-hour-pilates-body.html",
-      "image": "6593a20f89ac2c9812942be2/6593a777ccedd2e92659c122_Youga%20You%20Webflow%20Template%20Class%206-min.jpg",
-      "imageSrcset": "6593a20f89ac2c9812942be2/6593a777ccedd2e92659c122_Youga%20You%20Webflow%20Template%20Class%206-min-p-500.jpg 500w, 6593a20f89ac2c9812942be2/6593a777ccedd2e92659c122_Youga%20You%20Webflow%20Template%20Class%206-min-p-800.jpg 800w, 6593a20f89ac2c9812942be2/6593a777ccedd2e92659c122_Youga%20You%20Webflow%20Template%20Class%206-min.jpg 1036w",
-      "related": ["30-minutes-morning-yoga.html", "yoga-for-focus.html", "intense-1-hour-pilates.html"]
+      "image": "_vendor/media/stock/class-reformer.jpg",
+      "imageSrcset": "_vendor/media/stock/class-reformer-500.jpg 500w, _vendor/media/stock/class-reformer-800.jpg 800w, _vendor/media/stock/class-reformer-1080.jpg 1080w, _vendor/media/stock/class-reformer.jpg 1036w",
+      "related": [
+        "30-minutes-morning-yoga.html",
+        "yoga-for-focus.html",
+        "intense-1-hour-pilates.html"
+      ]
     },
     "intense-1-hour-pilates.html": {
       "title": "Reformer Homme",
@@ -24,9 +28,13 @@
       "priceTag": "32 €",
       "subtitle": "Séance Reformer dédiée aux hommes, dans un cadre bienveillant, pour gagner en force, posture et mobilité.",
       "bodyFile": "intense-1-hour-pilates-body.html",
-      "image": "6593a20f89ac2c9812942be2/6593a68254176ac6688c4a66_Youga%20You%20Webflow%20Template%20Class%202-min.jpg",
-      "imageSrcset": "6593a20f89ac2c9812942be2/6593a68254176ac6688c4a66_Youga%20You%20Webflow%20Template%20Class%202-min.jpg 1036w",
-      "related": ["1-hour-pilates.html", "30-minutes-morning-yoga.html", "30-minutes-chair-yoga.html"]
+      "image": "_vendor/media/stock/class-reformer-homme.jpg",
+      "imageSrcset": "_vendor/media/stock/class-reformer-homme-500.jpg 500w, _vendor/media/stock/class-reformer-homme-800.jpg 800w, _vendor/media/stock/class-reformer-homme-1080.jpg 1080w, _vendor/media/stock/class-reformer-homme.jpg 1036w",
+      "related": [
+        "1-hour-pilates.html",
+        "30-minutes-morning-yoga.html",
+        "30-minutes-chair-yoga.html"
+      ]
     },
     "30-minutes-morning-yoga.html": {
       "title": "Pilates Mat",
@@ -37,9 +45,13 @@
       "priceTag": "12,50 €",
       "subtitle": "Renforcement en profondeur au sol : centre, posture et alignement optimisés, en petit groupe.",
       "bodyFile": "30-minutes-morning-yoga-body.html",
-      "image": "6593a20f89ac2c9812942be2/6593a7647a7ca5bdd0dfbfb0_Youga%20You%20Webflow%20Template%20Class%205-min.jpg",
-      "imageSrcset": "6593a20f89ac2c9812942be2/6593a7647a7ca5bdd0dfbfb0_Youga%20You%20Webflow%20Template%20Class%205-min-p-500.jpg 500w, 6593a20f89ac2c9812942be2/6593a7647a7ca5bdd0dfbfb0_Youga%20You%20Webflow%20Template%20Class%205-min-p-800.jpg 800w, 6593a20f89ac2c9812942be2/6593a7647a7ca5bdd0dfbfb0_Youga%20You%20Webflow%20Template%20Class%205-min.jpg 1036w",
-      "related": ["1-hour-pilates.html", "yoga-for-focus.html", "disconnect-breathwork.html"]
+      "image": "_vendor/media/stock/class-mat.jpg",
+      "imageSrcset": "_vendor/media/stock/class-mat-500.jpg 500w, _vendor/media/stock/class-mat-800.jpg 800w, _vendor/media/stock/class-mat-1080.jpg 1080w, _vendor/media/stock/class-mat.jpg 1036w",
+      "related": [
+        "1-hour-pilates.html",
+        "yoga-for-focus.html",
+        "disconnect-breathwork.html"
+      ]
     },
     "yoga-for-focus.html": {
       "title": "Yoga Ashtanga",
@@ -50,22 +62,30 @@
       "priceTag": "12,50 €",
       "subtitle": "Pratique dynamique et fluide pour améliorer force et souplesse, adaptée à tous les niveaux avec progressions guidées.",
       "bodyFile": "yoga-for-focus-body.html",
-      "image": "6593a20f89ac2c9812942be2/6593a74b7da1e8db63c03ce6_Youga%20You%20Webflow%20Template%20Class%204-min.jpg",
-      "imageSrcset": "6593a20f89ac2c9812942be2/6593a74b7da1e8db63c03ce6_Youga%20You%20Webflow%20Template%20Class%204-min-p-500.jpg 500w, 6593a20f89ac2c9812942be2/6593a74b7da1e8db63c03ce6_Youga%20You%20Webflow%20Template%20Class%204-min-p-800.jpg 800w, 6593a20f89ac2c9812942be2/6593a74b7da1e8db63c03ce6_Youga%20You%20Webflow%20Template%20Class%204-min.jpg 1036w",
-      "related": ["30-minutes-morning-yoga.html", "1-hour-pilates.html", "disconnect-breathwork.html"]
+      "image": "_vendor/media/stock/class-ashtanga.jpg",
+      "imageSrcset": "_vendor/media/stock/class-ashtanga-500.jpg 500w, _vendor/media/stock/class-ashtanga-800.jpg 800w, _vendor/media/stock/class-ashtanga-1080.jpg 1080w, _vendor/media/stock/class-ashtanga.jpg 1036w",
+      "related": [
+        "30-minutes-morning-yoga.html",
+        "1-hour-pilates.html",
+        "disconnect-breathwork.html"
+      ]
     },
     "disconnect-breathwork.html": {
       "title": "RESET",
-      "metaDescription": "Cours RESET au studio Pilates Narbonne : relâchement, mobilité et respiration consciente. 1 h, tous niveaux. Réservez sur bsport.",
+      "metaDescription": "RESET au Studio Pilates Narbonne : un voyage en 10 musiques pour harmoniser corps et esprit. 1 h de lâcher-prise avec Souhila Chekara. Réservez sur bsport.",
       "level": "Tous niveaux",
       "duration": "1 heure",
       "discipline": "Bien-être",
       "priceTag": "Sur bsport",
-      "subtitle": "Séance de relâchement et de recentrage : mobilité douce, respiration et lâcher-prise, accessible à tous.",
+      "subtitle": "Un voyage en 10 musiques pour harmoniser corps et esprit — 10 étapes, 10 morceaux, 1 heure de lâcher-prise.",
       "bodyFile": "disconnect-breathwork-body.html",
-      "image": "6593a20f89ac2c9812942be2/6593a6a4cd176c4b0f76fdce_Youga%20You%20Webflow%20Template%20Class%203-min.jpg",
-      "imageSrcset": "6593a20f89ac2c9812942be2/6593a6a4cd176c4b0f76fdce_Youga%20You%20Webflow%20Template%20Class%203-min-p-500.jpg 500w, 6593a20f89ac2c9812942be2/6593a6a4cd176c4b0f76fdce_Youga%20You%20Webflow%20Template%20Class%203-min-p-800.jpg 800w, 6593a20f89ac2c9812942be2/6593a6a4cd176c4b0f76fdce_Youga%20You%20Webflow%20Template%20Class%203-min.jpg 1036w",
-      "related": ["30-minutes-morning-yoga.html", "yoga-for-focus.html", "30-minutes-chair-yoga.html"]
+      "image": "_vendor/media/stock/class-reset.jpg",
+      "imageSrcset": "_vendor/media/stock/class-reset-500.jpg 500w, _vendor/media/stock/class-reset-800.jpg 800w, _vendor/media/stock/class-reset-1080.jpg 1080w, _vendor/media/stock/class-reset.jpg 1036w",
+      "related": [
+        "30-minutes-morning-yoga.html",
+        "yoga-for-focus.html",
+        "30-minutes-chair-yoga.html"
+      ]
     },
     "30-minutes-chair-yoga.html": {
       "title": "Cours privé",
@@ -76,9 +96,13 @@
       "priceTag": "Sur bsport",
       "subtitle": "Séance individuelle entièrement adaptée à vos objectifs : Pilates, Reformer ou Yoga, sur rendez-vous.",
       "bodyFile": "30-minutes-chair-yoga-body.html",
-      "image": "6593a20f89ac2c9812942be2/6593a5708d3b52db9297390c_Youga%20You%20Webflow%20Template%20Class%201-min.jpg",
-      "imageSrcset": "6593a20f89ac2c9812942be2/6593a5708d3b52db9297390c_Youga%20You%20Webflow%20Template%20Class%201-min-p-500.jpg 500w, 6593a20f89ac2c9812942be2/6593a5708d3b52db9297390c_Youga%20You%20Webflow%20Template%20Class%201-min-p-800.jpg 800w, 6593a20f89ac2c9812942be2/6593a5708d3b52db9297390c_Youga%20You%20Webflow%20Template%20Class%201-min.jpg 1036w",
-      "related": ["1-hour-pilates.html", "yoga-for-focus.html", "intense-1-hour-pilates.html"]
+      "image": "_vendor/media/stock/class-prive.jpg",
+      "imageSrcset": "_vendor/media/stock/class-prive-500.jpg 500w, _vendor/media/stock/class-prive-800.jpg 800w, _vendor/media/stock/class-prive-1080.jpg 1080w, _vendor/media/stock/class-prive.jpg 1036w",
+      "related": [
+        "1-hour-pilates.html",
+        "yoga-for-focus.html",
+        "intense-1-hour-pilates.html"
+      ]
     }
   }
 }

@@ -48,11 +48,16 @@ function patchSharedSections(html, prefix) {
 
   html = html.replace(
     /6593c9481778903621823550_Combo%20Image%20Yoga%20You%20Webflow%20Template\.webp/g,
-    prefix + "_vendor/media/souhila-combo.png"
+    prefix + "_vendor/media/stock/combo-side.jpg"
   );
   html = html.replace(
     /6593c9481778903621823550_Combo%20Image%20Yoga%20You%20Webflow%20Template-p-500\.webp 500w, [^"]+6593c9481778903621823550_Combo%20Image%20Yoga%20You%20Webflow%20Template\.webp 1328w/g,
-    prefix + "_vendor/media/souhila-combo.png 1328w"
+    prefix +
+      "_vendor/media/stock/combo-side-500.jpg 500w, " +
+      prefix +
+      "_vendor/media/stock/combo-side-800.jpg 800w, " +
+      prefix +
+      "_vendor/media/stock/combo-side.jpg 1328w"
   );
 
   html = html.replace(/Disconnect Breathwork/g, "RESET");
