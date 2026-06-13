@@ -99,14 +99,11 @@ function buildFooter(options) {
 
   const activeMap = {
     home: prefix + "homepage.html",
-    about: prefix + "about.html",
     classes: prefix + "classes.html",
     contact: prefix + "contact.html",
     planning: prefix + "planning.html",
     pricing: prefix + "pricing.html",
     legal: prefix + "legal.html",
-    expertises: prefix + "expertises.html",
-    blog: prefix + "blog.html",
   };
 
   const activeHref = activeMap[options.active];
@@ -148,16 +145,12 @@ function replaceFooter(html, footer) {
 function detectActive(relPath) {
   const base = path.basename(relPath);
   if (base === "homepage.html" || base === "index.html") return "home";
-  if (base === "about.html") return "about";
   if (base === "classes.html") return "classes";
   if (base === "contact.html") return "contact";
   if (base === "planning.html") return "planning";
   if (base === "pricing.html") return "pricing";
   if (base === "legal.html") return "legal";
-  if (base === "expertises.html") return "expertises";
-  if (base === "blog.html") return "blog";
   if (relPath.startsWith("classes" + path.sep)) return "classes";
-  if (relPath.startsWith("blog" + path.sep)) return "blog";
   return null;
 }
 

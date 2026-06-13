@@ -2,14 +2,84 @@
   opacity: 0.85;
 }
 
-/* Hero accueil — yoga (Unsplash) */
+/* Hero accueil : vidéo en boucle avec image de secours */
 .master-hero-home {
-  background-image: url("../_vendor/media/stock/hero-home-1080.jpg");
+  background-image: url("../media/stock/hero-home-1080.jpg");
   background-position: 50% 35%;
 }
 
+.master-hero-home.hero-home-has-video {
+  background-image: none;
+}
+
+.hero-home-video.w-background-video {
+  width: 100%;
+  height: 100% !important;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.hero-home-video > video {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  z-index: 0;
+  transform: translate(-50%, -50%);
+  min-width: 100%;
+  min-height: 100%;
+  margin: 0;
+}
+
+.master-hero-home .overlay-hero-home {
+  z-index: 1;
+  pointer-events: none;
+}
+
 @media (min-width: 1200px) {
-  .master-hero-home {
-    background-image: url("../_vendor/media/stock/hero-home-1600.jpg");
+  .master-hero-home:not(.hero-home-has-video) {
+    background-image: url("../media/stock/hero-home-1600.jpg");
   }
+}
+
+/* Section vidéo studio : titre et CTA masqués, cadre inchangé */
+.section.video-section .wrap-video-content {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Header & footer : nom du studio visible (texte, pas logo) */
+.brand-link-navbar,
+.left-top-footer .brand-link-footer {
+  height: auto !important;
+  overflow: visible;
+}
+
+.footer-tagline {
+  margin: 0;
+  max-width: 18rem;
+  color: rgba(245, 243, 238, 0.62);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: 0.045em;
+}
+
+.footer-tagline::before {
+  content: "";
+  display: block;
+  width: 2rem;
+  height: 1px;
+  margin-top: 0.875rem;
+  margin-bottom: 0.875rem;
+  background: rgba(245, 243, 238, 0.28);
 }

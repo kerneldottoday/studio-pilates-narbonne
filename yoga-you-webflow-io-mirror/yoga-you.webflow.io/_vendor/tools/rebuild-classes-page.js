@@ -33,13 +33,6 @@ function buildTile(slug) {
 const filtersHtml =
   '<div class="master-filters"><div class="left-filters">' +
   '<div data-hover="false" data-delay="0" class="dropdown-filter w-dropdown">' +
-  '<div class="dropdown-toggle-filter w-dropdown-toggle"><img src="65939d1f139e1daa37da455f/6593f7028f3f7a644368407d_reports.svg" loading="lazy" alt="" class="icon-filter"/><div>Niveau</div></div>' +
-  '<nav class="dropdown-list w-dropdown-list"><div class="w-dyn-list"><div role="list" class="list-filters w-dyn-items">' +
-  '<div role="listitem" class="w-dyn-item"><a href="level/advanced.html" class="dropdown-link w-dropdown-link">Avancé</a></div>' +
-  '<div role="listitem" class="w-dyn-item"><a href="level/intermediate.html" class="dropdown-link w-dropdown-link">Intermédiaire</a></div>' +
-  '<div role="listitem" class="w-dyn-item"><a href="level/beginner.html" class="dropdown-link w-dropdown-link">Débutant</a></div>' +
-  "</div></div></nav></div>" +
-  '<div data-hover="false" data-delay="0" class="dropdown-filter w-dropdown">' +
   '<div class="dropdown-toggle-filter w-dropdown-toggle"><img src="65939d1f139e1daa37da455f/6593f702730ac2c261fb3539_clock.svg" loading="lazy" alt="" class="icon-filter"/><div>Durée</div></div>' +
   '<nav class="dropdown-list w-dropdown-list"><div class="w-dyn-list"><div role="list" class="list-filters w-dyn-items">' +
   '<div role="listitem" class="w-dyn-item"><a href="duration/1-hour.html" class="dropdown-link w-dropdown-link">1 heure</a></div>' +

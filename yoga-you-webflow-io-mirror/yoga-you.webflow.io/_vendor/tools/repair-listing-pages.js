@@ -113,12 +113,13 @@ function buildPage(options) {
 
   let tail = extractSharedTail(classPage, prefix);
   tail = tail.replace(
-    /(?:\.\.\/)?65939d1f139e1daa37da455f\/\.\.\/_vendor\/media\/souhila-combo\.png/g,
-    prefix + "_vendor/media/stock/combo-side.jpg"
-  );
-  tail = tail.replace(
     /6593c9481778903621823550_Combo%20Image%20Yoga%20You%20Webflow%20Template\.webp/g,
-    prefix + "_vendor/media/stock/combo-side.jpg"
+    prefix + "_vendor/media/souhila-combo.png"
+  );
+  tail = tail.replace(/srcset="[^"]*combo-side[^"]*"/g, "");
+  tail = tail.replace(
+    /src="[^"]*combo-side\.jpg"/g,
+    'src="' + prefix + '_vendor/media/souhila-combo.png"'
   );
   tail = tail.replace(
     /Hey! I[\u2019']m Jessica Kent and I[\u2019']m a certified yoga and breathwork coach\./g,
@@ -159,6 +160,8 @@ function buildPage(options) {
     '_vendor/css/site-updates.css" rel="stylesheet" type="text/css"/>' +
     '<script src="' +
     prefix +
+    '_vendor/i18n/text-map.js" defer></script><script src="' +
+    prefix +
     '_vendor/js/i18n.js" defer></script></head><body>';
 
   const scripts =
@@ -190,7 +193,7 @@ const pages = [
     ogTitle: "Cours | Studio Pilates Narbonne",
     heroTitle: "Nos cours",
     heroSubtitle:
-      "Pilates Reformer, Mat, Yoga Ashtanga, RESET et séances privées — réservez sur bsport.",
+      "Pilates Reformer, Mat, Yoga Ashtanga, RESET et séances privées. Réservez sur bsport.",
     slugs: allSlugs,
     htmlAttrs: 'data-wf-page="6593a1b451d79a173861f5b8"',
   },
@@ -231,43 +234,6 @@ const pages = [
     slugs: ["disconnect-breathwork.html"],
     htmlAttrs:
       'data-wf-page="6593a25a4eeb71d5dca7e1aa" data-wf-collection="6593a25a4eeb71d5dca7e199" data-wf-item-slug="breathwork"',
-  },
-  {
-    rel: "level/beginner.html",
-    prefix: "../",
-    pageTitle: "Débutant | Studio Pilates Narbonne",
-    ogTitle: "Débutant",
-    heroTitle: "Débutant",
-    heroSubtitle: "Cours accessibles pour découvrir le studio.",
-    slugs: [
-      "30-minutes-morning-yoga.html",
-      "disconnect-breathwork.html",
-      "30-minutes-chair-yoga.html",
-    ],
-    htmlAttrs:
-      'data-wf-page="6593a25a4eeb71d5dca7e1aa" data-wf-collection="6593a25a4eeb71d5dca7e199" data-wf-item-slug="beginner"',
-  },
-  {
-    rel: "level/intermediate.html",
-    prefix: "../",
-    pageTitle: "Intermédiaire | Studio Pilates Narbonne",
-    ogTitle: "Intermédiaire",
-    heroTitle: "Intermédiaire",
-    heroSubtitle: "Pour approfondir Pilates et Yoga Ashtanga.",
-    slugs: ["yoga-for-focus.html", "1-hour-pilates.html"],
-    htmlAttrs:
-      'data-wf-page="6593a25a4eeb71d5dca7e1aa" data-wf-collection="6593a25a4eeb71d5dca7e199" data-wf-item-slug="intermediate"',
-  },
-  {
-    rel: "level/advanced.html",
-    prefix: "../",
-    pageTitle: "Avancé | Studio Pilates Narbonne",
-    ogTitle: "Avancé",
-    heroTitle: "Avancé",
-    heroSubtitle: "Séances exigeantes pour pratiquants confirmés.",
-    slugs: ["yoga-for-focus.html", "intense-1-hour-pilates.html"],
-    htmlAttrs:
-      'data-wf-page="6593a25a4eeb71d5dca7e1aa" data-wf-collection="6593a25a4eeb71d5dca7e199" data-wf-item-slug="advanced"',
   },
   {
     rel: "duration/1-hour.html",
