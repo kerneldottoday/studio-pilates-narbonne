@@ -3,8 +3,136 @@
   "installCommand": "",
   "buildCommand": "node yoga-you-webflow-io-mirror/yoga-you.webflow.io/_vendor/tools/build-en-pages.js",
   "outputDirectory": "yoga-you-webflow-io-mirror/yoga-you.webflow.io",
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/Accueil",
+      "permanent": true
+    },
+    {
+      "source": "/index.html",
+      "destination": "/Accueil",
+      "permanent": true
+    },
+    {
+      "source": "/en",
+      "destination": "/en/Home",
+      "permanent": true
+    },
+    {
+      "source": "/en/index.html",
+      "destination": "/en/Home",
+      "permanent": true
+    },
+    {
+      "source": "/homepage.html",
+      "destination": "/Accueil",
+      "permanent": true
+    },
+    {
+      "source": "/en/homepage.html",
+      "destination": "/en/Home",
+      "permanent": true
+    },
+    {
+      "source": "/classes.html",
+      "destination": "/Cours",
+      "permanent": true
+    },
+    {
+      "source": "/en/classes.html",
+      "destination": "/en/Classes",
+      "permanent": true
+    },
+    {
+      "source": "/planning.html",
+      "destination": "/Planning",
+      "permanent": true
+    },
+    {
+      "source": "/en/planning.html",
+      "destination": "/en/Schedule",
+      "permanent": true
+    },
+    {
+      "source": "/contact.html",
+      "destination": "/Contact",
+      "permanent": true
+    },
+    {
+      "source": "/en/contact.html",
+      "destination": "/en/Contact",
+      "permanent": true
+    },
+    {
+      "source": "/pricing.html",
+      "destination": "/Tarifs",
+      "permanent": true
+    },
+    {
+      "source": "/en/pricing.html",
+      "destination": "/en/Pricing",
+      "permanent": true
+    },
+    {
+      "source": "/legal.html",
+      "destination": "/Mentions-legales",
+      "permanent": true
+    },
+    {
+      "source": "/en/legal.html",
+      "destination": "/en/Legal-notice",
+      "permanent": true
+    }
+  ],
   "rewrites": [
-    { "source": "/", "destination": "/homepage.html" },
-    { "source": "/en", "destination": "/en/homepage.html" }
+    {
+      "source": "/Accueil",
+      "destination": "/homepage.html"
+    },
+    {
+      "source": "/en/Home",
+      "destination": "/en/homepage.html"
+    },
+    {
+      "source": "/Cours",
+      "destination": "/classes.html"
+    },
+    {
+      "source": "/en/Classes",
+      "destination": "/en/classes.html"
+    },
+    {
+      "source": "/Planning",
+      "destination": "/planning.html"
+    },
+    {
+      "source": "/en/Schedule",
+      "destination": "/en/planning.html"
+    },
+    {
+      "source": "/Contact",
+      "destination": "/contact.html"
+    },
+    {
+      "source": "/en/Contact",
+      "destination": "/en/contact.html"
+    },
+    {
+      "source": "/Tarifs",
+      "destination": "/pricing.html"
+    },
+    {
+      "source": "/en/Pricing",
+      "destination": "/en/pricing.html"
+    },
+    {
+      "source": "/Mentions-legales",
+      "destination": "/legal.html"
+    },
+    {
+      "source": "/en/Legal-notice",
+      "destination": "/en/legal.html"
+    }
   ]
 }

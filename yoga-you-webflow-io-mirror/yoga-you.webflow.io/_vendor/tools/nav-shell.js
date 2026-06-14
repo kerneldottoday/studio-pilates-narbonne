@@ -2,7 +2,15 @@ const fs = require("fs");
 const path = require("path");
 
 const root = path.join(__dirname, "..", "..");
+const ROUTES = JSON.parse(
+  fs.readFileSync(path.join(root, "_vendor", "config", "routes.json"), "utf8")
+);
 const contactHtml = fs.readFileSync(path.join(root, "contact.html"), "utf8");
+
+function frPath(file) {
+  const route = ROUTES[file];
+  return route ? "/" + route.fr : file;
+}
 
 const NAVBAR_START = '<div data-animation="default" class="navbar w-nav"';
 
@@ -42,40 +50,40 @@ function buildNavbar(options) {
 
   navbar = navbar.replace(
     /href="[^"]*contact\.html" aria-current="page" class="nav-link w-nav-link w--current"/g,
-    'href="' + prefix + 'contact.html" class="nav-link w-nav-link"'
+    'href="' + frPath("contact.html") + '" class="nav-link w-nav-link"'
   );
   navbar = navbar.replace(
     /href="[^"]*classes\.html" aria-current="page" class="nav-link w-nav-link w--current"/g,
-    'href="' + prefix + 'classes.html" class="nav-link w-nav-link" data-i18n="nav.classes"'
+    'href="' + frPath("classes.html") + '" class="nav-link w-nav-link" data-i18n="nav.classes"'
   );
   navbar = navbar.replace(
-    /href="[^"]*homepage\.html" aria-current="page" class="nav-link w-nav-link w--current"/g,
-    'href="' + prefix + 'homepage.html" class="nav-link w-nav-link" data-i18n="nav.home"'
+    /href="[^"]*(homepage\.html|Accueil)" aria-current="page" class="nav-link w-nav-link w--current"/g,
+    'href="' + frPath("homepage.html") + '" class="nav-link w-nav-link" data-i18n="nav.home"'
   );
   navbar = navbar.replace(
     /href="[^"]*planning\.html" aria-current="page" class="nav-link w-nav-link w--current"/g,
-    'href="' + prefix + 'planning.html" class="nav-link w-nav-link"'
+    'href="' + frPath("planning.html") + '" class="nav-link w-nav-link"'
   );
 
   if (options.active === "classes") {
     navbar = navbar.replace(
-      'href="' + prefix + 'classes.html" class="nav-link w-nav-link" data-i18n="nav.classes"',
-      'href="' + prefix + 'classes.html" aria-current="page" class="nav-link w-nav-link w--current" data-i18n="nav.classes"'
+      'href="' + frPath("classes.html") + '" class="nav-link w-nav-link" data-i18n="nav.classes"',
+      'href="' + frPath("classes.html") + '" aria-current="page" class="nav-link w-nav-link w--current" data-i18n="nav.classes"'
     );
   } else if (options.active === "contact") {
     navbar = navbar.replace(
-      'href="' + prefix + 'contact.html" class="nav-link w-nav-link"',
-      'href="' + prefix + 'contact.html" aria-current="page" class="nav-link w-nav-link w--current"'
+      'href="' + frPath("contact.html") + '" class="nav-link w-nav-link"',
+      'href="' + frPath("contact.html") + '" aria-current="page" class="nav-link w-nav-link w--current"'
     );
   } else if (options.active === "planning") {
     navbar = navbar.replace(
-      'href="' + prefix + 'planning.html" class="nav-link w-nav-link"',
-      'href="' + prefix + 'planning.html" aria-current="page" class="nav-link w-nav-link w--current"'
+      'href="' + frPath("planning.html") + '" class="nav-link w-nav-link"',
+      'href="' + frPath("planning.html") + '" aria-current="page" class="nav-link w-nav-link w--current"'
     );
   } else if (options.active === "home") {
     navbar = navbar.replace(
-      'href="' + prefix + 'homepage.html" class="nav-link w-nav-link" data-i18n="nav.home"',
-      'href="' + prefix + 'homepage.html" aria-current="page" class="nav-link w-nav-link w--current" data-i18n="nav.home"'
+      'href="' + frPath("homepage.html") + '" class="nav-link w-nav-link" data-i18n="nav.home"',
+      'href="' + frPath("homepage.html") + '" aria-current="page" class="nav-link w-nav-link w--current" data-i18n="nav.home"'
     );
   }
 
@@ -98,12 +106,12 @@ function buildFooter(options) {
   footer = footer.replace(/ class="footer-link w--current"/g, ' class="footer-link"');
 
   const activeMap = {
-    home: prefix + "homepage.html",
-    classes: prefix + "classes.html",
-    contact: prefix + "contact.html",
-    planning: prefix + "planning.html",
-    pricing: prefix + "pricing.html",
-    legal: prefix + "legal.html",
+    home: frPath("homepage.html"),
+    classes: frPath("classes.html"),
+    contact: frPath("contact.html"),
+    planning: frPath("planning.html"),
+    pricing: frPath("pricing.html"),
+    legal: frPath("legal.html"),
   };
 
   const activeHref = activeMap[options.active];

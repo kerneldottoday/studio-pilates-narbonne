@@ -8,6 +8,9 @@ const path = require("path");
 const ROOT = path.join(__dirname, "..", "..");
 const EN_DIR = path.join(ROOT, "en");
 const SITE_ORIGIN = "https://studio-pilates-narbonne.vercel.app";
+const ROUTES = JSON.parse(
+  fs.readFileSync(path.join(ROOT, "_vendor", "config", "routes.json"), "utf8")
+);
 
 const SKIP_DIRS = new Set(["65939d1f139e1daa37da455f", "en", "_vendor"]);
 const ASSET_ROOTS = ["_vendor/", "65939d1f139e1daa37da455f/"];
@@ -249,6 +252,21 @@ function rewriteAssetAttributes(html, prefix) {
   );
 }
 
+function fileForSlug(segment, isEn) {
+  const key = decodeURIComponent(segment || "");
+  for (const [file, route] of Object.entries(ROUTES)) {
+    if (isEn && route.en === key) return file;
+    if (!isEn && route.fr === key) return file;
+  }
+  return null;
+}
+
+function publicPathForFile(file, lang) {
+  const route = ROUTES[file];
+  if (!route) return null;
+  return lang === "en" ? "/en/" + route.en : "/" + route.fr;
+}
+
 function resolveInternalHtmlPath(href, fromRelPath) {
   if (!href || href.charAt(0) === "#") return null;
   if (/^(https?:|mailto:|tel:)/i.test(href)) return null;
@@ -261,7 +279,27 @@ function resolveInternalHtmlPath(href, fromRelPath) {
   const pathPart = href.slice(0, end);
   const suffix = href.slice(end);
 
-  if (!pathPart || !/\.html$/i.test(pathPart)) return null;
+  if (pathPart.charAt(0) === "/") {
+    const segments = pathPart.split("/").filter(Boolean);
+    const isEnHref = segments[0] === "en";
+    if (isEnHref) segments.shift();
+    if (segments.length === 1) {
+      const mapped = fileForSlug(segments[0], isEnHref);
+      if (mapped) return { resolved: mapped, suffix };
+    }
+  }
+
+  if (!/\.html$/i.test(pathPart)) {
+    const slugParts = pathPart.split("/").filter(Boolean);
+    const slug = slugParts[slugParts.length - 1];
+    if (slug && slug !== "." && slug !== "..") {
+      const mapped = fileForSlug(slug, false);
+      if (mapped) return { resolved: mapped, suffix };
+    }
+    return null;
+  }
+
+  if (!pathPart) return null;
 
   const fromDir = path.dirname(fromRelPath);
   let resolved = path.normalize(path.join(fromDir, pathPart)).replace(/\\/g, "/");
@@ -270,6 +308,10 @@ function resolveInternalHtmlPath(href, fromRelPath) {
 }
 
 function toEnRelativeHref(resolvedPage, outputRelPath) {
+  const publicPath = publicPathForFile(resolvedPage, "en");
+  if (publicPath) {
+    return publicPath;
+  }
   const fromDir = path.posix.dirname(outputRelPath);
   const target = path.posix.join("en", resolvedPage);
   let rel = path.posix.relative(fromDir, target);
@@ -333,9 +375,11 @@ function applyPageMeta(html, relPath) {
   return html;
 }
 
-function injectHreflang(html, relPath, locale) {
-  const frUrl = SITE_ORIGIN + "/" + relPath;
-  const enUrl = SITE_ORIGIN + "/en/" + relPath;
+function injectHreflang(html, relPath) {
+  const frPath = publicPathForFile(relPath, "fr") || "/" + relPath;
+  const enPath = publicPathForFile(relPath, "en") || "/en/" + relPath;
+  const frUrl = SITE_ORIGIN + frPath;
+  const enUrl = SITE_ORIGIN + enPath;
   const block =
     '<link rel="alternate" hreflang="fr" href="' +
     frUrl +
@@ -346,7 +390,12 @@ function injectHreflang(html, relPath, locale) {
     '<link rel="alternate" hreflang="x-default" href="' +
     frUrl +
     '" />\n';
-  if (html.includes('hreflang="fr"')) return html;
+  if (html.includes('hreflang="fr"')) {
+    return html.replace(
+      /<link rel="alternate" hreflang="[^"]*" href="[^"]*" \/>\n?/g,
+      ""
+    ).replace("</head>", block + "</head>");
+  }
   return html.replace("</head>", block + "</head>");
 }
 
@@ -357,27 +406,30 @@ function patchFrenchHreflang() {
   for (const relPath of pages) {
     const file = path.join(ROOT, relPath);
     const html = fs.readFileSync(file, "utf8");
-    if (html.includes('hreflang="fr"')) continue;
-    const next = injectHreflang(html, relPath, "fr");
+    const next = injectHreflang(html, relPath);
     if (next !== html) {
       fs.writeFileSync(file, next, "utf8");
       patched++;
     }
   }
   if (patched) {
-    console.log("Added hreflang to " + patched + " French page(s)");
+    console.log("Updated hreflang on " + patched + " French page(s)");
   }
 }
 
 function applyPostReplacements(html) {
   return html
     .replace(
-      /<p>Consultez le <a href="\/en\/planning\.html">weekly schedule<\/a> pour voir les créneaux Reformer du mardi au samedi\.<\/p>/g,
-      '<p>See the <a href="/en/planning.html">weekly schedule</a> to see Reformer slots from Tuesday to Saturday.</p>'
+      /<p>Consultez le <a href="\/Planning">planning hebdomadaire<\/a> pour voir les créneaux Reformer du mardi au samedi\.<\/p>/g,
+      '<p>See the <a href="/en/Schedule">weekly schedule</a> to see Reformer slots from Tuesday to Saturday.</p>'
     )
     .replace(
-      /<p>See the <a href="[^"]*planning\.html">weekly schedule<\/a> pour voir les créneaux Reformer du mardi au samedi\.<\/p>/g,
-      '<p>See the <a href="../planning.html">weekly schedule</a> to see Reformer slots from Tuesday to Saturday.</p>'
+      /<p>Consultez le <a href="\/en\/Schedule">weekly schedule<\/a> pour voir les créneaux Reformer du mardi au samedi\.<\/p>/g,
+      '<p>See the <a href="/en/Schedule">weekly schedule</a> to see Reformer slots from Tuesday to Saturday.</p>'
+    )
+    .replace(
+      /<p>See the <a href="[^"]*">weekly schedule<\/a> pour voir les créneaux Reformer du mardi au samedi\.<\/p>/g,
+      '<p>See the <a href="/en/Schedule">weekly schedule</a> to see Reformer slots from Tuesday to Saturday.</p>'
     );
 }
 
@@ -393,7 +445,7 @@ function transformPage(html, relPath, textMap) {
   out = rewriteInternalLinks(out, relPath, path.posix.join("en", relPath));
   out = rewriteAssetAttributes(out, prefix);
   out = fixLangSwitcher(out);
-  out = injectHreflang(out, relPath, "en");
+  out = injectHreflang(out, relPath);
 
   if (!out.includes('data-site-locale="en"')) {
     out = out.replace("<html", '<html data-site-locale="en"');
@@ -410,6 +462,8 @@ function cleanEnDir() {
 }
 
 function main() {
+  require("./apply-friendly-routes.js").main();
+
   const textMap = loadTextMap();
   const pages = [];
   listHtmlPages(ROOT, ROOT, pages);

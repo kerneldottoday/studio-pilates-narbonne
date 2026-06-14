@@ -1,0 +1,8 @@
+{
+  "homepage.html": { "fr": "Accueil", "en": "Home" },
+  "classes.html": { "fr": "Cours", "en": "Classes" },
+  "planning.html": { "fr": "Planning", "en": "Schedule" },
+  "contact.html": { "fr": "Contact", "en": "Contact" },
+  "pricing.html": { "fr": "Tarifs", "en": "Pricing" },
+  "legal.html": { "fr": "Mentions-legales", "en": "Legal-notice" }
+}
