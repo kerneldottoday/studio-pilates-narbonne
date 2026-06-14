@@ -2,12 +2,17 @@
   opacity: 0.85;
 }
 
-/* Hero accueil : photo du studio */
+/* Hero accueil : illustration 16:9 centrée (FR et EN via CSS partagé) */
 .master-hero-home {
   background-image: url("../media/stock/hero-home-1080.jpg");
-  background-position: 50% 45%;
+  background-position: 50% 50%;
   background-size: cover;
-  background-repeat: no-repeat;
+}
+
+@media (min-width: 1200px) {
+  .master-hero-home {
+    background-image: url("../media/stock/hero-home-1600.jpg");
+  }
 }
 
 .master-hero-home .overlay-hero-home {
@@ -15,10 +20,8 @@
   pointer-events: none;
 }
 
-@media (min-width: 1200px) {
-  .master-hero-home {
-    background-image: url("../media/stock/hero-home-1600.jpg");
-  }
+.master-hero-home .scroll-down-home {
+  z-index: 2;
 }
 
 /* Section vidéo studio : titre et CTA masqués, cadre inchangé */

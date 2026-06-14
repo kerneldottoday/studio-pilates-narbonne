@@ -176,6 +176,10 @@ function applyDataI18n(html) {
   );
 }
 
+function encodeHtmlQuotes(s) {
+  return s.replace(/"/g, "&quot;");
+}
+
 function applyTextMap(html, map) {
   const keys = Object.keys(map).sort((a, b) => b.length - a.length);
   let out = html;
@@ -183,6 +187,7 @@ function applyTextMap(html, map) {
     const en = map[fr];
     if (!fr || fr === en) continue;
     out = out.split(">" + fr + "<").join(">" + en + "<");
+    out = out.split(">" + encodeHtmlQuotes(fr) + "<").join(">" + encodeHtmlQuotes(en) + "<");
     out = out.split('"' + fr + '"').join('"' + en + '"');
     out = out.split("'" + fr + "'").join("'" + en + "'");
   }
@@ -283,14 +288,18 @@ function rewriteInternalLinks(html, fromRelPath, outputRelPath) {
 }
 
 function fixLangSwitcher(html) {
-  return html
-    .replace(/(<button[^>]*data-lang="fr"[^>]*class="[^"]*)\s*w--current\s*/g, "$1 ")
-    .replace(/(<button[^>]*data-lang="fr"[^>]*)aria-pressed="true"/g, '$1aria-pressed="false"')
-    .replace(/(<button[^>]*data-lang="en"[^>]*)aria-pressed="false"/g, '$1aria-pressed="true"')
-    .replace(
-      /(<button[^>]*class=")lang-link("[^>]*data-lang="en")/g,
-      '$1lang-link w--current$2'
-    );
+  return html.replace(
+    /<div class="lang-switch" data-lang-switch>[\s\S]*?<\/div>/,
+    '<div class="lang-switch" data-lang-switch>' +
+      '<button type="button" class="lang-link" data-lang="fr" aria-pressed="false">FR</button>' +
+      '<span class="lang-sep">/</span>' +
+      '<button type="button" class="lang-link w--current" data-lang="en" aria-pressed="true">EN</button>' +
+      "</div>"
+  );
+}
+
+function setHtmlLangEn(html) {
+  return html.replace(/<html([^>]*?)\s+lang="fr"/i, '<html$1 lang="en"');
 }
 
 function applyPageMeta(html, relPath) {
@@ -376,8 +385,7 @@ function transformPage(html, relPath, textMap) {
   const prefix = assetPrefixForEn(relPath);
 
   let out = html;
-  out = out.replace(/\blang="fr"/g, 'lang="en"');
-  out = out.replace(/<html([^>]*)lang="fr"/, '<html$1lang="en"');
+  out = setHtmlLangEn(out);
   out = applyDataI18n(out);
   out = applyTextMap(out, textMap);
   out = applyPostReplacements(out);
