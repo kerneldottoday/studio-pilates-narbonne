@@ -18,6 +18,29 @@
     z-index: 1000;
   }
 
+  /* Barre header : liens desktop masqués, burger toujours visible */
+  .navbar.w-nav .container-navbar .right-navbar > .nav-menu.w-nav-menu {
+    display: none !important;
+  }
+
+  .navbar.w-nav .wrap-nav-buttons .menu-button.w-nav-button {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 14;
+  }
+
+  .navbar.w-nav .wrap-nav-buttons {
+    flex-shrink: 0;
+    align-items: center;
+    gap: 6px;
+  }
+
   .mobile-nav-backdrop {
     position: fixed;
     inset: 0;

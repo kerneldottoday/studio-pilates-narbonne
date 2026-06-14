@@ -424,6 +424,7 @@ function main() {
   console.log("Generated " + count + " English page(s) under /en/");
   patchFrenchHreflang();
   syncIndexFiles();
+  require("./ensure-mobile-nav");
 }
 
 main();
