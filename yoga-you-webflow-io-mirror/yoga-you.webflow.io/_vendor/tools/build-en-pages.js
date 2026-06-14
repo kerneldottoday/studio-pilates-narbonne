@@ -4,6 +4,7 @@
  */
 const fs = require("fs");
 const path = require("path");
+const { resolveHrefToFile, hrefForFile, hreflangUrl } = require("./clean-urls");
 
 const ROOT = path.join(__dirname, "..", "..");
 const EN_DIR = path.join(ROOT, "en");
@@ -250,40 +251,18 @@ function rewriteAssetAttributes(html, prefix) {
 }
 
 function resolveInternalHtmlPath(href, fromRelPath) {
-  if (!href || href.charAt(0) === "#") return null;
-  if (/^(https?:|mailto:|tel:)/i.test(href)) return null;
-
-  const hashIdx = href.indexOf("#");
-  const queryIdx = href.indexOf("?");
-  let end = href.length;
-  if (hashIdx >= 0) end = Math.min(end, hashIdx);
-  if (queryIdx >= 0) end = Math.min(end, queryIdx);
-  const pathPart = href.slice(0, end);
-  const suffix = href.slice(end);
-
-  if (!pathPart || !/\.html$/i.test(pathPart)) return null;
-
-  const fromDir = path.dirname(fromRelPath);
-  let resolved = path.normalize(path.join(fromDir, pathPart)).replace(/\\/g, "/");
-  if (resolved === "index.html") resolved = "homepage.html";
-  return { resolved, suffix };
+  return resolveHrefToFile(href, fromRelPath);
 }
 
-function toEnRelativeHref(resolvedPage, outputRelPath) {
-  const fromDir = path.posix.dirname(outputRelPath);
-  const target = path.posix.join("en", resolvedPage);
-  let rel = path.posix.relative(fromDir, target);
-  if (!rel.startsWith(".")) {
-    rel = "./" + rel;
-  }
-  return rel;
+function toEnCleanHref(resolvedPage) {
+  return hrefForFile(resolvedPage, "en");
 }
 
-function rewriteInternalLinks(html, fromRelPath, outputRelPath) {
+function rewriteInternalLinks(html, fromRelPath) {
   return html.replace(/\bhref="([^"]*)"/g, function (_m, href) {
     const info = resolveInternalHtmlPath(href, fromRelPath);
     if (!info) return 'href="' + href + '"';
-    return 'href="' + toEnRelativeHref(info.resolved, outputRelPath) + info.suffix + '"';
+    return 'href="' + toEnCleanHref(info.resolved) + info.suffix + '"';
   });
 }
 
@@ -333,9 +312,9 @@ function applyPageMeta(html, relPath) {
   return html;
 }
 
-function injectHreflang(html, relPath, locale) {
-  const frUrl = SITE_ORIGIN + "/" + relPath;
-  const enUrl = SITE_ORIGIN + "/en/" + relPath;
+function injectHreflang(html, relPath) {
+  const frUrl = hreflangUrl(SITE_ORIGIN, relPath, "fr");
+  const enUrl = hreflangUrl(SITE_ORIGIN, relPath, "en");
   const block =
     '<link rel="alternate" hreflang="fr" href="' +
     frUrl +
@@ -358,7 +337,7 @@ function patchFrenchHreflang() {
     const file = path.join(ROOT, relPath);
     const html = fs.readFileSync(file, "utf8");
     if (html.includes('hreflang="fr"')) continue;
-    const next = injectHreflang(html, relPath, "fr");
+    const next = injectHreflang(html, relPath);
     if (next !== html) {
       fs.writeFileSync(file, next, "utf8");
       patched++;
@@ -373,11 +352,11 @@ function applyPostReplacements(html) {
   return html
     .replace(
       /<p>Consultez le <a href="\/en\/planning\.html">weekly schedule<\/a> pour voir les créneaux Reformer du mardi au samedi\.<\/p>/g,
-      '<p>See the <a href="/en/planning.html">weekly schedule</a> to see Reformer slots from Tuesday to Saturday.</p>'
+      '<p>See the <a href="/en/planning">weekly schedule</a> to see Reformer slots from Tuesday to Saturday.</p>'
     )
     .replace(
-      /<p>See the <a href="[^"]*planning\.html">weekly schedule<\/a> pour voir les créneaux Reformer du mardi au samedi\.<\/p>/g,
-      '<p>See the <a href="../planning.html">weekly schedule</a> to see Reformer slots from Tuesday to Saturday.</p>'
+      /<p>See the <a href="[^"]*planning[^"]*">weekly schedule<\/a> pour voir les créneaux Reformer du mardi au samedi\.<\/p>/g,
+      '<p>See the <a href="/en/planning">weekly schedule</a> to see Reformer slots from Tuesday to Saturday.</p>'
     );
 }
 
@@ -390,10 +369,10 @@ function transformPage(html, relPath, textMap) {
   out = applyTextMap(out, textMap);
   out = applyPostReplacements(out);
   out = applyPageMeta(out, relPath);
-  out = rewriteInternalLinks(out, relPath, path.posix.join("en", relPath));
+  out = rewriteInternalLinks(out, relPath);
   out = rewriteAssetAttributes(out, prefix);
   out = fixLangSwitcher(out);
-  out = injectHreflang(out, relPath, "en");
+  out = injectHreflang(out, relPath);
 
   if (!out.includes('data-site-locale="en"')) {
     out = out.replace("<html", '<html data-site-locale="en"');

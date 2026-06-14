@@ -4,10 +4,8 @@
     return (
       path === "/" ||
       path === "/en" ||
-      path === "/accueil" ||
-      path === "/en/home" ||
-      path.endsWith("/homepage.html") ||
-      path.endsWith("/homepage")
+      path.endsWith("/homepage") ||
+      path.endsWith("/homepage.html")
     );
   }
 

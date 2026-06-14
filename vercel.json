@@ -3,20 +3,672 @@
   "installCommand": "",
   "buildCommand": "node yoga-you-webflow-io-mirror/yoga-you.webflow.io/_vendor/tools/build-en-pages.js",
   "outputDirectory": "yoga-you-webflow-io-mirror/yoga-you.webflow.io",
+  "redirects": [
+    {
+      "source": "/homepage.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/homepage.html",
+      "destination": "/en",
+      "permanent": true
+    },
+    {
+      "source": "/en/index.html",
+      "destination": "/en",
+      "permanent": true
+    },
+    {
+      "source": "/Accueil",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/Cours",
+      "destination": "/classes",
+      "permanent": true
+    },
+    {
+      "source": "/Planning",
+      "destination": "/planning",
+      "permanent": true
+    },
+    {
+      "source": "/Contact",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/Tarifs",
+      "destination": "/pricing",
+      "permanent": true
+    },
+    {
+      "source": "/Mentions-legales",
+      "destination": "/legal",
+      "permanent": true
+    },
+    {
+      "source": "/en/Home",
+      "destination": "/en",
+      "permanent": true
+    },
+    {
+      "source": "/en/Classes",
+      "destination": "/en/classes",
+      "permanent": true
+    },
+    {
+      "source": "/en/Schedule",
+      "destination": "/en/planning",
+      "permanent": true
+    },
+    {
+      "source": "/en/Contact",
+      "destination": "/en/contact",
+      "permanent": true
+    },
+    {
+      "source": "/en/Pricing",
+      "destination": "/en/pricing",
+      "permanent": true
+    },
+    {
+      "source": "/en/Legal-notice",
+      "destination": "/en/legal",
+      "permanent": true
+    },
+    {
+      "source": "/401.html",
+      "destination": "/401",
+      "permanent": true
+    },
+    {
+      "source": "/404.html",
+      "destination": "/404",
+      "permanent": true
+    },
+    {
+      "source": "/blog.html",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog/cultivating-mind-body-awareness.html",
+      "destination": "/blog/cultivating-mind-body-awareness",
+      "permanent": true
+    },
+    {
+      "source": "/blog/finding-balance-for-optimal-health.html",
+      "destination": "/blog/finding-balance-for-optimal-health",
+      "permanent": true
+    },
+    {
+      "source": "/blog/harnessing-the-power-of-awareness-at-the-table.html",
+      "destination": "/blog/harnessing-the-power-of-awareness-at-the-table",
+      "permanent": true
+    },
+    {
+      "source": "/blog/nutrition-tips-for-yogis.html",
+      "destination": "/blog/nutrition-tips-for-yogis",
+      "permanent": true
+    },
+    {
+      "source": "/blog/poses-and-practices-to-support-your-gut.html",
+      "destination": "/blog/poses-and-practices-to-support-your-gut",
+      "permanent": true
+    },
+    {
+      "source": "/blog/release-toxins-and-rejuvenate-your-body.html",
+      "destination": "/blog/release-toxins-and-rejuvenate-your-body",
+      "permanent": true
+    },
+    {
+      "source": "/checkout.html",
+      "destination": "/checkout",
+      "permanent": true
+    },
+    {
+      "source": "/classes.html",
+      "destination": "/classes",
+      "permanent": true
+    },
+    {
+      "source": "/classes/1-hour-pilates.html",
+      "destination": "/classes/1-hour-pilates",
+      "permanent": true
+    },
+    {
+      "source": "/classes/30-minutes-chair-yoga.html",
+      "destination": "/classes/30-minutes-chair-yoga",
+      "permanent": true
+    },
+    {
+      "source": "/classes/30-minutes-morning-yoga.html",
+      "destination": "/classes/30-minutes-morning-yoga",
+      "permanent": true
+    },
+    {
+      "source": "/classes/disconnect-breathwork.html",
+      "destination": "/classes/disconnect-breathwork",
+      "permanent": true
+    },
+    {
+      "source": "/classes/intense-1-hour-pilates.html",
+      "destination": "/classes/intense-1-hour-pilates",
+      "permanent": true
+    },
+    {
+      "source": "/classes/yoga-for-focus.html",
+      "destination": "/classes/yoga-for-focus",
+      "permanent": true
+    },
+    {
+      "source": "/contact.html",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/duration/1-hour.html",
+      "destination": "/duration/1-hour",
+      "permanent": true
+    },
+    {
+      "source": "/duration/10-minutes.html",
+      "destination": "/duration/10-minutes",
+      "permanent": true
+    },
+    {
+      "source": "/duration/30-minutes.html",
+      "destination": "/duration/30-minutes",
+      "permanent": true
+    },
+    {
+      "source": "/expertises.html",
+      "destination": "/expertises",
+      "permanent": true
+    },
+    {
+      "source": "/legal.html",
+      "destination": "/legal",
+      "permanent": true
+    },
+    {
+      "source": "/planning.html",
+      "destination": "/planning",
+      "permanent": true
+    },
+    {
+      "source": "/pricing.html",
+      "destination": "/pricing",
+      "permanent": true
+    },
+    {
+      "source": "/product/10-classes.html",
+      "destination": "/product/10-classes",
+      "permanent": true
+    },
+    {
+      "source": "/product/5-classes.html",
+      "destination": "/product/5-classes",
+      "permanent": true
+    },
+    {
+      "source": "/product/single-class.html",
+      "destination": "/product/single-class",
+      "permanent": true
+    },
+    {
+      "source": "/search.html",
+      "destination": "/search",
+      "permanent": true
+    },
+    {
+      "source": "/type/breathwork.html",
+      "destination": "/type/breathwork",
+      "permanent": true
+    },
+    {
+      "source": "/type/pilates.html",
+      "destination": "/type/pilates",
+      "permanent": true
+    },
+    {
+      "source": "/type/yoga.html",
+      "destination": "/type/yoga",
+      "permanent": true
+    },
+    {
+      "source": "/en/401.html",
+      "destination": "/en/401",
+      "permanent": true
+    },
+    {
+      "source": "/en/404.html",
+      "destination": "/en/404",
+      "permanent": true
+    },
+    {
+      "source": "/en/blog.html",
+      "destination": "/en/blog",
+      "permanent": true
+    },
+    {
+      "source": "/en/blog/cultivating-mind-body-awareness.html",
+      "destination": "/en/blog/cultivating-mind-body-awareness",
+      "permanent": true
+    },
+    {
+      "source": "/en/blog/finding-balance-for-optimal-health.html",
+      "destination": "/en/blog/finding-balance-for-optimal-health",
+      "permanent": true
+    },
+    {
+      "source": "/en/blog/harnessing-the-power-of-awareness-at-the-table.html",
+      "destination": "/en/blog/harnessing-the-power-of-awareness-at-the-table",
+      "permanent": true
+    },
+    {
+      "source": "/en/blog/nutrition-tips-for-yogis.html",
+      "destination": "/en/blog/nutrition-tips-for-yogis",
+      "permanent": true
+    },
+    {
+      "source": "/en/blog/poses-and-practices-to-support-your-gut.html",
+      "destination": "/en/blog/poses-and-practices-to-support-your-gut",
+      "permanent": true
+    },
+    {
+      "source": "/en/blog/release-toxins-and-rejuvenate-your-body.html",
+      "destination": "/en/blog/release-toxins-and-rejuvenate-your-body",
+      "permanent": true
+    },
+    {
+      "source": "/en/checkout.html",
+      "destination": "/en/checkout",
+      "permanent": true
+    },
+    {
+      "source": "/en/classes.html",
+      "destination": "/en/classes",
+      "permanent": true
+    },
+    {
+      "source": "/en/classes/1-hour-pilates.html",
+      "destination": "/en/classes/1-hour-pilates",
+      "permanent": true
+    },
+    {
+      "source": "/en/classes/30-minutes-chair-yoga.html",
+      "destination": "/en/classes/30-minutes-chair-yoga",
+      "permanent": true
+    },
+    {
+      "source": "/en/classes/30-minutes-morning-yoga.html",
+      "destination": "/en/classes/30-minutes-morning-yoga",
+      "permanent": true
+    },
+    {
+      "source": "/en/classes/disconnect-breathwork.html",
+      "destination": "/en/classes/disconnect-breathwork",
+      "permanent": true
+    },
+    {
+      "source": "/en/classes/intense-1-hour-pilates.html",
+      "destination": "/en/classes/intense-1-hour-pilates",
+      "permanent": true
+    },
+    {
+      "source": "/en/classes/yoga-for-focus.html",
+      "destination": "/en/classes/yoga-for-focus",
+      "permanent": true
+    },
+    {
+      "source": "/en/contact.html",
+      "destination": "/en/contact",
+      "permanent": true
+    },
+    {
+      "source": "/en/duration/1-hour.html",
+      "destination": "/en/duration/1-hour",
+      "permanent": true
+    },
+    {
+      "source": "/en/duration/10-minutes.html",
+      "destination": "/en/duration/10-minutes",
+      "permanent": true
+    },
+    {
+      "source": "/en/duration/30-minutes.html",
+      "destination": "/en/duration/30-minutes",
+      "permanent": true
+    },
+    {
+      "source": "/en/expertises.html",
+      "destination": "/en/expertises",
+      "permanent": true
+    },
+    {
+      "source": "/en/legal.html",
+      "destination": "/en/legal",
+      "permanent": true
+    },
+    {
+      "source": "/en/planning.html",
+      "destination": "/en/planning",
+      "permanent": true
+    },
+    {
+      "source": "/en/pricing.html",
+      "destination": "/en/pricing",
+      "permanent": true
+    },
+    {
+      "source": "/en/product/10-classes.html",
+      "destination": "/en/product/10-classes",
+      "permanent": true
+    },
+    {
+      "source": "/en/product/5-classes.html",
+      "destination": "/en/product/5-classes",
+      "permanent": true
+    },
+    {
+      "source": "/en/product/single-class.html",
+      "destination": "/en/product/single-class",
+      "permanent": true
+    },
+    {
+      "source": "/en/search.html",
+      "destination": "/en/search",
+      "permanent": true
+    },
+    {
+      "source": "/en/type/breathwork.html",
+      "destination": "/en/type/breathwork",
+      "permanent": true
+    },
+    {
+      "source": "/en/type/pilates.html",
+      "destination": "/en/type/pilates",
+      "permanent": true
+    },
+    {
+      "source": "/en/type/yoga.html",
+      "destination": "/en/type/yoga",
+      "permanent": true
+    }
+  ],
   "rewrites": [
-    { "source": "/", "destination": "/homepage.html" },
-    { "source": "/en", "destination": "/en/homepage.html" },
-    { "source": "/Accueil", "destination": "/homepage.html" },
-    { "source": "/en/Home", "destination": "/en/homepage.html" },
-    { "source": "/Cours", "destination": "/classes.html" },
-    { "source": "/en/Classes", "destination": "/en/classes.html" },
-    { "source": "/Planning", "destination": "/planning.html" },
-    { "source": "/en/Schedule", "destination": "/en/planning.html" },
-    { "source": "/Contact", "destination": "/contact.html" },
-    { "source": "/en/Contact", "destination": "/en/contact.html" },
-    { "source": "/Tarifs", "destination": "/pricing.html" },
-    { "source": "/en/Pricing", "destination": "/en/pricing.html" },
-    { "source": "/Mentions-legales", "destination": "/legal.html" },
-    { "source": "/en/Legal-notice", "destination": "/en/legal.html" }
+    {
+      "source": "/",
+      "destination": "/homepage.html"
+    },
+    {
+      "source": "/en",
+      "destination": "/en/homepage.html"
+    },
+    {
+      "source": "/401",
+      "destination": "/401.html"
+    },
+    {
+      "source": "/404",
+      "destination": "/404.html"
+    },
+    {
+      "source": "/blog",
+      "destination": "/blog.html"
+    },
+    {
+      "source": "/blog/cultivating-mind-body-awareness",
+      "destination": "/blog/cultivating-mind-body-awareness.html"
+    },
+    {
+      "source": "/blog/finding-balance-for-optimal-health",
+      "destination": "/blog/finding-balance-for-optimal-health.html"
+    },
+    {
+      "source": "/blog/harnessing-the-power-of-awareness-at-the-table",
+      "destination": "/blog/harnessing-the-power-of-awareness-at-the-table.html"
+    },
+    {
+      "source": "/blog/nutrition-tips-for-yogis",
+      "destination": "/blog/nutrition-tips-for-yogis.html"
+    },
+    {
+      "source": "/blog/poses-and-practices-to-support-your-gut",
+      "destination": "/blog/poses-and-practices-to-support-your-gut.html"
+    },
+    {
+      "source": "/blog/release-toxins-and-rejuvenate-your-body",
+      "destination": "/blog/release-toxins-and-rejuvenate-your-body.html"
+    },
+    {
+      "source": "/checkout",
+      "destination": "/checkout.html"
+    },
+    {
+      "source": "/classes",
+      "destination": "/classes.html"
+    },
+    {
+      "source": "/classes/1-hour-pilates",
+      "destination": "/classes/1-hour-pilates.html"
+    },
+    {
+      "source": "/classes/30-minutes-chair-yoga",
+      "destination": "/classes/30-minutes-chair-yoga.html"
+    },
+    {
+      "source": "/classes/30-minutes-morning-yoga",
+      "destination": "/classes/30-minutes-morning-yoga.html"
+    },
+    {
+      "source": "/classes/disconnect-breathwork",
+      "destination": "/classes/disconnect-breathwork.html"
+    },
+    {
+      "source": "/classes/intense-1-hour-pilates",
+      "destination": "/classes/intense-1-hour-pilates.html"
+    },
+    {
+      "source": "/classes/yoga-for-focus",
+      "destination": "/classes/yoga-for-focus.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact.html"
+    },
+    {
+      "source": "/duration/1-hour",
+      "destination": "/duration/1-hour.html"
+    },
+    {
+      "source": "/duration/10-minutes",
+      "destination": "/duration/10-minutes.html"
+    },
+    {
+      "source": "/duration/30-minutes",
+      "destination": "/duration/30-minutes.html"
+    },
+    {
+      "source": "/expertises",
+      "destination": "/expertises.html"
+    },
+    {
+      "source": "/legal",
+      "destination": "/legal.html"
+    },
+    {
+      "source": "/planning",
+      "destination": "/planning.html"
+    },
+    {
+      "source": "/pricing",
+      "destination": "/pricing.html"
+    },
+    {
+      "source": "/product/10-classes",
+      "destination": "/product/10-classes.html"
+    },
+    {
+      "source": "/product/5-classes",
+      "destination": "/product/5-classes.html"
+    },
+    {
+      "source": "/product/single-class",
+      "destination": "/product/single-class.html"
+    },
+    {
+      "source": "/search",
+      "destination": "/search.html"
+    },
+    {
+      "source": "/type/breathwork",
+      "destination": "/type/breathwork.html"
+    },
+    {
+      "source": "/type/pilates",
+      "destination": "/type/pilates.html"
+    },
+    {
+      "source": "/type/yoga",
+      "destination": "/type/yoga.html"
+    },
+    {
+      "source": "/en/401",
+      "destination": "/en/401.html"
+    },
+    {
+      "source": "/en/404",
+      "destination": "/en/404.html"
+    },
+    {
+      "source": "/en/blog",
+      "destination": "/en/blog.html"
+    },
+    {
+      "source": "/en/blog/cultivating-mind-body-awareness",
+      "destination": "/en/blog/cultivating-mind-body-awareness.html"
+    },
+    {
+      "source": "/en/blog/finding-balance-for-optimal-health",
+      "destination": "/en/blog/finding-balance-for-optimal-health.html"
+    },
+    {
+      "source": "/en/blog/harnessing-the-power-of-awareness-at-the-table",
+      "destination": "/en/blog/harnessing-the-power-of-awareness-at-the-table.html"
+    },
+    {
+      "source": "/en/blog/nutrition-tips-for-yogis",
+      "destination": "/en/blog/nutrition-tips-for-yogis.html"
+    },
+    {
+      "source": "/en/blog/poses-and-practices-to-support-your-gut",
+      "destination": "/en/blog/poses-and-practices-to-support-your-gut.html"
+    },
+    {
+      "source": "/en/blog/release-toxins-and-rejuvenate-your-body",
+      "destination": "/en/blog/release-toxins-and-rejuvenate-your-body.html"
+    },
+    {
+      "source": "/en/checkout",
+      "destination": "/en/checkout.html"
+    },
+    {
+      "source": "/en/classes",
+      "destination": "/en/classes.html"
+    },
+    {
+      "source": "/en/classes/1-hour-pilates",
+      "destination": "/en/classes/1-hour-pilates.html"
+    },
+    {
+      "source": "/en/classes/30-minutes-chair-yoga",
+      "destination": "/en/classes/30-minutes-chair-yoga.html"
+    },
+    {
+      "source": "/en/classes/30-minutes-morning-yoga",
+      "destination": "/en/classes/30-minutes-morning-yoga.html"
+    },
+    {
+      "source": "/en/classes/disconnect-breathwork",
+      "destination": "/en/classes/disconnect-breathwork.html"
+    },
+    {
+      "source": "/en/classes/intense-1-hour-pilates",
+      "destination": "/en/classes/intense-1-hour-pilates.html"
+    },
+    {
+      "source": "/en/classes/yoga-for-focus",
+      "destination": "/en/classes/yoga-for-focus.html"
+    },
+    {
+      "source": "/en/contact",
+      "destination": "/en/contact.html"
+    },
+    {
+      "source": "/en/duration/1-hour",
+      "destination": "/en/duration/1-hour.html"
+    },
+    {
+      "source": "/en/duration/10-minutes",
+      "destination": "/en/duration/10-minutes.html"
+    },
+    {
+      "source": "/en/duration/30-minutes",
+      "destination": "/en/duration/30-minutes.html"
+    },
+    {
+      "source": "/en/expertises",
+      "destination": "/en/expertises.html"
+    },
+    {
+      "source": "/en/legal",
+      "destination": "/en/legal.html"
+    },
+    {
+      "source": "/en/planning",
+      "destination": "/en/planning.html"
+    },
+    {
+      "source": "/en/pricing",
+      "destination": "/en/pricing.html"
+    },
+    {
+      "source": "/en/product/10-classes",
+      "destination": "/en/product/10-classes.html"
+    },
+    {
+      "source": "/en/product/5-classes",
+      "destination": "/en/product/5-classes.html"
+    },
+    {
+      "source": "/en/product/single-class",
+      "destination": "/en/product/single-class.html"
+    },
+    {
+      "source": "/en/search",
+      "destination": "/en/search.html"
+    },
+    {
+      "source": "/en/type/breathwork",
+      "destination": "/en/type/breathwork.html"
+    },
+    {
+      "source": "/en/type/pilates",
+      "destination": "/en/type/pilates.html"
+    },
+    {
+      "source": "/en/type/yoga",
+      "destination": "/en/type/yoga.html"
+    }
   ]
 }

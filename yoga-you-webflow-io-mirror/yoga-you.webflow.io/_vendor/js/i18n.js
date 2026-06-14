@@ -163,57 +163,34 @@
     return new Array(depth + 1).join("../");
   }
 
-  var SLUG_FILES = {
-    accueil: "homepage.html",
-    cours: "classes.html",
-    planning: "planning.html",
-    contact: "contact.html",
-    tarifs: "pricing.html",
-    "mentions-legales": "legal.html",
-    home: "homepage.html",
-    classes: "classes.html",
-    schedule: "planning.html",
-    pricing: "pricing.html",
-    "legal-notice": "legal.html",
-  };
-
   function getCanonicalPagePath() {
     var parts = (window.location.pathname || "").split("/").filter(Boolean);
-    if (!parts.length) {
-      return "homepage.html";
-    }
-    var file = parts[parts.length - 1];
-    if (!/\.html?$/i.test(file)) {
-      var mapped = SLUG_FILES[file.toLowerCase()];
-      if (mapped) {
-        file = mapped;
-      } else if (file === "en") {
-        return "homepage.html";
-      } else {
-        return "homepage.html";
-      }
-    }
-    parts.pop();
-    if (parts.length && parts[parts.length - 1] === "en") {
-      parts.pop();
-    } else if (parts[0] === "en") {
+    if (parts[0] === "en") {
       parts.shift();
     }
-    if (file === "index.html") {
-      file = "homepage.html";
-    }
     if (!parts.length) {
-      return file;
+      return "";
     }
-    return parts.join("/") + "/" + file;
+    var last = parts[parts.length - 1];
+    if (/\.html?$/i.test(last)) {
+      last = last.replace(/\.html?$/i, "");
+      parts[parts.length - 1] = last;
+    }
+    if (last === "homepage" || last === "index") {
+      parts.pop();
+    }
+    return parts.join("/");
   }
 
   function localeUrl(lang, pagePath) {
-    var prefix = getPathPrefixToRoot();
-    if (lang === "en") {
-      return prefix + "en/" + pagePath;
+    var p = (pagePath || "").replace(/\.html$/i, "");
+    if (p === "homepage" || p === "index") {
+      p = "";
     }
-    return prefix + pagePath;
+    if (lang === "en") {
+      return p ? "/en/" + p : "/en";
+    }
+    return p ? "/" + p : "/";
   }
 
   function getLang() {
@@ -305,14 +282,26 @@
     }
     var pathPart = href.slice(0, end);
     var suffix = href.slice(end);
-    if (!/\.html$/i.test(pathPart)) {
+    if (!pathPart) {
       return null;
     }
 
-    var page = pathPart.replace(/^\.\//, "");
-    if (page === "index.html") {
-      page = "homepage.html";
+    var page = "";
+    if (pathPart.charAt(0) === "/") {
+      page = pathPart.replace(/^\//, "");
+      if (page.indexOf("en/") === 0) {
+        page = page.slice(3);
+      }
+    } else if (/\.html$/i.test(pathPart)) {
+      page = pathPart.replace(/^\.\//, "").replace(/\.html$/i, "");
+    } else {
+      page = pathPart.replace(/^\.\//, "");
     }
+
+    if (page === "index" || page === "homepage") {
+      page = "";
+    }
+
     return { path: page, suffix: suffix };
   }
 

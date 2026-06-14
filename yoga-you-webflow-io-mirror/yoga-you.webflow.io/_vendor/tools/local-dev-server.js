@@ -10,11 +10,7 @@ const { URL } = require("url");
 const ROOT = path.join(__dirname, "..", "..");
 const REPO_ROOT = path.join(ROOT, "..", "..");
 const PORT = Number(process.argv[2]) || 8000;
-
 const vercelPath = path.join(REPO_ROOT, "vercel.json");
-const vercel = fs.existsSync(vercelPath)
-  ? JSON.parse(fs.readFileSync(vercelPath, "utf8"))
-  : { redirects: [], rewrites: [] };
 
 const MIME = {
   ".html": "text/html; charset=utf-8",
@@ -34,6 +30,12 @@ const MIME = {
   ".ttf": "font/ttf",
 };
 
+function loadVercelConfig() {
+  return fs.existsSync(vercelPath)
+    ? JSON.parse(fs.readFileSync(vercelPath, "utf8"))
+    : { redirects: [], rewrites: [] };
+}
+
 function normalizePathname(pathname) {
   let p = decodeURIComponent(pathname || "/");
   if (p.length > 1 && p.endsWith("/")) {
@@ -42,7 +44,7 @@ function normalizePathname(pathname) {
   return p || "/";
 }
 
-function matchRedirect(pathname) {
+function matchRedirect(pathname, vercel) {
   for (const rule of vercel.redirects || []) {
     if (normalizePathname(rule.source) === pathname) {
       return rule.destination;
@@ -51,7 +53,7 @@ function matchRedirect(pathname) {
   return null;
 }
 
-function applyRewrite(pathname) {
+function applyRewrite(pathname, vercel) {
   for (const rule of vercel.rewrites || []) {
     if (normalizePathname(rule.source) === pathname) {
       return rule.destination;
@@ -67,6 +69,15 @@ function safeFilePath(urlPath) {
     return null;
   }
   return full;
+}
+
+function resolveSiblingHtmlForDirectory(dirPath) {
+  const dirName = path.basename(dirPath);
+  const siblingHtml = path.join(path.dirname(dirPath), dirName + ".html");
+  if (fs.existsSync(siblingHtml) && fs.statSync(siblingHtml).isFile()) {
+    return siblingHtml;
+  }
+  return null;
 }
 
 function sendFile(res, filePath) {
@@ -87,8 +98,13 @@ function servePath(res, urlPath) {
     if (fs.existsSync(index)) {
       filePath = index;
     } else {
-      res.writeHead(404).end("Not found");
-      return;
+      const siblingHtml = resolveSiblingHtmlForDirectory(filePath);
+      if (siblingHtml) {
+        filePath = siblingHtml;
+      } else {
+        res.writeHead(404).end("Not found");
+        return;
+      }
     }
   } else if (!fs.existsSync(filePath) && !path.extname(filePath)) {
     const withHtml = filePath + ".html";
@@ -112,10 +128,11 @@ function servePath(res, urlPath) {
 }
 
 const server = http.createServer(function (req, res) {
+  const vercel = loadVercelConfig();
   const url = new URL(req.url, "http://localhost");
   let pathname = normalizePathname(url.pathname);
 
-  const redirect = matchRedirect(pathname);
+  const redirect = matchRedirect(pathname, vercel);
   if (redirect) {
     const location = redirect + (url.search || "");
     res.writeHead(302, { Location: location });
@@ -123,15 +140,15 @@ const server = http.createServer(function (req, res) {
     return;
   }
 
-  pathname = normalizePathname(applyRewrite(pathname));
+  pathname = normalizePathname(applyRewrite(pathname, vercel));
   servePath(res, pathname);
 });
 
 server.listen(PORT, function () {
   console.log("Studio Pilates — serveur local (rewrites Vercel)");
   console.log("http://localhost:" + PORT + "/");
-  console.log("http://localhost:" + PORT + "/Cours");
-  console.log("http://localhost:" + PORT + "/Planning");
-  console.log("http://localhost:" + PORT + "/classes.html");
+  console.log("http://localhost:" + PORT + "/classes");
+  console.log("http://localhost:" + PORT + "/planning");
+  console.log("http://localhost:" + PORT + "/en/classes");
   console.log("Racine: " + ROOT);
 });

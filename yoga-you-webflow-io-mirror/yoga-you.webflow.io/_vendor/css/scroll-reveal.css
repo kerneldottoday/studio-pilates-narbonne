@@ -1,6 +1,7 @@
 .reveal-on-scroll {
   opacity: 0;
   transform: translateY(28px);
+  will-change: opacity, transform;
 }
 
 body.page-classes.scroll-reveal-ready .hero-classes .title-wrap-classes.reveal-on-scroll {
@@ -12,17 +13,37 @@ body.page-classes.scroll-reveal-ready .hero-classes .title-wrap-classes.reveal-o
   transform: none;
 }
 
+/* Section 2 — Souhila : entrées latérales */
+body.page-classes.scroll-reveal-ready .wrap-image-combo-halves.reveal-on-scroll {
+  transform: translateX(-36px) translateY(24px);
+}
+
+body.page-classes.scroll-reveal-ready .top-combo-halves.reveal-on-scroll {
+  transform: translateX(28px) translateY(24px);
+}
+
+body.page-classes.scroll-reveal-ready .master-icons-list .single-icon-list.reveal-on-scroll {
+  transform: translateY(20px);
+}
+
+/* Section 3 — FAQ : items décalés */
+body.page-classes.scroll-reveal-ready .master-expandable-halves .expandable-single-faq.reveal-on-scroll {
+  transform: translateY(22px);
+}
+
 body.scroll-reveal-ready .reveal-on-scroll.is-visible {
   opacity: 1;
   transform: none;
+  will-change: auto;
   transition:
-    opacity 0.55s ease,
-    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 0.6s ease,
+    transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--reveal-delay, 0) * 1ms);
 }
 
 body.scroll-reveal-ready .title-wrap-pricing.is-visible,
 body.scroll-reveal-ready .legal-intro.is-visible {
-  transition-delay: 0.08s;
+  transition-delay: calc(var(--reveal-delay, 80) * 1ms);
 }
 
 body.scroll-reveal-ready .grid-pricing-thirds .tile-pricing.is-visible:nth-child(1) {
@@ -82,23 +103,23 @@ body.scroll-reveal-ready .grid-classes-thirds .tile-class.is-visible:nth-child(6
 }
 
 body.scroll-reveal-ready .wrap-image-combo-halves.is-visible {
-  transition-delay: 0.08s;
+  transition-delay: calc(var(--reveal-delay, 0) * 1ms);
 }
 
 body.scroll-reveal-ready .top-combo-halves.is-visible {
-  transition-delay: 0.16s;
+  transition-delay: calc(var(--reveal-delay, 75) * 1ms);
 }
 
-body.scroll-reveal-ready .master-icons-list.is-visible {
-  transition-delay: 0.24s;
+body.scroll-reveal-ready .master-icons-list .single-icon-list.reveal-on-scroll.is-visible {
+  transition-delay: calc(var(--reveal-delay, 0) * 1ms);
 }
 
 body.scroll-reveal-ready .left-faq-halves.is-visible {
-  transition-delay: 0.08s;
+  transition-delay: calc(var(--reveal-delay, 0) * 1ms);
 }
 
-body.scroll-reveal-ready .master-expandable-halves.is-visible {
-  transition-delay: 0.16s;
+body.scroll-reveal-ready .master-expandable-halves .expandable-single-faq.reveal-on-scroll.is-visible {
+  transition-delay: calc(var(--reveal-delay, 0) * 1ms);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -106,5 +127,6 @@ body.scroll-reveal-ready .master-expandable-halves.is-visible {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
+    will-change: auto !important;
   }
 }

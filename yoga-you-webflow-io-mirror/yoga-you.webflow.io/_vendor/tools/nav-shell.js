@@ -41,41 +41,41 @@ function buildNavbar(options) {
   navbar = prefixRootPaths(navbar, prefix);
 
   navbar = navbar.replace(
-    /href="[^"]*contact\.html" aria-current="page" class="nav-link w-nav-link w--current"/g,
-    'href="' + prefix + 'contact.html" class="nav-link w-nav-link"'
+    /href="[^"]*\/contact(?:\.html)?" aria-current="page" class="nav-link w-nav-link w--current"/g,
+    'href="/contact" class="nav-link w-nav-link"'
   );
   navbar = navbar.replace(
-    /href="[^"]*classes\.html" aria-current="page" class="nav-link w-nav-link w--current"/g,
-    'href="' + prefix + 'classes.html" class="nav-link w-nav-link" data-i18n="nav.classes"'
+    /href="[^"]*\/classes(?:\.html)?" aria-current="page" class="nav-link w-nav-link w--current"/g,
+    'href="/classes" class="nav-link w-nav-link" data-i18n="nav.classes"'
   );
   navbar = navbar.replace(
-    /href="[^"]*homepage\.html" aria-current="page" class="nav-link w-nav-link w--current"/g,
-    'href="' + prefix + 'homepage.html" class="nav-link w-nav-link" data-i18n="nav.home"'
+    /href="[^"]*(?:\/homepage\.html|\/index\.html|\/)" aria-current="page" class="nav-link w-nav-link w--current"/g,
+    'href="/" class="nav-link w-nav-link" data-i18n="nav.home"'
   );
   navbar = navbar.replace(
-    /href="[^"]*planning\.html" aria-current="page" class="nav-link w-nav-link w--current"/g,
-    'href="' + prefix + 'planning.html" class="nav-link w-nav-link"'
+    /href="[^"]*\/planning(?:\.html)?" aria-current="page" class="nav-link w-nav-link w--current"/g,
+    'href="/planning" class="nav-link w-nav-link"'
   );
 
   if (options.active === "classes") {
     navbar = navbar.replace(
-      'href="' + prefix + 'classes.html" class="nav-link w-nav-link" data-i18n="nav.classes"',
-      'href="' + prefix + 'classes.html" aria-current="page" class="nav-link w-nav-link w--current" data-i18n="nav.classes"'
+      'href="/classes" class="nav-link w-nav-link" data-i18n="nav.classes"',
+      'href="/classes" aria-current="page" class="nav-link w-nav-link w--current" data-i18n="nav.classes"'
     );
   } else if (options.active === "contact") {
     navbar = navbar.replace(
-      'href="' + prefix + 'contact.html" class="nav-link w-nav-link"',
-      'href="' + prefix + 'contact.html" aria-current="page" class="nav-link w-nav-link w--current"'
+      'href="/contact" class="nav-link w-nav-link"',
+      'href="/contact" aria-current="page" class="nav-link w-nav-link w--current"'
     );
   } else if (options.active === "planning") {
     navbar = navbar.replace(
-      'href="' + prefix + 'planning.html" class="nav-link w-nav-link"',
-      'href="' + prefix + 'planning.html" aria-current="page" class="nav-link w-nav-link w--current"'
+      'href="/planning" class="nav-link w-nav-link"',
+      'href="/planning" aria-current="page" class="nav-link w-nav-link w--current"'
     );
   } else if (options.active === "home") {
     navbar = navbar.replace(
-      'href="' + prefix + 'homepage.html" class="nav-link w-nav-link" data-i18n="nav.home"',
-      'href="' + prefix + 'homepage.html" aria-current="page" class="nav-link w-nav-link w--current" data-i18n="nav.home"'
+      'href="/" class="nav-link w-nav-link" data-i18n="nav.home"',
+      'href="/" aria-current="page" class="nav-link w-nav-link w--current" data-i18n="nav.home"'
     );
   }
 
@@ -98,12 +98,12 @@ function buildFooter(options) {
   footer = footer.replace(/ class="footer-link w--current"/g, ' class="footer-link"');
 
   const activeMap = {
-    home: prefix + "homepage.html",
-    classes: prefix + "classes.html",
-    contact: prefix + "contact.html",
-    planning: prefix + "planning.html",
-    pricing: prefix + "pricing.html",
-    legal: prefix + "legal.html",
+    home: "/",
+    classes: "/classes",
+    contact: "/contact",
+    planning: "/planning",
+    pricing: "/pricing",
+    legal: "/legal",
   };
 
   const activeHref = activeMap[options.active];
