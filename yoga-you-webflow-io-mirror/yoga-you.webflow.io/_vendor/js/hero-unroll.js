@@ -17,8 +17,6 @@
     if (!isHomepage()) return;
 
     var hero = document.querySelector(".section.hero-home .master-hero-home");
-    if (!hero) return;
-
     document.documentElement.classList.add("hero-unroll-boot");
 
     if (prefersReducedMotion()) {
@@ -31,7 +29,7 @@
       document.body.classList.add("hero-unroll-ready");
       window.setTimeout(function () {
         document.documentElement.classList.remove("hero-unroll-boot");
-      }, 1300);
+      }, hero ? 1300 : 700);
     });
   }
 

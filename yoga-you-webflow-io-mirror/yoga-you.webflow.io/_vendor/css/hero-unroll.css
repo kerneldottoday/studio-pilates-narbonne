@@ -1,4 +1,9 @@
 /* Hero accueil : révélation déroulante à l'arrivée sur le site */
+html.hero-unroll-boot .navbar.w-nav {
+  opacity: 0;
+  transform: translateY(-18px);
+}
+
 html.hero-unroll-boot .section.hero-home .master-hero-home {
   clip-path: inset(0 0 100% 0);
 }
@@ -7,6 +12,14 @@ html.hero-unroll-boot .section.hero-home .wrap-content-hero-home,
 html.hero-unroll-boot .section.hero-home .scroll-down-home {
   opacity: 0;
   transform: translateY(28px);
+}
+
+body.hero-unroll-ready .navbar.w-nav {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.06s,
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.06s;
 }
 
 body.hero-unroll-ready .section.hero-home .master-hero-home {
@@ -69,6 +82,11 @@ body.hero-unroll-ready .section.hero-home .scroll-down-home {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html.hero-unroll-boot .navbar.w-nav {
+    opacity: 1;
+    transform: none;
+  }
+
   html.hero-unroll-boot .section.hero-home .master-hero-home {
     clip-path: none;
   }
@@ -77,6 +95,7 @@ body.hero-unroll-ready .section.hero-home .scroll-down-home {
     animation: none;
   }
 
+  body.hero-unroll-ready .navbar.w-nav,
   body.hero-unroll-ready .section.hero-home .wrap-content-hero-home > *,
   body.hero-unroll-ready .section.hero-home .scroll-down-home,
   body.hero-unroll-ready .section.hero-home .overlay-hero-home {
