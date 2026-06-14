@@ -14,7 +14,10 @@
   }
 
   function init() {
-    if (!isHomepage()) return;
+    if (!isHomepage()) {
+      document.documentElement.classList.remove("hero-unroll-boot");
+      return;
+    }
 
     var hero = document.querySelector(".section.hero-home .master-hero-home");
     document.documentElement.classList.add("hero-unroll-boot");
