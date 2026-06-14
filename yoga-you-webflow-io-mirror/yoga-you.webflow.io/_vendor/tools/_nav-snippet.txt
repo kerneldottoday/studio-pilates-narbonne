@@ -1,7 +1,7 @@
 navbar w-nav" data-easing2="ease" data-easing="ease" data-collapse="medium" data-w-id="b63629cf-a39d-9727-d08c-fe57fc16a05f" role="banner" data-no-scroll="1" data-duration="400">
 <div class="container-navbar">
 <a href="homepage.html" class="brand-link-navbar w-nav-brand">
-<span class="brand-text brand-navbar" data-i18n-skip><strong>Studio Pilates Narbonne</strong></span>
+<span class="brand-text brand-navbar" data-i18n-skip><strong data-i18n-skip>Studio Pilates Narbonne</strong></span>
 </a>
 <div class="right-navbar">
 <nav role="navigation" class="nav-menu w-nav-menu">

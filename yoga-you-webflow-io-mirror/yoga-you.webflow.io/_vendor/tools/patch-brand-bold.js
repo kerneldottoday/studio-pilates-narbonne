@@ -7,11 +7,19 @@ const BRAND = "Studio Pilates Narbonne";
 const replacements = [
   [
     '<span class="brand-text brand-navbar">Studio Pilates Narbonne</span>',
-    '<span class="brand-text brand-navbar" data-i18n-skip><strong>Studio Pilates Narbonne</strong></span>',
+    '<span class="brand-text brand-navbar" data-i18n-skip><strong data-i18n-skip>Studio Pilates Narbonne</strong></span>',
   ],
   [
     '<span class="brand-text brand-footer">Studio Pilates Narbonne</span>',
+    '<span class="brand-text brand-footer" data-i18n-skip><strong data-i18n-skip>Studio Pilates Narbonne</strong></span>',
+  ],
+  [
+    '<span class="brand-text brand-navbar" data-i18n-skip><strong>Studio Pilates Narbonne</strong></span>',
+    '<span class="brand-text brand-navbar" data-i18n-skip><strong data-i18n-skip>Studio Pilates Narbonne</strong></span>',
+  ],
+  [
     '<span class="brand-text brand-footer" data-i18n-skip><strong>Studio Pilates Narbonne</strong></span>',
+    '<span class="brand-text brand-footer" data-i18n-skip><strong data-i18n-skip>Studio Pilates Narbonne</strong></span>',
   ],
 ];
 

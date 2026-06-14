@@ -32,15 +32,15 @@ function buildTile(slug) {
 
 const filtersHtml =
   '<div class="master-filters"><div class="left-filters">' +
-  '<div data-hover="false" data-delay="0" class="dropdown-filter w-dropdown">' +
-  '<div class="dropdown-toggle-filter w-dropdown-toggle"><img src="65939d1f139e1daa37da455f/6593f702730ac2c261fb3539_clock.svg" loading="lazy" alt="" class="icon-filter"/><div>Durée</div></div>' +
+  '<div data-hover="false" data-delay="0" class="dropdown-filter filter-disabled w-dropdown">' +
+  '<div class="dropdown-toggle-filter w-dropdown-toggle" aria-disabled="true" tabindex="-1"><img src="65939d1f139e1daa37da455f/6593f702730ac2c261fb3539_clock.svg" loading="lazy" alt="" class="icon-filter"/><div>Durée</div></div>' +
   '<nav class="dropdown-list w-dropdown-list"><div class="w-dyn-list"><div role="list" class="list-filters w-dyn-items">' +
   '<div role="listitem" class="w-dyn-item"><a href="duration/1-hour.html" class="dropdown-link w-dropdown-link">1 heure</a></div>' +
   '<div role="listitem" class="w-dyn-item"><a href="duration/30-minutes.html" class="dropdown-link w-dropdown-link">1 h 30</a></div>' +
   '<div role="listitem" class="w-dyn-item"><a href="duration/10-minutes.html" class="dropdown-link w-dropdown-link">Sur rendez-vous</a></div>' +
   "</div></div></nav></div>" +
-  '<div data-hover="false" data-delay="0" class="dropdown-filter w-dropdown">' +
-  '<div class="dropdown-toggle-filter w-dropdown-toggle"><img src="65939d1f139e1daa37da455f/6594d58ef9cce0861fbeccbd_Filter%20Type.svg" loading="lazy" alt="" class="icon-filter"/><div>Type</div></div>' +
+  '<div data-hover="false" data-delay="0" class="dropdown-filter filter-disabled w-dropdown">' +
+  '<div class="dropdown-toggle-filter w-dropdown-toggle" aria-disabled="true" tabindex="-1"><img src="65939d1f139e1daa37da455f/6594d58ef9cce0861fbeccbd_Filter%20Type.svg" loading="lazy" alt="" class="icon-filter"/><div>Type</div></div>' +
   '<nav class="dropdown-list w-dropdown-list"><div class="w-dyn-list"><div role="list" class="list-filters w-dyn-items">' +
   '<div role="listitem" class="w-dyn-item"><a href="type/pilates.html" class="dropdown-link w-dropdown-link">Pilates</a></div>' +
   '<div role="listitem" class="w-dyn-item"><a href="type/yoga.html" class="dropdown-link w-dropdown-link">Yoga</a></div>' +
@@ -112,6 +112,6 @@ footer = footer.replace(
 );
 
 const html =
-  head + "<body>" + navbar + classesSection + comboSection + faqSection + footer;
+  head + '<body class="page-classes">' + navbar + classesSection + comboSection + faqSection + footer;
 fs.writeFileSync(path.join(root, "classes.html"), html, "utf8");
 console.log("Rebuilt classes.html (" + html.length + " chars)");

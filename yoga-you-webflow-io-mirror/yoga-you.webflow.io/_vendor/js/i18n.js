@@ -16,7 +16,7 @@
       "nav.cart": "Panier",
       "footer.navigation": "Navigation",
       "footer.information": "Informations",
-      "hero.location": "Studio Pilates, Narbonne",
+      "hero.location": "Studio Pilates Narbonne",
       "hero.title":
         "Un espace calme pour renforcer son corps et libérer son esprit.",
       "hero.subtitle":
@@ -54,7 +54,7 @@
       "nav.cart": "Cart",
       "footer.navigation": "Navigation",
       "footer.information": "Information",
-      "hero.location": "Studio Pilates, Narbonne",
+      "hero.location": "Studio Pilates Narbonne",
       "hero.title": "A calm space to strengthen your body and free your mind.",
       "hero.subtitle":
         "A practice true to Joseph Pilates principles: centering, concentration, precision, control, breath, flow and alignment, in small groups in Narbonne.",
@@ -138,12 +138,165 @@
 
   var STORAGE_KEY = "studio-pilates-lang";
   var TEXT_MAP = window.STUDIO_TEXT_MAP || {};
+  var BRAND_LABEL = "Studio Pilates Narbonne";
   var LANG_TRANSITION_MS = 280;
   var langTransitionActive = false;
 
+  function isEnPage() {
+    var pathname = window.location.pathname || "";
+    return pathname.indexOf("/en/") !== -1 || pathname === "/en" || pathname.endsWith("/en");
+  }
+
+  function getPathPrefixToRoot() {
+    var parts = (window.location.pathname || "").split("/").filter(Boolean);
+    if (parts.length && /\.html?$/i.test(parts[parts.length - 1])) {
+      parts.pop();
+    }
+    var hadEn = parts[0] === "en";
+    if (hadEn) {
+      parts.shift();
+    }
+    var depth = parts.length + (hadEn ? 1 : 0);
+    if (!depth) {
+      return "";
+    }
+    return new Array(depth + 1).join("../");
+  }
+
+  function getCanonicalPagePath() {
+    var parts = (window.location.pathname || "").split("/").filter(Boolean);
+    if (!parts.length) {
+      return "homepage.html";
+    }
+    var file = parts[parts.length - 1];
+    if (!/\.html?$/i.test(file)) {
+      return file === "en" ? "homepage.html" : "homepage.html";
+    }
+    parts.pop();
+    if (parts.length && parts[parts.length - 1] === "en") {
+      parts.pop();
+    } else if (parts[0] === "en") {
+      parts.shift();
+    }
+    if (file === "index.html") {
+      file = "homepage.html";
+    }
+    if (!parts.length) {
+      return file;
+    }
+    return parts.join("/") + "/" + file;
+  }
+
+  function localeUrl(lang, pagePath) {
+    var prefix = getPathPrefixToRoot();
+    if (lang === "en") {
+      return prefix + "en/" + pagePath;
+    }
+    return prefix + pagePath;
+  }
+
   function getLang() {
-    var saved = localStorage.getItem(STORAGE_KEY);
-    return saved === "en" ? "en" : "fr";
+    return isEnPage() ? "en" : "fr";
+  }
+
+  function redirectLegacyLangParam() {
+    if (isEnPage() || typeof window.URLSearchParams !== "function") {
+      return;
+    }
+    var params = new URLSearchParams(window.location.search);
+    if (params.get("lang") !== "en") {
+      return;
+    }
+    var target = localeUrl("en", getCanonicalPagePath());
+    var absolute = new URL(target, window.location.href).href;
+    window.location.replace(absolute + window.location.hash);
+  }
+
+  function isInternalHref(href) {
+    if (!href) {
+      return false;
+    }
+    if (
+      href.charAt(0) === "#" ||
+      href.indexOf("mailto:") === 0 ||
+      href.indexOf("tel:") === 0
+    ) {
+      return false;
+    }
+    return !/^https?:\/\//i.test(href);
+  }
+
+  function withLangParam(href, lang) {
+    if (!isInternalHref(href)) {
+      return href;
+    }
+
+    var hashIndex = href.indexOf("#");
+    var base = hashIndex >= 0 ? href.slice(0, hashIndex) : href;
+    var hash = hashIndex >= 0 ? href.slice(hashIndex) : "";
+    var queryIndex = base.indexOf("?");
+    var path = queryIndex >= 0 ? base.slice(0, queryIndex) : base;
+    var params = new URLSearchParams(queryIndex >= 0 ? base.slice(queryIndex + 1) : "");
+
+    if (lang === "en") {
+      params.set("lang", "en");
+    } else {
+      params.delete("lang");
+    }
+
+    var query = params.toString();
+    return path + (query ? "?" + query : "") + hash;
+  }
+
+  function applyNavLinks(lang) {
+    if (lang !== "en" || isEnPage()) {
+      return;
+    }
+    document.querySelectorAll(".navbar a[href], .footer a[href]").forEach(function (link) {
+      var href = link.getAttribute("href");
+      if (!isInternalHref(href)) {
+        return;
+      }
+      var info = resolveHrefToPage(href);
+      if (!info) {
+        return;
+      }
+      link.setAttribute("href", localeUrl("en", info.path) + info.suffix);
+    });
+  }
+
+  function resolveHrefToPage(href) {
+    if (!href || href.charAt(0) === "#") {
+      return null;
+    }
+    if (/^(https?:|mailto:|tel:)/i.test(href)) {
+      return null;
+    }
+
+    var hashIndex = href.indexOf("#");
+    var queryIndex = href.indexOf("?");
+    var end = href.length;
+    if (hashIndex >= 0) {
+      end = Math.min(end, hashIndex);
+    }
+    if (queryIndex >= 0) {
+      end = Math.min(end, queryIndex);
+    }
+    var pathPart = href.slice(0, end);
+    var suffix = href.slice(end);
+    if (!/\.html$/i.test(pathPart)) {
+      return null;
+    }
+
+    var page = pathPart.replace(/^\.\//, "");
+    if (page === "index.html") {
+      page = "homepage.html";
+    }
+    return { path: page, suffix: suffix };
+  }
+
+  function syncUrlLang() {
+    return;
   }
 
   function hasOnlyInlineChildren(el) {
@@ -158,6 +311,18 @@
 
   function isTextLeaf(el) {
     if (!el || el.hasAttribute("data-i18n") || el.hasAttribute("data-i18n-skip")) {
+      return false;
+    }
+    if (
+      el.closest &&
+      (el.closest("[data-i18n-skip]") ||
+        el.closest(".brand-text") ||
+        el.closest(".brand-link-navbar") ||
+        el.closest(".brand-link-footer"))
+    ) {
+      return false;
+    }
+    if (el.classList && el.classList.contains("brand-text")) {
       return false;
     }
     if (el.children.length === 0) {
@@ -239,11 +404,35 @@
     }
   }
 
+  function preserveBrandNames() {
+    document
+      .querySelectorAll(".brand-link-navbar, .brand-link-footer, .brand-text")
+      .forEach(function (el) {
+        var target = el.classList.contains("brand-text") ? el : el.querySelector(".brand-text");
+        if (!target) {
+          return;
+        }
+        var strong = target.querySelector("strong");
+        if (strong) {
+          strong.textContent = BRAND_LABEL;
+        } else {
+          target.textContent = BRAND_LABEL;
+        }
+      });
+  }
+
   function applyLang(lang) {
     document.documentElement.lang = lang === "en" ? "en" : "fr";
-    applyKeyedTranslations(lang);
-    applyInlineTranslations(lang);
-    applyPageMeta(lang);
+    if (!isEnPage() && lang === "fr") {
+      applyKeyedTranslations(lang);
+      applyInlineTranslations(lang);
+    }
+    preserveBrandNames();
+    if (!isEnPage()) {
+      applyPageMeta(lang);
+      applyNavLinks(lang);
+    }
+    syncUrlLang();
   }
 
   function updateSwitcher(lang) {
@@ -262,10 +451,35 @@
     );
   }
 
+  function refreshLangSwitcherLinks() {
+    var page = getCanonicalPagePath();
+    document.querySelectorAll("[data-lang-switch] [data-lang]").forEach(function (btn) {
+      var lang = btn.getAttribute("data-lang") === "en" ? "en" : "fr";
+      var href = localeUrl(lang, page);
+      btn.setAttribute("data-locale-href", href);
+    });
+  }
+
+  function navigateToLocale(lang) {
+    var page = getCanonicalPagePath();
+    var target = localeUrl(lang, page);
+    var absolute = new URL(target, window.location.href).href;
+    var hash = window.location.hash || "";
+    if (absolute.split("#")[0] !== window.location.href.split("#")[0]) {
+      window.location.assign(absolute + hash);
+      return true;
+    }
+    return false;
+  }
+
   function commitLang(lang) {
     localStorage.setItem(STORAGE_KEY, lang);
+    if (navigateToLocale(lang)) {
+      return;
+    }
     applyLang(lang);
     updateSwitcher(lang);
+    refreshLangSwitcherLinks();
   }
 
   function runLangTransition(lang, done) {
@@ -286,10 +500,16 @@
 
   function bindSwitcher() {
     document.querySelectorAll("[data-lang-switch] [data-lang]").forEach(function (btn) {
-      btn.addEventListener("click", function () {
+      btn.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (typeof e.stopImmediatePropagation === "function") {
+          e.stopImmediatePropagation();
+        }
         setLang(btn.getAttribute("data-lang"));
       });
     });
+    refreshLangSwitcherLinks();
   }
 
   function setLang(lang, options) {
@@ -330,8 +550,11 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
-    var lang = getLang();
-    setLang(lang, { animate: false });
+    redirectLegacyLangParam();
+    localStorage.setItem(STORAGE_KEY, getLang());
+    preserveBrandNames();
+    updateSwitcher(getLang());
+    refreshLangSwitcherLinks();
     bindSwitcher();
     removeWebflowBadge();
   });

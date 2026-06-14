@@ -32,6 +32,9 @@ body.is-lang-fading {
   text-transform: uppercase;
   visibility: visible;
   opacity: 1;
+  position: relative;
+  z-index: 5;
+  pointer-events: auto;
 }
 
 .lang-link {
@@ -43,6 +46,9 @@ body.is-lang-fading {
   opacity: 0.55;
   font: inherit;
   transition: opacity 0.2s ease;
+  position: relative;
+  z-index: 6;
+  pointer-events: auto;
 }
 
 .lang-link:disabled {
@@ -88,9 +94,16 @@ body.is-lang-fading {
 .brand-link-footer {
   height: auto !important;
   min-height: 0;
-  overflow: visible;
+  overflow: visible !important;
   display: flex;
   align-items: center;
+}
+
+.brand-link-navbar .brand-text,
+.brand-link-navbar .brand-text strong {
+  display: block;
+  visibility: visible;
+  opacity: 1;
 }
 
 .brand-link-navbar {

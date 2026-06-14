@@ -1,4 +1,5 @@
 window.STUDIO_TEXT_MAP = {
+  "Studio Pilates Narbonne": "Studio Pilates Narbonne",
   "Planning": "Schedule",
   "Plus": "More",
   "Mentions": "Legal",

@@ -2,42 +2,12 @@
   opacity: 0.85;
 }
 
-/* Hero accueil : vidéo en boucle avec image de secours */
+/* Hero accueil : photo du studio */
 .master-hero-home {
   background-image: url("../media/stock/hero-home-1080.jpg");
-  background-position: 50% 35%;
-}
-
-.master-hero-home.hero-home-has-video {
-  background-image: none;
-}
-
-.hero-home-video.w-background-video {
-  width: 100%;
-  height: 100% !important;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 0;
-  overflow: hidden;
-}
-
-.hero-home-video > video {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  right: auto;
-  bottom: auto;
-  z-index: 0;
-  transform: translate(-50%, -50%);
-  min-width: 100%;
-  min-height: 100%;
-  margin: 0;
+  background-position: 50% 45%;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .master-hero-home .overlay-hero-home {
@@ -46,7 +16,7 @@
 }
 
 @media (min-width: 1200px) {
-  .master-hero-home:not(.hero-home-has-video) {
+  .master-hero-home {
     background-image: url("../media/stock/hero-home-1600.jpg");
   }
 }
@@ -55,6 +25,22 @@
 .section.video-section .wrap-video-content {
   visibility: hidden;
   pointer-events: none;
+}
+
+/* Cours : filtres Durée / Type non cliquables */
+.page-classes .dropdown-filter.filter-disabled {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.62;
+}
+
+.page-classes .dropdown-filter.filter-disabled .dropdown-toggle-filter {
+  cursor: default;
+}
+
+.page-classes .dropdown-filter.filter-disabled .dropdown-list {
+  display: none !important;
+  visibility: hidden;
 }
 
 /* Header & footer : nom du studio visible (texte, pas logo) */
