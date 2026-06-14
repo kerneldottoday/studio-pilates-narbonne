@@ -94,9 +94,14 @@ body.is-lang-fading {
 .brand-link-footer {
   height: auto !important;
   min-height: 0;
-  overflow: visible !important;
   display: flex;
   align-items: center;
+}
+
+@media screen and (min-width: 992px) {
+  .brand-link-navbar {
+    overflow: visible !important;
+  }
 }
 
 .brand-link-navbar .brand-text,
@@ -110,15 +115,79 @@ body.is-lang-fading {
   align-items: center;
 }
 
-@media (max-width: 767px) {
-  .brand-link-navbar {
-    max-width: 52vw;
+@media screen and (max-width: 991px) {
+  .container-navbar {
+    gap: 8px;
   }
 
-  .brand-navbar.brand-text {
-    font-size: 1rem;
+  .brand-link-navbar {
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: calc(100% - 6.75rem);
+    height: auto !important;
+    overflow: hidden !important;
+    padding-right: 4px;
+  }
+
+  .brand-navbar.brand-text,
+  .brand-navbar.brand-text strong {
+    font-size: clamp(0.8rem, 2.6vw, 1rem);
+    line-height: 1.15;
     white-space: normal;
-    line-height: 1.2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    word-break: break-word;
+  }
+
+  .right-navbar {
+    flex: 0 0 auto;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 12;
+  }
+
+  .wrap-nav-buttons {
+    flex-shrink: 0;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .lang-switch {
+    margin-right: 0;
+    flex-shrink: 0;
+    padding: 6px 2px;
+    z-index: 13;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .brand-link-navbar {
+    max-width: calc(100% - 6.25rem);
+  }
+
+  .brand-navbar.brand-text,
+  .brand-navbar.brand-text strong {
+    font-size: 0.82rem;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .brand-navbar.brand-text strong {
+    font-size: 0;
+    line-height: 0;
+  }
+
+  .brand-navbar.brand-text strong::before {
+    content: "Studio Pilates";
+    display: block;
+    font-size: 0.84rem;
+    line-height: 1.15;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
@@ -129,12 +198,8 @@ body.is-lang-fading {
   pointer-events: none !important;
 }
 
-@media (max-width: 767px) {
-  .cta.navbar-cta {
-    display: flex;
-    height: 40px;
-    padding-left: 14px;
-    padding-right: 14px;
-    font-size: 13px;
+@media screen and (max-width: 991px) {
+  .wrap-nav-buttons .cta.navbar-cta {
+    display: none !important;
   }
 }

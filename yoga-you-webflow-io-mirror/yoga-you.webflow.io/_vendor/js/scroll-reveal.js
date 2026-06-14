@@ -1,5 +1,10 @@
 (function () {
-  if (!/(^|\/)(pricing|legal)\.html(?:$|[?#])/i.test(window.location.pathname)) {
+  var path = window.location.pathname.toLowerCase();
+  var isTargetPage =
+    /(^|\/)(pricing|legal|classes)\.html(?:$|[?#])/i.test(path) ||
+    /\/en\/(pricing|legal|classes)(?:\.html)?(?:$|[?#])/i.test(path);
+
+  if (!isTargetPage) {
     return;
   }
 
@@ -7,18 +12,28 @@
     return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   }
 
-  function init() {
+  function isInView(el) {
+    var rect = el.getBoundingClientRect();
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    return rect.top < vh * 0.94 && rect.bottom > 0;
+  }
+
+  function revealAll(items) {
+    items.forEach(function (item) {
+      item.classList.add("is-visible");
+    });
+  }
+
+  function startReveal() {
     document.body.classList.add("scroll-reveal-ready");
 
-    var items = document.querySelectorAll(".reveal-on-scroll");
+    var items = Array.prototype.slice.call(document.querySelectorAll(".reveal-on-scroll"));
     if (!items.length) {
       return;
     }
 
     if (prefersReducedMotion() || !("IntersectionObserver" in window)) {
-      items.forEach(function (item) {
-        item.classList.add("is-visible");
-      });
+      revealAll(items);
       return;
     }
 
@@ -31,12 +46,35 @@
           }
         });
       },
-      { root: null, rootMargin: "0px 0px -8% 0px", threshold: 0.12 }
+      { root: null, rootMargin: "0px 0px -4% 0px", threshold: 0.05 }
     );
 
-    items.forEach(function (item) {
-      observer.observe(item);
+    var inViewQueue = [];
+    items.forEach(function (item, index) {
+      if (isInView(item)) {
+        inViewQueue.push({ item: item, index: index });
+      } else {
+        observer.observe(item);
+      }
     });
+
+    var isClassesPage = document.body.classList.contains("page-classes");
+    var baseDelay = isClassesPage ? 180 : 60;
+    var stepDelay = isClassesPage ? 90 : 65;
+
+    inViewQueue.forEach(function (entry) {
+      window.setTimeout(function () {
+        entry.item.classList.add("is-visible");
+      }, baseDelay + entry.index * stepDelay);
+    });
+  }
+
+  function init() {
+    if (document.querySelector('script[src*="hero-unroll.js"]')) {
+      window.setTimeout(startReveal, 320);
+      return;
+    }
+    startReveal();
   }
 
   if (document.readyState === "loading") {

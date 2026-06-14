@@ -1,4 +1,11 @@
 (function () {
+  function isEnglishPage() {
+    return (
+      document.documentElement.lang === "en" ||
+      /\/en(?:\/|$)/.test(window.location.pathname)
+    );
+  }
+
   function initTestimonialsSlider() {
     var section = document.querySelector(".testimonials-slider-section");
     if (!section || section.dataset.carouselReady === "true") return;
@@ -10,6 +17,23 @@
 
     var slides = Array.from(mask.querySelectorAll(".slide-testimonials"));
     if (slides.length < 2) return;
+
+    var en = isEnglishPage();
+    var labels = en
+      ? {
+          prev: "Previous review",
+          next: "Next review",
+          dots: "Customer reviews",
+          dot: "Review ",
+          swipe: "Swipe to browse reviews",
+        }
+      : {
+          prev: "Avis précédent",
+          next: "Avis suivant",
+          dots: "Avis clients",
+          dot: "Avis ",
+          swipe: "Glissez pour parcourir les avis",
+        };
 
     section.dataset.carouselReady = "true";
     slider.classList.remove("w-slider");
@@ -31,27 +55,59 @@
     var layout = document.createElement("div");
     layout.className = "testimonials-slider-layout";
 
+    var controls = document.createElement("div");
+    controls.className = "testimonials-slider-controls";
+
     var prevBtn = document.createElement("button");
     prevBtn.type = "button";
     prevBtn.className = "testimonials-slider-btn testimonials-prev";
-    prevBtn.setAttribute("aria-label", "Avis précédent");
-    prevBtn.textContent = "Préc.";
+    prevBtn.setAttribute("aria-label", labels.prev);
+    prevBtn.innerHTML =
+      '<span class="testimonials-slider-btn-icon" aria-hidden="true">&#8592;</span>';
 
     var nextBtn = document.createElement("button");
     nextBtn.type = "button";
     nextBtn.className = "testimonials-slider-btn testimonials-next";
-    nextBtn.setAttribute("aria-label", "Avis suivant");
-    nextBtn.textContent = "Suiv.";
+    nextBtn.setAttribute("aria-label", labels.next);
+    nextBtn.innerHTML =
+      '<span class="testimonials-slider-btn-icon" aria-hidden="true">&#8594;</span>';
+
+    var dots = document.createElement("div");
+    dots.className = "testimonials-slider-dots";
+    dots.setAttribute("role", "tablist");
+    dots.setAttribute("aria-label", labels.dots);
+
+    var dotButtons = slides.map(function (_slide, i) {
+      var dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "testimonials-slider-dot";
+      dot.setAttribute("role", "tab");
+      dot.setAttribute("aria-label", labels.dot + (i + 1));
+      dot.setAttribute("aria-selected", i === 0 ? "true" : "false");
+      dot.setAttribute("tabindex", i === 0 ? "0" : "-1");
+      dots.appendChild(dot);
+      return dot;
+    });
+
+    var swipeHint = document.createElement("p");
+    swipeHint.className = "testimonials-swipe-hint";
+    swipeHint.setAttribute("aria-hidden", "true");
+    swipeHint.textContent = labels.swipe;
+
+    controls.appendChild(prevBtn);
+    controls.appendChild(dots);
+    controls.appendChild(nextBtn);
 
     master.insertBefore(layout, slider);
-    layout.appendChild(prevBtn);
     layout.appendChild(slider);
-    layout.appendChild(nextBtn);
+    layout.appendChild(controls);
+    layout.appendChild(swipeHint);
 
     var index = 0;
     var autoplayMs = 7000;
     var timer = null;
     var dragThreshold = 6;
+    var hasInteracted = false;
     var drag = {
       active: false,
       pointerId: null,
@@ -59,6 +115,12 @@
       delta: 0,
       base: 0,
     };
+
+    function hideSwipeHint() {
+      if (hasInteracted) return;
+      hasInteracted = true;
+      swipeHint.classList.add("is-hidden");
+    }
 
     function stepSize() {
       return mask.getBoundingClientRect().width;
@@ -76,6 +138,15 @@
       return Math.max(0, Math.min(offsetFor(maxIndex()), px));
     }
 
+    function updateDots() {
+      dotButtons.forEach(function (dot, i) {
+        var active = i === index;
+        dot.classList.toggle("is-active", active);
+        dot.setAttribute("aria-selected", active ? "true" : "false");
+        dot.setAttribute("tabindex", active ? "0" : "-1");
+      });
+    }
+
     function applyTransform(px, animate, slow) {
       track.classList.toggle("is-dragging", !animate);
       track.classList.toggle("is-slow-transition", animate && slow === true);
@@ -85,6 +156,7 @@
     function goTo(i, animate, slow) {
       index = Math.max(0, Math.min(maxIndex(), i));
       applyTransform(offsetFor(index), animate !== false, slow === true);
+      updateDots();
     }
 
     function next(slow) {
@@ -111,6 +183,7 @@
       if (!el) return;
       el.addEventListener("click", function (e) {
         e.preventDefault();
+        hideSwipeHint();
         if (dir === "prev") prev(true);
         else next(true);
         resetAutoplay();
@@ -119,6 +192,15 @@
 
     bindNav(prevBtn, "prev");
     bindNav(nextBtn, "next");
+
+    dotButtons.forEach(function (dot, i) {
+      dot.addEventListener("click", function (e) {
+        e.preventDefault();
+        hideSwipeHint();
+        goTo(i, true, true);
+        resetAutoplay();
+      });
+    });
 
     layout.addEventListener("mouseenter", pauseAutoplay);
     layout.addEventListener("mouseleave", resetAutoplay);
@@ -134,6 +216,7 @@
         drag.active = true;
         track.classList.add("is-dragging");
         pauseAutoplay();
+        hideSwipeHint();
       }
       if (!drag.active) return;
       e.preventDefault();
