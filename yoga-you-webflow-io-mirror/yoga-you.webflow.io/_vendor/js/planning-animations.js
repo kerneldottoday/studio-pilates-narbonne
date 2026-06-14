@@ -1,5 +1,11 @@
 (function () {
-  if (!/(^|\/)planning\.html(?:$|[?#])/i.test(window.location.pathname)) {
+  var path = window.location.pathname.toLowerCase();
+  var isPlanningPage =
+    /(^|\/)planning\.html(?:$|[?#])/i.test(path) ||
+    /(^|\/)planning(?:$|[?#])/i.test(path) ||
+    /\/en\/(schedule|planning)(?:\.html)?(?:$|[?#])/i.test(path);
+
+  if (!isPlanningPage) {
     return;
   }
 

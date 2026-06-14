@@ -1,0 +1,87 @@
+/* Hero accueil : révélation déroulante à l'arrivée sur le site */
+html.hero-unroll-boot .section.hero-home .master-hero-home {
+  clip-path: inset(0 0 100% 0);
+}
+
+html.hero-unroll-boot .section.hero-home .wrap-content-hero-home,
+html.hero-unroll-boot .section.hero-home .scroll-down-home {
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+body.hero-unroll-ready .section.hero-home .master-hero-home {
+  animation: hero-unroll-reveal 1.15s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  will-change: clip-path;
+}
+
+body.hero-unroll-ready .section.hero-home .overlay-hero-home {
+  opacity: 1 !important;
+  transition: opacity 0.9s ease 0.15s;
+}
+
+body.hero-unroll-ready .section.hero-home .wrap-content-hero-home .title-text {
+  opacity: 1 !important;
+  transform: none;
+  transition:
+    opacity 0.65s ease 0.55s,
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.55s;
+}
+
+body.hero-unroll-ready .section.hero-home .wrap-content-hero-home h1 {
+  opacity: 1 !important;
+  transform: none;
+  transition:
+    opacity 0.65s ease 0.68s,
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.68s;
+}
+
+body.hero-unroll-ready .section.hero-home .wrap-content-hero-home .subtitle {
+  opacity: 1 !important;
+  transform: none;
+  transition:
+    opacity 0.65s ease 0.8s,
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.8s;
+}
+
+body.hero-unroll-ready .section.hero-home .wrap-content-hero-home .flex-hero-home-cta {
+  opacity: 1 !important;
+  transform: none;
+  transition:
+    opacity 0.65s ease 0.92s,
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.92s;
+}
+
+body.hero-unroll-ready .section.hero-home .scroll-down-home {
+  opacity: 1 !important;
+  transform: none;
+  transition:
+    opacity 0.55s ease 1.05s,
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1) 1.05s;
+}
+
+@keyframes hero-unroll-reveal {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.hero-unroll-boot .section.hero-home .master-hero-home {
+    clip-path: none;
+  }
+
+  body.hero-unroll-ready .section.hero-home .master-hero-home {
+    animation: none;
+  }
+
+  body.hero-unroll-ready .section.hero-home .wrap-content-hero-home > *,
+  body.hero-unroll-ready .section.hero-home .scroll-down-home,
+  body.hero-unroll-ready .section.hero-home .overlay-hero-home {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

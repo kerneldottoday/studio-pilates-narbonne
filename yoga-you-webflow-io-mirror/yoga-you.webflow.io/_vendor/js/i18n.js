@@ -142,41 +142,6 @@
   var LANG_TRANSITION_MS = 280;
   var langTransitionActive = false;
 
-  var ROUTES = {
-    "homepage.html": { fr: "Accueil", en: "Home" },
-    "classes.html": { fr: "Cours", en: "Classes" },
-    "planning.html": { fr: "Planning", en: "Schedule" },
-    "contact.html": { fr: "Contact", en: "Contact" },
-    "pricing.html": { fr: "Tarifs", en: "Pricing" },
-    "legal.html": { fr: "Mentions-legales", en: "Legal-notice" },
-  };
-
-  function routeForFile(file) {
-    return ROUTES[file] || null;
-  }
-
-  function fileForSlug(segment, isEn) {
-    var key = decodeURIComponent(segment || "");
-    for (var file in ROUTES) {
-      if (!ROUTES.hasOwnProperty(file)) continue;
-      if (isEn && ROUTES[file].en === key) {
-        return file;
-      }
-      if (!isEn && ROUTES[file].fr === key) {
-        return file;
-      }
-    }
-    return null;
-  }
-
-  function publicPathForFile(file, lang) {
-    var route = routeForFile(file);
-    if (!route) {
-      return null;
-    }
-    return lang === "en" ? "/en/" + route.en : "/" + route.fr;
-  }
-
   function isEnPage() {
     var pathname = window.location.pathname || "";
     return pathname.indexOf("/en/") !== -1 || pathname === "/en" || pathname.endsWith("/en");
@@ -198,46 +163,52 @@
     return new Array(depth + 1).join("../");
   }
 
+  var SLUG_FILES = {
+    accueil: "homepage.html",
+    cours: "classes.html",
+    planning: "planning.html",
+    contact: "contact.html",
+    tarifs: "pricing.html",
+    "mentions-legales": "legal.html",
+    home: "homepage.html",
+    classes: "classes.html",
+    schedule: "planning.html",
+    pricing: "pricing.html",
+    "legal-notice": "legal.html",
+  };
+
   function getCanonicalPagePath() {
     var parts = (window.location.pathname || "").split("/").filter(Boolean);
     if (!parts.length) {
       return "homepage.html";
     }
-
-    var isEn = parts[0] === "en";
-    if (isEn) {
+    var file = parts[parts.length - 1];
+    if (!/\.html?$/i.test(file)) {
+      var mapped = SLUG_FILES[file.toLowerCase()];
+      if (mapped) {
+        file = mapped;
+      } else if (file === "en") {
+        return "homepage.html";
+      } else {
+        return "homepage.html";
+      }
+    }
+    parts.pop();
+    if (parts.length && parts[parts.length - 1] === "en") {
+      parts.pop();
+    } else if (parts[0] === "en") {
       parts.shift();
     }
-
+    if (file === "index.html") {
+      file = "homepage.html";
+    }
     if (!parts.length) {
-      return "homepage.html";
+      return file;
     }
-
-    var last = parts[parts.length - 1];
-    if (/\.html?$/i.test(last)) {
-      parts.pop();
-      if (last === "index.html") {
-        last = "homepage.html";
-      }
-      if (!parts.length) {
-        return last;
-      }
-      return parts.join("/") + "/" + last;
-    }
-
-    var mapped = fileForSlug(last, isEn);
-    if (mapped && parts.length === 1) {
-      return mapped;
-    }
-
-    return "homepage.html";
+    return parts.join("/") + "/" + file;
   }
 
   function localeUrl(lang, pagePath) {
-    var publicPath = publicPathForFile(pagePath, lang);
-    if (publicPath) {
-      return publicPath;
-    }
     var prefix = getPathPrefixToRoot();
     if (lang === "en") {
       return prefix + "en/" + pagePath;
@@ -334,30 +305,7 @@
     }
     var pathPart = href.slice(0, end);
     var suffix = href.slice(end);
-
-    if (pathPart.charAt(0) === "/") {
-      var segments = pathPart.split("/").filter(Boolean);
-      var isEnHref = segments[0] === "en";
-      if (isEnHref) {
-        segments.shift();
-      }
-      if (segments.length === 1) {
-        var mapped = fileForSlug(segments[0], isEnHref);
-        if (mapped) {
-          return { path: mapped, suffix: suffix };
-        }
-      }
-    }
-
     if (!/\.html$/i.test(pathPart)) {
-      var slugParts = pathPart.split("/").filter(Boolean);
-      var slug = slugParts[slugParts.length - 1];
-      if (slug && slug !== "." && slug !== "..") {
-        var slugMapped = fileForSlug(slug, false);
-        if (slugMapped) {
-          return { path: slugMapped, suffix: suffix };
-        }
-      }
       return null;
     }
 
@@ -451,7 +399,10 @@
   }
 
   function applyPageMeta(lang) {
-    var page = getCanonicalPagePath();
+    var page = window.location.pathname.split("/").pop() || "homepage.html";
+    if (page === "" || page === "/") {
+      page = "homepage.html";
+    }
     var meta = PAGE_META[page];
     var html = document.documentElement;
     if (!html.dataset.titleFr) {

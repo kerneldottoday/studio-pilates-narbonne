@@ -2,7 +2,9 @@
   var path = window.location.pathname.toLowerCase();
   var isTargetPage =
     /(^|\/)(pricing|legal|classes)\.html(?:$|[?#])/i.test(path) ||
-    /\/en\/(pricing|legal|classes)(?:\.html)?(?:$|[?#])/i.test(path);
+    /\/en\/(pricing|legal|classes)(?:\.html)?(?:$|[?#])/i.test(path) ||
+    /(^|\/)(cours|tarifs|mentions-legales)(?:$|[?#])/i.test(path) ||
+    /\/en\/(classes|pricing|legal-notice)(?:$|[?#])/i.test(path);
 
   if (!isTargetPage) {
     return;
