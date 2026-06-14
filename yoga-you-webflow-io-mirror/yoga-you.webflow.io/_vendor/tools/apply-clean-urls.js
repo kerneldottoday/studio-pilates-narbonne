@@ -44,20 +44,13 @@ function rewriteHtmlLinks(html, fromRelPath) {
 }
 
 function patchIndexHtml() {
+  const homepagePath = path.join(ROOT, "homepage.html");
   const indexPath = path.join(ROOT, "index.html");
-  let html = fs.readFileSync(indexPath, "utf8");
-  html = html
-    .replace(/url=homepage\.html/g, "url=/")
-    .replace(/href="homepage\.html"/g, 'href="/"')
-    .replace(/location\.replace\("homepage\.html"\)/g, 'location.replace("/")');
-  for (const origin of ORIGINS) {
-    html = html
-      .split(origin + "/homepage.html")
-      .join(origin + "/")
-      .split(origin + "/en/homepage.html")
-      .join(origin + "/en");
+  if (!fs.existsSync(homepagePath)) {
+    return;
   }
-  fs.writeFileSync(indexPath, html, "utf8");
+  // index.html est servi à / par Vercel avant le rewrite : il doit contenir la page d'accueil, pas une redirection vers /.
+  fs.copyFileSync(homepagePath, indexPath);
 }
 
 function writeVercelJson(pages) {

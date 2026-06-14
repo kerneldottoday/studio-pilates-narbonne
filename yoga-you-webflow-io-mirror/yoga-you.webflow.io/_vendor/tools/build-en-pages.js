@@ -388,6 +388,20 @@ function cleanEnDir() {
   fs.mkdirSync(EN_DIR, { recursive: true });
 }
 
+function syncIndexFiles() {
+  const homepagePath = path.join(ROOT, "homepage.html");
+  const indexPath = path.join(ROOT, "index.html");
+  if (fs.existsSync(homepagePath)) {
+    fs.copyFileSync(homepagePath, indexPath);
+  }
+
+  const enHome = path.join(EN_DIR, "homepage.html");
+  const enIndex = path.join(EN_DIR, "index.html");
+  if (fs.existsSync(enHome)) {
+    fs.copyFileSync(enHome, enIndex);
+  }
+}
+
 function main() {
   const textMap = loadTextMap();
   const pages = [];
@@ -409,6 +423,7 @@ function main() {
 
   console.log("Generated " + count + " English page(s) under /en/");
   patchFrenchHreflang();
+  syncIndexFiles();
 }
 
 main();
