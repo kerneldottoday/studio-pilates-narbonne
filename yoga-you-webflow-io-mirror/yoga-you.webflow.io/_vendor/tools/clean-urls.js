@@ -6,6 +6,9 @@ const path = require("path");
 
 const SKIP_DIRS = new Set(["65939d1f139e1daa37da455f", "en", "_vendor"]);
 
+/** Pages légales KERNEL — une seule URL FR pour les deux langues. */
+const FR_ONLY_PAGES = new Set(["mentions-legales"]);
+
 const CLASS_SLUG_REDIRECTS = [
   { source: "/classes/intense-1-hour-pilates", destination: "/classes/reformer-homme" },
   { source: "/classes/intense-1-hour-pilates.html", destination: "/classes/reformer-homme" },
@@ -39,13 +42,16 @@ const LEGACY_REDIRECTS = [
   { source: "/Planning", destination: "/planning" },
   { source: "/Contact", destination: "/contact" },
   { source: "/Tarifs", destination: "/pricing" },
-  { source: "/Mentions-legales", destination: "/legal" },
+  { source: "/Mentions-legales", destination: "/mentions-legales" },
+  { source: "/en/Mentions-legales", destination: "/mentions-legales" },
   { source: "/en/Home", destination: "/en" },
   { source: "/en/Classes", destination: "/en/classes" },
   { source: "/en/Schedule", destination: "/en/planning" },
   { source: "/en/Contact", destination: "/en/contact" },
   { source: "/en/Pricing", destination: "/en/pricing" },
   { source: "/en/Legal-notice", destination: "/en/legal" },
+  { source: "/en/mentions-legales", destination: "/mentions-legales" },
+  { source: "/en/mentions-legales.html", destination: "/mentions-legales" },
 ];
 
 function listPublicHtmlPages(dir, base, out) {
@@ -65,6 +71,9 @@ function listPublicHtmlPages(dir, base, out) {
 function fileToCleanUrl(relPath, locale) {
   const normalized = relPath.replace(/\\/g, "/");
   const base = normalized.replace(/\.html$/i, "");
+  if (FR_ONLY_PAGES.has(base)) {
+    return "/" + base;
+  }
   if (base === "homepage" || base === "index") {
     return locale === "en" ? "/en" : "/";
   }
@@ -142,7 +151,9 @@ function buildVercelRoutes(pages) {
     }
   }
 
-  const enPages = pages.filter((p) => p !== "index.html");
+  const enPages = pages.filter(
+    (p) => p !== "index.html" && !FR_ONLY_PAGES.has(p.replace(/\.html$/i, ""))
+  );
   for (const rel of enPages) {
     const enClean = fileToCleanUrl(rel, "en");
     const dest = "/en/" + rel;
@@ -163,6 +174,7 @@ function hreflangUrl(origin, relPath, locale) {
 
 module.exports = {
   SKIP_DIRS,
+  FR_ONLY_PAGES,
   LEGACY_REDIRECTS,
   listPublicHtmlPages,
   fileToCleanUrl,

@@ -73,6 +73,29 @@
   background: rgba(245, 243, 238, 0.28);
 }
 
+section.footer .footer-kernel-credit {
+  margin-top: 0.35rem;
+  font-size: 0.875rem;
+  color: rgba(245, 243, 238, 0.52);
+}
+
+section.footer .footer-kernel-credit__link {
+  color: rgba(245, 243, 238, 0.68);
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+}
+
+section.footer .footer-kernel-credit__link:hover,
+section.footer .footer-kernel-credit__link:focus-visible {
+  color: rgba(245, 243, 238, 0.92);
+}
+
+@media (max-width: 767px) {
+  section.footer .footer-kernel-credit {
+    margin-top: 0.5rem;
+  }
+}
+
 /* Fiches cours : bouton play retiré (pas de vidéo studio pour le moment) */
 img.play-class {
   display: none !important;

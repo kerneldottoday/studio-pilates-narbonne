@@ -4,7 +4,7 @@
  */
 const fs = require("fs");
 const path = require("path");
-const { resolveHrefToFile, hrefForFile, hreflangUrl } = require("./clean-urls");
+const { resolveHrefToFile, hrefForFile, hreflangUrl, FR_ONLY_PAGES } = require("./clean-urls");
 const { stripClassPlayButton } = require("./strip-class-play-button");
 const { injectClassBookingCta } = require("./inject-class-booking-cta");
 
@@ -714,6 +714,7 @@ function syncIndexFiles() {
 
 function main() {
   const textMap = loadTextMap();
+  require("./patch-mentions-legales-page").main();
   const pages = [];
   listHtmlPages(ROOT, ROOT, pages);
 
@@ -721,6 +722,9 @@ function main() {
 
   let count = 0;
   for (const relPath of pages.sort()) {
+    if (FR_ONLY_PAGES.has(relPath.replace(/\.html$/i, ""))) {
+      continue;
+    }
     const src = path.join(ROOT, relPath);
     const dest = path.join(EN_DIR, relPath);
     fs.mkdirSync(path.dirname(dest), { recursive: true });
@@ -741,6 +745,8 @@ function main() {
   require("./strip-class-play-button").main();
   require("./inject-class-booking-cta").main();
   require("./patch-classes-animations").main();
+  require("./strip-kernel-footer").main();
+  require("./patch-footer-kernel-credit").main();
   runFrResidueReport();
 }
 

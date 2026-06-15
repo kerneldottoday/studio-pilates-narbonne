@@ -91,6 +91,12 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://studiopilatesnarbonne.com/legal" />
   </url>
   <url>
+    <loc>https://studiopilatesnarbonne.com/mentions-legales</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://studiopilatesnarbonne.com/mentions-legales" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://studiopilatesnarbonne.com/mentions-legales" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://studiopilatesnarbonne.com/mentions-legales" />
+  </url>
+  <url>
     <loc>https://studiopilatesnarbonne.com/planning</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://studiopilatesnarbonne.com/planning" />
     <xhtml:link rel="alternate" hreflang="en" href="https://studiopilatesnarbonne.com/en/planning" />

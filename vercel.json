@@ -171,7 +171,17 @@
     },
     {
       "source": "/Mentions-legales",
-      "destination": "/legal",
+      "destination": "/mentions-legales",
+      "permanent": true
+    },
+    {
+      "source": "/en/mentions-legales",
+      "destination": "/mentions-legales",
+      "permanent": true
+    },
+    {
+      "source": "/en/mentions-legales.html",
+      "destination": "/mentions-legales",
       "permanent": true
     },
     {
@@ -317,6 +327,11 @@
     {
       "source": "/legal.html",
       "destination": "/legal",
+      "permanent": true
+    },
+    {
+      "source": "/mentions-legales.html",
+      "destination": "/mentions-legales",
       "permanent": true
     },
     {
@@ -625,6 +640,10 @@
     {
       "source": "/legal",
       "destination": "/legal.html"
+    },
+    {
+      "source": "/mentions-legales",
+      "destination": "/mentions-legales.html"
     },
     {
       "source": "/planning",
