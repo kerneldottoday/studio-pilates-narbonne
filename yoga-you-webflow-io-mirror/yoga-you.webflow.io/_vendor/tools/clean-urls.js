@@ -6,6 +6,33 @@ const path = require("path");
 
 const SKIP_DIRS = new Set(["65939d1f139e1daa37da455f", "en", "_vendor"]);
 
+const CLASS_SLUG_REDIRECTS = [
+  { source: "/classes/intense-1-hour-pilates", destination: "/classes/reformer-homme" },
+  { source: "/classes/intense-1-hour-pilates.html", destination: "/classes/reformer-homme" },
+  { source: "/en/classes/intense-1-hour-pilates", destination: "/en/classes/reformer-homme" },
+  { source: "/en/classes/intense-1-hour-pilates.html", destination: "/en/classes/reformer-homme" },
+  { source: "/classes/30-minutes-morning-yoga", destination: "/classes/pilates-mat" },
+  { source: "/classes/30-minutes-morning-yoga.html", destination: "/classes/pilates-mat" },
+  { source: "/en/classes/30-minutes-morning-yoga", destination: "/en/classes/pilates-mat" },
+  { source: "/en/classes/30-minutes-morning-yoga.html", destination: "/en/classes/pilates-mat" },
+  { source: "/classes/30-minutes-chair-yoga", destination: "/classes/cours-prive" },
+  { source: "/classes/30-minutes-chair-yoga.html", destination: "/classes/cours-prive" },
+  { source: "/en/classes/30-minutes-chair-yoga", destination: "/en/classes/cours-prive" },
+  { source: "/en/classes/30-minutes-chair-yoga.html", destination: "/en/classes/cours-prive" },
+  { source: "/classes/disconnect-breathwork", destination: "/classes/reset" },
+  { source: "/classes/disconnect-breathwork.html", destination: "/classes/reset" },
+  { source: "/en/classes/disconnect-breathwork", destination: "/en/classes/reset" },
+  { source: "/en/classes/disconnect-breathwork.html", destination: "/en/classes/reset" },
+  { source: "/classes/yoga-for-focus", destination: "/classes/yoga-ashtanga" },
+  { source: "/classes/yoga-for-focus.html", destination: "/classes/yoga-ashtanga" },
+  { source: "/en/classes/yoga-for-focus", destination: "/en/classes/yoga-ashtanga" },
+  { source: "/en/classes/yoga-for-focus.html", destination: "/en/classes/yoga-ashtanga" },
+  { source: "/classes/1-hour-pilates", destination: "/classes/pilates-reformer" },
+  { source: "/classes/1-hour-pilates.html", destination: "/classes/pilates-reformer" },
+  { source: "/en/classes/1-hour-pilates", destination: "/en/classes/pilates-reformer" },
+  { source: "/en/classes/1-hour-pilates.html", destination: "/en/classes/pilates-reformer" },
+];
+
 const LEGACY_REDIRECTS = [
   { source: "/Accueil", destination: "/" },
   { source: "/Cours", destination: "/classes" },
@@ -100,7 +127,7 @@ function buildVercelRoutes(pages) {
     { source: "/en/index.html", destination: "/en", permanent: true },
   ];
 
-  for (const rule of LEGACY_REDIRECTS) {
+  for (const rule of CLASS_SLUG_REDIRECTS.concat(LEGACY_REDIRECTS)) {
     redirects.push({ source: rule.source, destination: rule.destination, permanent: true });
   }
 

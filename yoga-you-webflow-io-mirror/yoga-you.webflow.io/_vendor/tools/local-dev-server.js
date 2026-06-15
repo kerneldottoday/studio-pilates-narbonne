@@ -86,6 +86,14 @@ function sendFile(res, filePath) {
   fs.createReadStream(filePath).pipe(res);
 }
 
+function get404Fallback(urlPath) {
+  const normalized = (urlPath || "/").replace(/\/+$/, "") || "/";
+  if (normalized.startsWith("/en") && normalized !== "/en/404") {
+    return safeFilePath("/en/404.html");
+  }
+  return safeFilePath("/404.html");
+}
+
 function servePath(res, urlPath) {
   let filePath = safeFilePath(urlPath);
   if (!filePath) {
@@ -114,7 +122,7 @@ function servePath(res, urlPath) {
   }
 
   if (!fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {
-    const fallback = safeFilePath("/404.html");
+    const fallback = get404Fallback(urlPath.startsWith("/") ? urlPath : "/" + urlPath);
     if (fallback && fs.existsSync(fallback)) {
       res.writeHead(404, { "Content-Type": "text/html; charset=utf-8" });
       fs.createReadStream(fallback).pipe(res);

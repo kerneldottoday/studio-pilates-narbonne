@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const h = fs.readFileSync(
-  path.join(__dirname, "..", "..", "classes/1-hour-pilates.html"),
+  path.join(__dirname, "..", "..", "classes/pilates-reformer.html"),
   "utf8"
 );
 const i = h.indexOf("image-combo-halves");

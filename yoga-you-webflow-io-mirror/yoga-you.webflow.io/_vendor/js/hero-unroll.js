@@ -32,7 +32,7 @@
       document.body.classList.add("hero-unroll-ready");
       window.setTimeout(function () {
         document.documentElement.classList.remove("hero-unroll-boot");
-      }, hero ? 1300 : 700);
+      }, hero ? 850 : 400);
     });
   }
 

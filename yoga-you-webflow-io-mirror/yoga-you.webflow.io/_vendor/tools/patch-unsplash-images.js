@@ -103,12 +103,12 @@ function patchClassesData() {
   const dataPath = path.join(root, "_vendor/content/classes-data.json");
   const data = JSON.parse(fs.readFileSync(dataPath, "utf8"));
   const map = {
-    "1-hour-pilates.html": "stock/class-reformer",
-    "intense-1-hour-pilates.html": "stock/class-reformer-homme",
-    "30-minutes-morning-yoga.html": "stock/class-mat",
-    "yoga-for-focus.html": "stock/class-ashtanga",
-    "disconnect-breathwork.html": "stock/class-reset",
-    "30-minutes-chair-yoga.html": "stock/class-prive",
+    "pilates-reformer.html": "stock/class-reformer",
+    "reformer-homme.html": "stock/class-reformer-homme",
+    "pilates-mat.html": "stock/class-mat",
+    "yoga-ashtanga.html": "stock/class-ashtanga",
+    "reset.html": "stock/class-reset",
+    "cours-prive.html": "stock/class-prive",
   };
 
   Object.keys(map).forEach(function (slug) {

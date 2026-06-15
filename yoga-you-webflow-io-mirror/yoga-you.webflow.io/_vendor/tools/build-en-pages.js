@@ -5,10 +5,12 @@
 const fs = require("fs");
 const path = require("path");
 const { resolveHrefToFile, hrefForFile, hreflangUrl } = require("./clean-urls");
+const { stripClassPlayButton } = require("./strip-class-play-button");
+const { injectClassBookingCta } = require("./inject-class-booking-cta");
 
 const ROOT = path.join(__dirname, "..", "..");
 const EN_DIR = path.join(ROOT, "en");
-const SITE_ORIGIN = "https://studio-pilates-narbonne.vercel.app";
+const SITE_ORIGIN = "https://studiopilatesnarbonne.com";
 
 const SKIP_DIRS = new Set(["65939d1f139e1daa37da455f", "en", "_vendor"]);
 const ASSET_ROOTS = ["_vendor/", "65939d1f139e1daa37da455f/"];
@@ -91,7 +93,141 @@ const PAGE_META = {
     title: "Supplements | Studio Pilates Narbonne",
     description: "Nutrition and supplement guidance for your Pilates and yoga practice.",
   },
+  "401.html": {
+    title: "Protected | Studio Pilates Narbonne",
+    description: "This page is protected.",
+  },
+  "404.html": {
+    title: "Page not found | Studio Pilates Narbonne",
+    description: "The page you are looking for does not exist or has been moved.",
+  },
 };
+
+const CLASSES_PAGE_META = {
+  "classes/pilates-reformer.html": {
+    title: "Pilates Reformer | Studio Pilates Narbonne",
+    description:
+      "Pilates Reformer small-group class in Narbonne with Souhila Chekara. Precise machine work, 1 hr, €32. Book on bsport.",
+  },
+  "classes/reformer-homme.html": {
+    title: "Reformer for Men | Studio Pilates Narbonne",
+    description:
+      "Men-only Pilates Reformer class in Narbonne. Small group, 1 hr with Souhila Chekara. Book on bsport.",
+  },
+  "classes/pilates-mat.html": {
+    title: "Pilates Mat | Studio Pilates Narbonne",
+    description:
+      "Pilates Mat floor class in Narbonne: strengthening, posture and alignment. 1 hr, €12.50. Book on bsport.",
+  },
+  "classes/yoga-ashtanga.html": {
+    title: "Ashtanga Yoga | Studio Pilates Narbonne",
+    description:
+      "Ashtanga Yoga in Narbonne: dynamic flowing practice, 1 hr 30 with Souhila Chekara. €12.50. Book on bsport.",
+  },
+  "classes/reset.html": {
+    title: "RESET | Studio Pilates Narbonne",
+    description:
+      "RESET at Studio Pilates Narbonne: a journey in 10 tracks to harmonise body and mind. 1 hr of release with Souhila Chekara.",
+  },
+  "classes/cours-prive.html": {
+    title: "Private class | Studio Pilates Narbonne",
+    description:
+      "Private Pilates or Yoga session in Narbonne with Souhila Chekara. Tailored 1 hr session. Book on bsport.",
+  },
+  "duration/1-hour.html": {
+    title: "1-hour classes | Studio Pilates Narbonne",
+    description: "One-hour Pilates Reformer, Mat and Yoga classes at Studio Pilates Narbonne.",
+  },
+  "duration/30-minutes.html": {
+    title: "30-minute classes | Studio Pilates Narbonne",
+    description: "30-minute classes at Studio Pilates Narbonne.",
+  },
+  "duration/10-minutes.html": {
+    title: "10-minute classes | Studio Pilates Narbonne",
+    description: "10-minute classes at Studio Pilates Narbonne.",
+  },
+  "type/pilates.html": {
+    title: "Pilates classes | Studio Pilates Narbonne",
+    description: "Pilates Reformer and Mat classes at Studio Pilates Narbonne, Narbonne.",
+  },
+  "type/yoga.html": {
+    title: "Yoga classes | Studio Pilates Narbonne",
+    description: "Ashtanga Yoga classes at Studio Pilates Narbonne, Narbonne.",
+  },
+  "type/breathwork.html": {
+    title: "RESET classes | Studio Pilates Narbonne",
+    description: "RESET wellbeing sessions at Studio Pilates Narbonne.",
+  },
+};
+
+const COMMERCE_PAGES = new Set([
+  "checkout.html",
+  "search.html",
+  "product/single-class.html",
+  "product/5-classes.html",
+  "product/10-classes.html",
+]);
+
+const OG_IMAGE_DEFAULT = SITE_ORIGIN + "/_vendor/media/stock/og-studio.jpg";
+
+function getPageMeta(relPath) {
+  return PAGE_META[relPath] || CLASSES_PAGE_META[relPath] || null;
+}
+
+function translateStringWithMap(text, textMap) {
+  const keys = Object.keys(textMap).sort((a, b) => b.length - a.length);
+  let out = text;
+  for (const fr of keys) {
+    const en = textMap[fr];
+    if (!fr || fr === en || !out.includes(fr)) continue;
+    out = out.split(fr).join(en);
+  }
+  return out;
+}
+
+function translateMetaTags(html, textMap) {
+  return html.replace(/<meta content="([^"]*)" ([^>]+)\/>/g, function (_m, content, attrs) {
+    if (!/(description|og:|twitter:)/.test(attrs)) return _m;
+    const translated = translateStringWithMap(content, textMap);
+    if (translated === content) return _m;
+    return '<meta content="' + translated.replace(/"/g, "&quot;") + '" ' + attrs + "/>";
+  });
+}
+
+function injectOgUrl(html, relPath, locale) {
+  const url = hreflangUrl(SITE_ORIGIN, relPath, locale);
+  const tag = '<meta content="' + url + '" property="og:url"/>\n';
+  if (html.includes('property="og:url"')) {
+    return html.replace(/<meta content="[^"]*" property="og:url"\/>/, tag.trim());
+  }
+  return html.replace("</head>", tag + "</head>");
+}
+
+function absolutizeOgImages(html) {
+  return html
+    .replace(
+      /<meta content="(?:\.\.\/)*(_vendor\/[^"]+)" property="og:image"\/>/g,
+      '<meta content="' + SITE_ORIGIN + '/$1" property="og:image"/>'
+    )
+    .replace(
+      /<meta content="(?:\.\.\/)*(_vendor\/[^"]+)" name="twitter:image"\/>/g,
+      '<meta content="' + SITE_ORIGIN + '/$1" name="twitter:image"/>'
+    );
+}
+
+function polishEnHtml(html, relPath) {
+  let out = html.replace(/data-wf-domain="[^"]*"/g, 'data-wf-domain="studiopilatesnarbonne.com"');
+  if (!COMMERCE_PAGES.has(relPath)) {
+    out = out.replace(/<script type="text\/javascript">window\.__WEBFLOW_CURRENCY_SETTINGS[\s\S]*?<\/script>/g, "");
+  }
+  if (!out.includes('property="og:image"')) {
+    out = out.replace(
+      "</head>",
+      '<meta content="' + OG_IMAGE_DEFAULT + '" property="og:image"/>\n</head>'
+    );
+  }
+  return out;
+}
 
 const EXTRA_MAP = {
   "Accueil": "Home",
@@ -139,13 +275,26 @@ const EXTRA_MAP = {
   "Compléments alimentaires": "Supplements",
   "Sommaire juridique": "Legal contents",
   "aria-label=\"Sommaire juridique\"": 'aria-label="Legal contents"',
+  "Retour à l'accueil": "Back to home",
+  "Not Found": "Page not found",
 };
+
+function parseJsMapFile(raw, exportName) {
+  const match = raw.match(new RegExp(exportName + "\\s*=\\s*(\\{[\\s\\S]*\\})\\s*;?\\s*$"));
+  if (!match) return {};
+  return Function("return (" + match[1] + ")")();
+}
 
 function loadTextMap() {
   const raw = fs.readFileSync(path.join(ROOT, "_vendor", "i18n", "text-map.js"), "utf8");
-  const jsonish = raw.replace(/^window\.STUDIO_TEXT_MAP\s*=\s*/, "").replace(/;\s*$/, "");
-  const map = Function("return (" + jsonish + ")")();
-  return Object.assign({}, map, EXTRA_MAP);
+  const map = parseJsMapFile(raw, "window\\.STUDIO_TEXT_MAP");
+  let supplement = {};
+  const supplementPath = path.join(ROOT, "_vendor", "i18n", "text-map-supplement.js");
+  if (fs.existsSync(supplementPath)) {
+    const supRaw = fs.readFileSync(supplementPath, "utf8");
+    supplement = parseJsMapFile(supRaw, "window\\.STUDIO_TEXT_MAP_SUPPLEMENT");
+  }
+  return Object.assign({}, map, supplement, EXTRA_MAP);
 }
 
 function listHtmlPages(dir, base, out) {
@@ -181,16 +330,29 @@ function encodeHtmlQuotes(s) {
   return s.replace(/"/g, "&quot;");
 }
 
+function htmlAmpEntity(s) {
+  return s.replace(/&/g, "&amp;");
+}
+
 function applyTextMap(html, map) {
   const keys = Object.keys(map).sort((a, b) => b.length - a.length);
   let out = html;
   for (const fr of keys) {
     const en = map[fr];
     if (!fr || fr === en) continue;
-    out = out.split(">" + fr + "<").join(">" + en + "<");
-    out = out.split(">" + encodeHtmlQuotes(fr) + "<").join(">" + encodeHtmlQuotes(en) + "<");
-    out = out.split('"' + fr + '"').join('"' + en + '"');
-    out = out.split("'" + fr + "'").join("'" + en + "'");
+    const variants = [fr, htmlAmpEntity(fr), encodeHtmlQuotes(fr), htmlAmpEntity(encodeHtmlQuotes(fr))];
+    const enVariants = [en, htmlAmpEntity(en), encodeHtmlQuotes(en), htmlAmpEntity(encodeHtmlQuotes(en))];
+    for (let i = 0; i < variants.length; i++) {
+      const frV = variants[i];
+      const enV = enVariants[i];
+      out = out.split(">" + frV + "<").join(">" + enV + "<");
+      out = out.split('"' + frV + '"').join('"' + enV + '"');
+      out = out.split("'" + frV + "'").join("'" + enV + "'");
+    }
+    if (fr.length >= 40) {
+      out = out.split(fr).join(en);
+      out = out.split(htmlAmpEntity(fr)).join(htmlAmpEntity(en));
+    }
   }
   return out;
 }
@@ -282,7 +444,7 @@ function setHtmlLangEn(html) {
 }
 
 function applyPageMeta(html, relPath) {
-  const meta = PAGE_META[relPath];
+  const meta = getPageMeta(relPath);
   if (!meta) return html;
   if (meta.title) {
     html = html.replace(/<title>[^<]*<\/title>/, "<title>" + meta.title + "</title>");
@@ -291,8 +453,8 @@ function applyPageMeta(html, relPath) {
       '<meta content="' + meta.title + '" property="og:title"/>'
     );
     html = html.replace(
-      /<meta content="[^"]*" name="twitter:title"\/>/,
-      '<meta content="' + meta.title + '" name="twitter:title"/>'
+      /<meta content="[^"]*" (?:name|property)="twitter:title"\/>/g,
+      '<meta content="' + meta.title + '" property="twitter:title"/>'
     );
   }
   if (meta.description) {
@@ -305,17 +467,25 @@ function applyPageMeta(html, relPath) {
       '<meta content="' + meta.description + '" property="og:description"/>'
     );
     html = html.replace(
-      /<meta content="[^"]*" name="twitter:description"\/>/,
-      '<meta content="' + meta.description + '" name="twitter:description"/>'
+      /<meta content="[^"]*" (?:name|property)="twitter:description"\/>/g,
+      '<meta content="' + meta.description + '" property="twitter:description"/>'
     );
   }
   return html;
 }
 
-function injectHreflang(html, relPath) {
+function stripHreflang(html) {
+  return html.replace(/\s*<link rel="alternate" hreflang="[^"]*" href="[^"]*"\s*\/?>\n?/g, "");
+}
+
+function stripCanonical(html) {
+  return html.replace(/\s*<link rel="canonical" href="[^"]*"\s*\/?>\n?/g, "");
+}
+
+function buildHreflangBlock(relPath) {
   const frUrl = hreflangUrl(SITE_ORIGIN, relPath, "fr");
   const enUrl = hreflangUrl(SITE_ORIGIN, relPath, "en");
-  const block =
+  return (
     '<link rel="alternate" hreflang="fr" href="' +
     frUrl +
     '" />\n' +
@@ -324,32 +494,81 @@ function injectHreflang(html, relPath) {
     '" />\n' +
     '<link rel="alternate" hreflang="x-default" href="' +
     frUrl +
-    '" />\n';
-  if (html.includes('hreflang="fr"')) return html;
-  return html.replace("</head>", block + "</head>");
+    '" />\n'
+  );
 }
 
-function patchFrenchHreflang() {
+function injectHreflang(html, relPath) {
+  const block = buildHreflangBlock(relPath);
+  return stripHreflang(html).replace("</head>", block + "</head>");
+}
+
+function injectCanonical(html, relPath, locale) {
+  const url = hreflangUrl(SITE_ORIGIN, relPath, locale);
+  const tag = '<link rel="canonical" href="' + url + '" />\n';
+  let out = stripCanonical(html);
+  return out.replace("</head>", tag + "</head>");
+}
+
+function polishFrenchHtml(html, relPath) {
+  let out = html.replace(/data-wf-domain="[^"]*"/g, 'data-wf-domain="studiopilatesnarbonne.com"');
+  if (!COMMERCE_PAGES.has(relPath)) {
+    out = out.replace(/<script type="text\/javascript">window\.__WEBFLOW_CURRENCY_SETTINGS[\s\S]*?<\/script>/g, "");
+  }
+  out = absolutizeOgImages(out);
+  out = injectOgUrl(out, relPath, "fr");
+  if (!out.includes('property="og:image"')) {
+    out = out.replace(
+      "</head>",
+      '<meta content="' + OG_IMAGE_DEFAULT + '" property="og:image"/>\n</head>'
+    );
+  }
+  return out;
+}
+
+function patchFrenchSeo() {
   const pages = [];
   listHtmlPages(ROOT, ROOT, pages);
   let patched = 0;
   for (const relPath of pages) {
     const file = path.join(ROOT, relPath);
-    const html = fs.readFileSync(file, "utf8");
-    if (html.includes('hreflang="fr"')) continue;
-    const next = injectHreflang(html, relPath);
+    let html = fs.readFileSync(file, "utf8");
+    let next = injectHreflang(html, relPath);
+    next = injectCanonical(next, relPath, "fr");
+    next = polishFrenchHtml(next, relPath);
     if (next !== html) {
       fs.writeFileSync(file, next, "utf8");
       patched++;
     }
   }
   if (patched) {
-    console.log("Added hreflang to " + patched + " French page(s)");
+    console.log("Refreshed SEO on " + patched + " French page(s)");
   }
+}
+
+function stripFrenchLegalBlocks(html) {
+  const markerFr = '<div class="legal-lang-fr">';
+  const markerEn = '<div class="legal-lang-en">';
+  let out = html;
+  let idx;
+  while ((idx = out.indexOf(markerFr)) !== -1) {
+    const enIdx = out.indexOf(markerEn, idx);
+    if (enIdx === -1) break;
+    out = out.slice(0, idx) + out.slice(enIdx);
+  }
+  return out;
 }
 
 function applyPostReplacements(html) {
   return html
+    .replace(
+      /Non\. All-levels classes are offered and Souhila adapts exercises to each participant\. Les débutants sont les bienvenus\. N'hésitez pas à nous indiquer que c'est votre première séance lors de la réservation\./g,
+      "No. All-levels classes are offered and Souhila adapts exercises to each participant. Beginners are welcome. Please mention it's your first session when booking."
+    )
+    .replace(
+      /Small-group Reformer class, precise full-body work true to the original method\. 32 € la séance\./g,
+      "Small-group Reformer class, precise full-body work true to the original method. €32 per class."
+    )
     .replace(
       /<p>Consultez le <a href="\/en\/planning\.html">weekly schedule<\/a> pour voir les créneaux Reformer du mardi au samedi\.<\/p>/g,
       '<p>See the <a href="/en/planning">weekly schedule</a> to see Reformer slots from Tuesday to Saturday.</p>'
@@ -357,7 +576,86 @@ function applyPostReplacements(html) {
     .replace(
       /<p>See the <a href="[^"]*planning[^"]*">weekly schedule<\/a> pour voir les créneaux Reformer du mardi au samedi\.<\/p>/g,
       '<p>See the <a href="/en/planning">weekly schedule</a> to see Reformer slots from Tuesday to Saturday.</p>'
-    );
+    )
+    .replace(/ – échauffement/g, " – warm-up")
+    .replace(/ – énergie/g, " – energy")
+    .replace(/ – jambes/g, " – legs")
+    .replace(/ – stabilité/g, " – stability")
+    .replace(/ – souplesse/g, " – flexibility")
+    .replace(/ – gainage/g, " – core work")
+    .replace(/ – posture/g, " – posture")
+    .replace(/ – mobilité/g, " – mobility")
+    .replace(/ – détente/g, " – relaxation")
+    .replace(/ – sérénité/g, " – serenity")
+    .replace(/Pilates Reformer, Mat et cours privés au studio\./g, "Pilates Reformer, Mat and private sessions at the studio.")
+    .replace(/Booking : sur bsport \(créneau « Homme »\)/g, "Booking: on bsport (Men slot)")
+    .replace(/Booking : obligatoire sur bsport/g, "Booking: required on bsport")
+    .replace(/Booking : sur bsport/g, "Booking: on bsport")
+    .replace(/Level : tous niveaux/g, "Level: all levels")
+    .replace(/Level : créneau réservé aux hommes/g, "Level: men-only slot")
+    .replace(/Price : 32 € la séance/g, "Price: €32 per class")
+    .replace(/Price : 12,50 € la séance/g, "Price: €12.50 per class")
+    .replace(/Duration : 1 heure/g, "Duration: 1 hour")
+    .replace(/<strong>Durée<\/strong> : 1 heure/g, "<strong>Duration</strong>: 1 hour")
+    .replace(/<strong>Tarif<\/strong> : 12,50 € la séance/g, "<strong>Price</strong>: €12.50 per class")
+    .replace(/<strong>Niveau<\/strong> : tous niveaux/g, "<strong>Level</strong>: all levels")
+    .replace(/<strong>Réservation<\/strong> : sur /g, "<strong>Booking</strong>: on ")
+    .replace(
+      /<strong>Objectifs personnalisés<\/strong> : posture, rééducation, renforcement, souplesse…/g,
+      "<strong>Personalised goals</strong>: posture, rehabilitation, strengthening, flexibility…"
+    )
+    .replace(
+      /<strong>Flexibilité<\/strong> : créneau sur rendez-vous selon vos disponibilités\./g,
+      "<strong>Flexibility</strong>: appointment slots according to your availability."
+    )
+    .replace(
+      /<strong>Corrections personnalisées<\/strong> : le nombre de participants est limité pour un vrai suivi\./g,
+      "<strong>Personalised corrections</strong>: limited class size for real guidance."
+    )
+    .replace(
+      /<strong>Authentic method<\/strong> : exercices fidèles à l'enseignement de Joseph Pilates\./g,
+      "<strong>Authentic method</strong>: exercises true to Joseph Pilates' teaching."
+    )
+    .replace(
+      /<strong>Safe progression<\/strong> : séances intermédiaires, tous niveaux ou hommes selon le créneau\./g,
+      "<strong>Safe progression</strong>: intermediate, all-levels or men's sessions depending on the slot."
+    )
+    .replace(
+      /<strong>Centre et stabilité<\/strong> : muscles profonds, gainage et alignement\./g,
+      "<strong>Core and stability</strong>: deep muscles, engagement and alignment."
+    )
+    .replace(
+      /<strong>Breath<\/strong> : coordination souffle et mouvement, pilier de la méthode\./g,
+      "<strong>Breath</strong>: coordinating breath and movement, a pillar of the method."
+    )
+    .replace(
+      /<strong>Force et souplesse<\/strong> : exercices complets adaptés à tous les niveaux\./g,
+      "<strong>Strength and flexibility</strong>: complete exercises adapted to all levels."
+    )
+    .replace(
+      /<strong>Progression douce<\/strong> : corrections personnalisées dans un cadre calme\./g,
+      "<strong>Gentle progress</strong>: personalised corrections in a calm setting."
+    )
+    .replace(
+      /<strong>Price<\/strong> : 32 € la séance · cartes 5 et 10 cours disponibles/g,
+      "<strong>Price</strong>: €32 per class · 5- and 10-class packs available"
+    )
+    .replace(
+      /<strong>Price<\/strong> : 12,50 € la séance · carte 5 cours Mat à 55 €/g,
+      "<strong>Price</strong>: €12.50 per class · 5-class Mat pack at €55"
+    )
+    .replace(/<strong>Price<\/strong> : 12,50 € la séance/g, "<strong>Price</strong>: €12.50 per class")
+    .replace(/<strong>Price<\/strong> : selon formule affichée sur bsport/g, "<strong>Price</strong>: as shown on bsport")
+    .replace(/onglet « Sur rendez-vous » ou calendrier sur /g, "By appointment tab or calendar on ")
+    .replace(/, ou par téléphone au 06 50 08 02 22/g, ", or by phone on 06 50 08 02 22")
+    .replace(/<strong>Booking<\/strong> : sur /g, "<strong>Booking</strong>: on ")
+    .replace(/\(créneau « Homme »\)/g, "(Men's slot)")
+    .replace(/<strong>Méditation<\/strong>/g, "<strong>Meditation</strong>")
+    .replace(/<strong>Level<\/strong> : tous niveaux/g, "<strong>Level</strong>: all levels")
+    .replace(/<strong>Duration<\/strong> : 1 heure/g, "<strong>Duration</strong>: 1 hour")
+    .replace(/<strong>Équilibres<\/strong>/g, "<strong>Balances</strong>")
+    .replace(/<strong>Étirements<\/strong>/g, "<strong>Stretches</strong>")
+    .replace(/Reformer, Mat et cours privés au studio\./g, "Reformer, Mat and private sessions at the studio.");
 }
 
 function transformPage(html, relPath, textMap) {
@@ -368,11 +666,23 @@ function transformPage(html, relPath, textMap) {
   out = applyDataI18n(out);
   out = applyTextMap(out, textMap);
   out = applyPostReplacements(out);
+  if (relPath.startsWith("classes/")) {
+    out = stripClassPlayButton(out);
+    out = injectClassBookingCta(out);
+  }
+  if (relPath === "legal.html") {
+    out = stripFrenchLegalBlocks(out);
+  }
   out = applyPageMeta(out, relPath);
+  out = translateMetaTags(out, textMap);
   out = rewriteInternalLinks(out, relPath);
   out = rewriteAssetAttributes(out, prefix);
+  out = absolutizeOgImages(out);
+  out = polishEnHtml(out, relPath);
   out = fixLangSwitcher(out);
   out = injectHreflang(out, relPath);
+  out = injectCanonical(out, relPath, "en");
+  out = injectOgUrl(out, relPath, "en");
 
   if (!out.includes('data-site-locale="en"')) {
     out = out.replace("<html", '<html data-site-locale="en"');
@@ -422,9 +732,33 @@ function main() {
   }
 
   console.log("Generated " + count + " English page(s) under /en/");
-  patchFrenchHreflang();
+  patchFrenchSeo();
   syncIndexFiles();
+  require("./generate-sitemap").main();
+  require("./patch-dead-pages");
+  require("./patch-vercel-dead-routes");
   require("./ensure-mobile-nav");
+  require("./strip-class-play-button").main();
+  require("./inject-class-booking-cta").main();
+  runFrResidueReport();
+}
+
+function runFrResidueReport() {
+  const scanPath = path.join(ROOT, "..", "..", ".audit-tmp", "fr-residue-scan.js");
+  if (!fs.existsSync(scanPath)) return;
+  try {
+    const { execSync } = require("child_process");
+    const out = execSync("node \"" + scanPath + "\"", {
+      cwd: path.join(ROOT, "..", ".."),
+      encoding: "utf8",
+    });
+    const match = out.match(/Pages with FR residue: (\d+)/);
+    if (match) {
+      console.log("FR residue scan: " + match[1] + " EN page(s) with markers");
+    }
+  } catch (_e) {
+    /* optional QA */
+  }
 }
 
 main();

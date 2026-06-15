@@ -69,7 +69,7 @@ function writeVercelJson(pages) {
 function patchVendorPartials() {
   const partialDirs = [
     { dir: path.join(ROOT, "_vendor", "content"), fromRel: "homepage.html" },
-    { dir: path.join(ROOT, "_vendor", "content", "class-bodies"), fromRel: "classes/1-hour-pilates.html" },
+    { dir: path.join(ROOT, "_vendor", "content", "class-bodies"), fromRel: "classes/pilates-reformer.html" },
   ];
   for (const { dir, fromRel } of partialDirs) {
     if (!fs.existsSync(dir)) continue;

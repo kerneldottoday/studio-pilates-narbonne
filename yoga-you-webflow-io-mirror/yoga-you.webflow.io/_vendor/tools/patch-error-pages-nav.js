@@ -44,7 +44,7 @@ function patchErrorPage(relPath) {
 const changed = [];
 for (const rel of ERROR_PAGES) {
   if (patchErrorPage(rel)) changed.push(rel);
-  if (patchErrorPage(path.join("en", rel))) changed.push("en/" + rel);
+  // Pages en/401 et en/404 sont régénérées par build-en-pages.js — ne pas patcher ici
 }
 
 console.log("Added navbar + mobile nav on " + changed.length + " error page(s)");

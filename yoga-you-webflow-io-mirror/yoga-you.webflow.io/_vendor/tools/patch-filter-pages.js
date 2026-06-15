@@ -69,37 +69,37 @@ const filterPages = {
   "type/pilates.html": {
     title: "Pilates | Studio Pilates Narbonne",
     slugs: [
-      "1-hour-pilates.html",
-      "intense-1-hour-pilates.html",
-      "30-minutes-morning-yoga.html",
-      "30-minutes-chair-yoga.html",
+      "pilates-reformer.html",
+      "reformer-homme.html",
+      "pilates-mat.html",
+      "cours-prive.html",
     ],
   },
   "type/yoga.html": {
     title: "Yoga | Studio Pilates Narbonne",
-    slugs: ["yoga-for-focus.html", "30-minutes-chair-yoga.html"],
+    slugs: ["yoga-ashtanga.html", "cours-prive.html"],
   },
   "type/breathwork.html": {
     title: "RESET | Studio Pilates Narbonne",
-    slugs: ["disconnect-breathwork.html"],
+    slugs: ["reset.html"],
   },
   "duration/1-hour.html": {
     title: "1 heure | Studio Pilates Narbonne",
     slugs: [
-      "1-hour-pilates.html",
-      "intense-1-hour-pilates.html",
-      "30-minutes-morning-yoga.html",
-      "disconnect-breathwork.html",
-      "30-minutes-chair-yoga.html",
+      "pilates-reformer.html",
+      "reformer-homme.html",
+      "pilates-mat.html",
+      "reset.html",
+      "cours-prive.html",
     ],
   },
   "duration/30-minutes.html": {
     title: "1 h 30 | Studio Pilates Narbonne",
-    slugs: ["yoga-for-focus.html"],
+    slugs: ["yoga-ashtanga.html"],
   },
   "duration/10-minutes.html": {
     title: "Cours | Studio Pilates Narbonne",
-    slugs: ["30-minutes-chair-yoga.html"],
+    slugs: ["cours-prive.html"],
   },
 };
 

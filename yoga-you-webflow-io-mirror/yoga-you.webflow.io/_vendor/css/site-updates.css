@@ -72,3 +72,17 @@
   margin-bottom: 0.875rem;
   background: rgba(245, 243, 238, 0.28);
 }
+
+/* Fiches cours : bouton play retiré (pas de vidéo studio pour le moment) */
+img.play-class {
+  display: none !important;
+}
+
+/* Fiches cours : CTA réservation bsport sous le sous-titre hero */
+.class-booking-cta {
+  margin-top: 1.5rem;
+}
+
+.class-booking-cta .cta {
+  display: inline-block;
+}

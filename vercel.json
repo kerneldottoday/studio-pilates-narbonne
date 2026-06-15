@@ -25,6 +25,126 @@
       "permanent": true
     },
     {
+      "source": "/classes/intense-1-hour-pilates",
+      "destination": "/classes/reformer-homme",
+      "permanent": true
+    },
+    {
+      "source": "/classes/intense-1-hour-pilates.html",
+      "destination": "/classes/reformer-homme",
+      "permanent": true
+    },
+    {
+      "source": "/en/classes/intense-1-hour-pilates",
+      "destination": "/en/classes/reformer-homme",
+      "permanent": true
+    },
+    {
+      "source": "/en/classes/intense-1-hour-pilates.html",
+      "destination": "/en/classes/reformer-homme",
+      "permanent": true
+    },
+    {
+      "source": "/classes/30-minutes-morning-yoga",
+      "destination": "/classes/pilates-mat",
+      "permanent": true
+    },
+    {
+      "source": "/classes/30-minutes-morning-yoga.html",
+      "destination": "/classes/pilates-mat",
+      "permanent": true
+    },
+    {
+      "source": "/en/classes/30-minutes-morning-yoga",
+      "destination": "/en/classes/pilates-mat",
+      "permanent": true
+    },
+    {
+      "source": "/en/classes/30-minutes-morning-yoga.html",
+      "destination": "/en/classes/pilates-mat",
+      "permanent": true
+    },
+    {
+      "source": "/classes/30-minutes-chair-yoga",
+      "destination": "/classes/cours-prive",
+      "permanent": true
+    },
+    {
+      "source": "/classes/30-minutes-chair-yoga.html",
+      "destination": "/classes/cours-prive",
+      "permanent": true
+    },
+    {
+      "source": "/en/classes/30-minutes-chair-yoga",
+      "destination": "/en/classes/cours-prive",
+      "permanent": true
+    },
+    {
+      "source": "/en/classes/30-minutes-chair-yoga.html",
+      "destination": "/en/classes/cours-prive",
+      "permanent": true
+    },
+    {
+      "source": "/classes/disconnect-breathwork",
+      "destination": "/classes/reset",
+      "permanent": true
+    },
+    {
+      "source": "/classes/disconnect-breathwork.html",
+      "destination": "/classes/reset",
+      "permanent": true
+    },
+    {
+      "source": "/en/classes/disconnect-breathwork",
+      "destination": "/en/classes/reset",
+      "permanent": true
+    },
+    {
+      "source": "/en/classes/disconnect-breathwork.html",
+      "destination": "/en/classes/reset",
+      "permanent": true
+    },
+    {
+      "source": "/classes/yoga-for-focus",
+      "destination": "/classes/yoga-ashtanga",
+      "permanent": true
+    },
+    {
+      "source": "/classes/yoga-for-focus.html",
+      "destination": "/classes/yoga-ashtanga",
+      "permanent": true
+    },
+    {
+      "source": "/en/classes/yoga-for-focus",
+      "destination": "/en/classes/yoga-ashtanga",
+      "permanent": true
+    },
+    {
+      "source": "/en/classes/yoga-for-focus.html",
+      "destination": "/en/classes/yoga-ashtanga",
+      "permanent": true
+    },
+    {
+      "source": "/classes/1-hour-pilates",
+      "destination": "/classes/pilates-reformer",
+      "permanent": true
+    },
+    {
+      "source": "/classes/1-hour-pilates.html",
+      "destination": "/classes/pilates-reformer",
+      "permanent": true
+    },
+    {
+      "source": "/en/classes/1-hour-pilates",
+      "destination": "/en/classes/pilates-reformer",
+      "permanent": true
+    },
+    {
+      "source": "/en/classes/1-hour-pilates.html",
+      "destination": "/en/classes/pilates-reformer",
+      "permanent": true
+    },
+    {
       "source": "/Accueil",
       "destination": "/",
       "permanent": true
@@ -140,33 +260,33 @@
       "permanent": true
     },
     {
-      "source": "/classes/1-hour-pilates.html",
-      "destination": "/classes/1-hour-pilates",
+      "source": "/classes/cours-prive.html",
+      "destination": "/classes/cours-prive",
       "permanent": true
     },
     {
-      "source": "/classes/30-minutes-chair-yoga.html",
-      "destination": "/classes/30-minutes-chair-yoga",
+      "source": "/classes/pilates-mat.html",
+      "destination": "/classes/pilates-mat",
       "permanent": true
     },
     {
-      "source": "/classes/30-minutes-morning-yoga.html",
-      "destination": "/classes/30-minutes-morning-yoga",
+      "source": "/classes/pilates-reformer.html",
+      "destination": "/classes/pilates-reformer",
       "permanent": true
     },
     {
-      "source": "/classes/disconnect-breathwork.html",
-      "destination": "/classes/disconnect-breathwork",
+      "source": "/classes/reformer-homme.html",
+      "destination": "/classes/reformer-homme",
       "permanent": true
     },
     {
-      "source": "/classes/intense-1-hour-pilates.html",
-      "destination": "/classes/intense-1-hour-pilates",
+      "source": "/classes/reset.html",
+      "destination": "/classes/reset",
       "permanent": true
     },
     {
-      "source": "/classes/yoga-for-focus.html",
-      "destination": "/classes/yoga-for-focus",
+      "source": "/classes/yoga-ashtanga.html",
+      "destination": "/classes/yoga-ashtanga",
       "permanent": true
     },
     {
@@ -300,33 +420,33 @@
       "permanent": true
     },
     {
-      "source": "/en/classes/1-hour-pilates.html",
-      "destination": "/en/classes/1-hour-pilates",
+      "source": "/en/classes/cours-prive.html",
+      "destination": "/en/classes/cours-prive",
       "permanent": true
     },
     {
-      "source": "/en/classes/30-minutes-chair-yoga.html",
-      "destination": "/en/classes/30-minutes-chair-yoga",
+      "source": "/en/classes/pilates-mat.html",
+      "destination": "/en/classes/pilates-mat",
       "permanent": true
     },
     {
-      "source": "/en/classes/30-minutes-morning-yoga.html",
-      "destination": "/en/classes/30-minutes-morning-yoga",
+      "source": "/en/classes/pilates-reformer.html",
+      "destination": "/en/classes/pilates-reformer",
       "permanent": true
     },
     {
-      "source": "/en/classes/disconnect-breathwork.html",
-      "destination": "/en/classes/disconnect-breathwork",
+      "source": "/en/classes/reformer-homme.html",
+      "destination": "/en/classes/reformer-homme",
       "permanent": true
     },
     {
-      "source": "/en/classes/intense-1-hour-pilates.html",
-      "destination": "/en/classes/intense-1-hour-pilates",
+      "source": "/en/classes/reset.html",
+      "destination": "/en/classes/reset",
       "permanent": true
     },
     {
-      "source": "/en/classes/yoga-for-focus.html",
-      "destination": "/en/classes/yoga-for-focus",
+      "source": "/en/classes/yoga-ashtanga.html",
+      "destination": "/en/classes/yoga-ashtanga",
       "permanent": true
     },
     {
@@ -459,28 +579,28 @@
       "destination": "/classes.html"
     },
     {
-      "source": "/classes/1-hour-pilates",
-      "destination": "/classes/1-hour-pilates.html"
+      "source": "/classes/cours-prive",
+      "destination": "/classes/cours-prive.html"
     },
     {
-      "source": "/classes/30-minutes-chair-yoga",
-      "destination": "/classes/30-minutes-chair-yoga.html"
+      "source": "/classes/pilates-mat",
+      "destination": "/classes/pilates-mat.html"
     },
     {
-      "source": "/classes/30-minutes-morning-yoga",
-      "destination": "/classes/30-minutes-morning-yoga.html"
+      "source": "/classes/pilates-reformer",
+      "destination": "/classes/pilates-reformer.html"
     },
     {
-      "source": "/classes/disconnect-breathwork",
-      "destination": "/classes/disconnect-breathwork.html"
+      "source": "/classes/reformer-homme",
+      "destination": "/classes/reformer-homme.html"
     },
     {
-      "source": "/classes/intense-1-hour-pilates",
-      "destination": "/classes/intense-1-hour-pilates.html"
+      "source": "/classes/reset",
+      "destination": "/classes/reset.html"
     },
     {
-      "source": "/classes/yoga-for-focus",
-      "destination": "/classes/yoga-for-focus.html"
+      "source": "/classes/yoga-ashtanga",
+      "destination": "/classes/yoga-ashtanga.html"
     },
     {
       "source": "/contact",
@@ -587,28 +707,28 @@
       "destination": "/en/classes.html"
     },
     {
-      "source": "/en/classes/1-hour-pilates",
-      "destination": "/en/classes/1-hour-pilates.html"
+      "source": "/en/classes/cours-prive",
+      "destination": "/en/classes/cours-prive.html"
     },
     {
-      "source": "/en/classes/30-minutes-chair-yoga",
-      "destination": "/en/classes/30-minutes-chair-yoga.html"
+      "source": "/en/classes/pilates-mat",
+      "destination": "/en/classes/pilates-mat.html"
     },
     {
-      "source": "/en/classes/30-minutes-morning-yoga",
-      "destination": "/en/classes/30-minutes-morning-yoga.html"
+      "source": "/en/classes/pilates-reformer",
+      "destination": "/en/classes/pilates-reformer.html"
     },
     {
-      "source": "/en/classes/disconnect-breathwork",
-      "destination": "/en/classes/disconnect-breathwork.html"
+      "source": "/en/classes/reformer-homme",
+      "destination": "/en/classes/reformer-homme.html"
     },
     {
-      "source": "/en/classes/intense-1-hour-pilates",
-      "destination": "/en/classes/intense-1-hour-pilates.html"
+      "source": "/en/classes/reset",
+      "destination": "/en/classes/reset.html"
     },
     {
-      "source": "/en/classes/yoga-for-focus",
-      "destination": "/en/classes/yoga-for-focus.html"
+      "source": "/en/classes/yoga-ashtanga",
+      "destination": "/en/classes/yoga-ashtanga.html"
     },
     {
       "source": "/en/contact",

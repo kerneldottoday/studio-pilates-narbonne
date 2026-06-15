@@ -291,12 +291,12 @@ function patchHomepageSlider() {
   const filePath = path.join(root, "homepage.html");
   let html = fs.readFileSync(filePath, "utf8");
   const mapping = [
-    ["1-hour-pilates.html", "1-hour-pilates.html"],
-    ["30-minutes-morning-yoga.html", "30-minutes-morning-yoga.html"],
-    ["yoga-for-focus.html", "yoga-for-focus.html"],
-    ["disconnect-breathwork.html", "disconnect-breathwork.html"],
-    ["intense-1-hour-pilates.html", "intense-1-hour-pilates.html"],
-    ["30-minutes-chair-yoga.html", "30-minutes-chair-yoga.html"],
+    ["pilates-reformer.html", "pilates-reformer.html"],
+    ["pilates-mat.html", "pilates-mat.html"],
+    ["yoga-ashtanga.html", "yoga-ashtanga.html"],
+    ["reset.html", "reset.html"],
+    ["reformer-homme.html", "reformer-homme.html"],
+    ["cours-prive.html", "cours-prive.html"],
   ];
 
   mapping.forEach(function (pair) {

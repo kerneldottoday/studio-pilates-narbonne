@@ -174,7 +174,7 @@ window.STUDIO_TEXT_MAP = {
   "Les 5 Yama": "The 5 Yama",
   "Les 5 Niyama": "The 5 Niyama",
   "Patanjali et l'Ashtanga Yoga": "Patanjali and Ashtanga Yoga",
-  "Ahimsa – non-violence": "Ahimsa – non-violence",
+  "Ahimsa – non-violence": "Ahimsa – non-harm",
   "Satya – dire la vérité": "Satya – truthfulness",
   "Asteya – honnêteté": "Asteya – honesty",
   "Brahmacharya – contrôle des sens et de la sensualité": "Brahmacharya – restraint of the senses",

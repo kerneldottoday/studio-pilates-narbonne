@@ -93,7 +93,7 @@ function buildListingSection(heroTitle, heroSubtitle, slugs, prefix) {
 function buildPage(options) {
   const pricing = fs.readFileSync(path.join(root, "pricing.html"), "utf8");
   const classPage = fs.readFileSync(
-    path.join(root, "classes/1-hour-pilates.html"),
+    path.join(root, "classes/pilates-reformer.html"),
     "utf8"
   );
   const prefix = options.prefix || "";
@@ -205,10 +205,10 @@ const pages = [
     heroTitle: "Pilates",
     heroSubtitle: "Reformer, Mat et cours privés au studio.",
     slugs: [
-      "1-hour-pilates.html",
-      "intense-1-hour-pilates.html",
-      "30-minutes-morning-yoga.html",
-      "30-minutes-chair-yoga.html",
+      "pilates-reformer.html",
+      "reformer-homme.html",
+      "pilates-mat.html",
+      "cours-prive.html",
     ],
     htmlAttrs:
       'data-wf-page="6593a25a4eeb71d5dca7e1aa" data-wf-collection="6593a25a4eeb71d5dca7e199" data-wf-item-slug="pilates"',
@@ -220,7 +220,7 @@ const pages = [
     ogTitle: "Yoga",
     heroTitle: "Yoga",
     heroSubtitle: "Yoga Ashtanga et cours privés sur mesure.",
-    slugs: ["yoga-for-focus.html", "30-minutes-chair-yoga.html"],
+    slugs: ["yoga-ashtanga.html", "cours-prive.html"],
     htmlAttrs:
       'data-wf-page="6593a25a4eeb71d5dca7e1aa" data-wf-collection="6593a25a4eeb71d5dca7e199" data-wf-item-slug="yoga"',
   },
@@ -231,7 +231,7 @@ const pages = [
     ogTitle: "RESET",
     heroTitle: "RESET",
     heroSubtitle: "Séance de relâchement et de recentrage, tous niveaux.",
-    slugs: ["disconnect-breathwork.html"],
+    slugs: ["reset.html"],
     htmlAttrs:
       'data-wf-page="6593a25a4eeb71d5dca7e1aa" data-wf-collection="6593a25a4eeb71d5dca7e199" data-wf-item-slug="breathwork"',
   },
@@ -243,11 +243,11 @@ const pages = [
     heroTitle: "Cours d'1 heure",
     heroSubtitle: "Reformer, Mat, RESET et cours privés.",
     slugs: [
-      "1-hour-pilates.html",
-      "intense-1-hour-pilates.html",
-      "30-minutes-morning-yoga.html",
-      "disconnect-breathwork.html",
-      "30-minutes-chair-yoga.html",
+      "pilates-reformer.html",
+      "reformer-homme.html",
+      "pilates-mat.html",
+      "reset.html",
+      "cours-prive.html",
     ],
     htmlAttrs:
       'data-wf-page="6593a25a4eeb71d5dca7e1aa" data-wf-collection="6593a25a4eeb71d5dca7e199" data-wf-item-slug="1-hour"',
@@ -259,7 +259,7 @@ const pages = [
     ogTitle: "1 h 30",
     heroTitle: "Cours d'1 h 30",
     heroSubtitle: "Yoga Ashtanga en séance complète.",
-    slugs: ["yoga-for-focus.html"],
+    slugs: ["yoga-ashtanga.html"],
     htmlAttrs:
       'data-wf-page="6593a25a4eeb71d5dca7e1aa" data-wf-collection="6593a25a4eeb71d5dca7e199" data-wf-item-slug="30-minutes"',
   },
@@ -270,7 +270,7 @@ const pages = [
     ogTitle: "Cours privé",
     heroTitle: "Sur rendez-vous",
     heroSubtitle: "Séance individuelle entièrement personnalisée.",
-    slugs: ["30-minutes-chair-yoga.html"],
+    slugs: ["cours-prive.html"],
     htmlAttrs:
       'data-wf-page="6593a25a4eeb71d5dca7e1aa" data-wf-collection="6593a25a4eeb71d5dca7e199" data-wf-item-slug="10-minutes"',
   },
