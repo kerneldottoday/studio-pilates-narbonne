@@ -1,3 +1,7 @@
+/**
+ * Animations scroll-reveal sur /classes et /en/classes.
+ * Usage: node _vendor/tools/patch-classes-animations.js
+ */
 const fs = require("fs");
 const path = require("path");
 
@@ -9,9 +13,9 @@ const revealTargets = [
   ['class="tile-class w-inline-block"', 'class="tile-class reveal-on-scroll w-inline-block"'],
   ['class="wrap-image-combo-halves"', 'class="wrap-image-combo-halves reveal-on-scroll"'],
   ['class="top-combo-halves"', 'class="top-combo-halves reveal-on-scroll"'],
-  ['class="master-icons-list"', 'class="master-icons-list reveal-on-scroll"'],
+  ['class="single-icon-list"', 'class="single-icon-list reveal-on-scroll"'],
   ['class="left-faq-halves"', 'class="left-faq-halves reveal-on-scroll"'],
-  ['class="master-expandable-halves"', 'class="master-expandable-halves reveal-on-scroll"'],
+  ['class="expandable-single-faq"', 'class="expandable-single-faq reveal-on-scroll"'],
 ];
 
 function patchClassesFile(filePath, assetPrefix) {
@@ -23,7 +27,7 @@ function patchClassesFile(filePath, assetPrefix) {
   let html = fs.readFileSync(filePath, "utf8");
 
   for (const [from, to] of revealTargets) {
-    if (from.includes("tile-class")) {
+    if (from.includes("tile-class") || from.includes("single-icon-list") || from.includes("expandable-single-faq")) {
       html = html.split(from).join(to);
     } else if (!html.includes(to)) {
       html = html.replace(from, to);
@@ -48,6 +52,8 @@ function patchClassesFile(filePath, assetPrefix) {
       );
     } else if (html.includes(bsport)) {
       html = html.replace(bsport, `${bsport}<script src="${jsSrc}" defer></script>`);
+    } else {
+      html = html.replace("</body>", `<script src="${jsSrc}" defer></script></body>`);
     }
   }
 
@@ -59,5 +65,13 @@ function patchClassesFile(filePath, assetPrefix) {
   console.log("Patched", path.relative(root, filePath));
 }
 
-patchClassesFile(path.join(root, "classes.html"), "");
-patchClassesFile(path.join(root, "en", "classes.html"), "../");
+function main() {
+  patchClassesFile(path.join(root, "classes.html"), "");
+  patchClassesFile(path.join(root, "en", "classes.html"), "../");
+}
+
+if (require.main === module) {
+  main();
+} else {
+  module.exports = { main, patchClassesFile };
+}

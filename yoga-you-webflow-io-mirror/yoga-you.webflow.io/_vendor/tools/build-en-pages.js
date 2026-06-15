@@ -740,6 +740,7 @@ function main() {
   require("./ensure-mobile-nav");
   require("./strip-class-play-button").main();
   require("./inject-class-booking-cta").main();
+  require("./patch-classes-animations").main();
   runFrResidueReport();
 }
 
