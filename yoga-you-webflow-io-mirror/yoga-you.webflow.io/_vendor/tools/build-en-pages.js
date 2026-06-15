@@ -55,9 +55,9 @@ const I18N_EN = {
 
 const PAGE_META = {
   "homepage.html": {
-    title: "Studio Pilates Narbonne | Home",
+    title: "Studio Pilates Narbonne | Reformer, Mat & Yoga",
     description:
-      "Studio Pilates Narbonne: Reformer, Mat and Ashtanga Yoga in small groups in Narbonne. Classes with certified instructor Souhila Chekara.",
+      "Studio Pilates Narbonne: Reformer, Mat and Ashtanga Yoga in small groups. Certified instructor Souhila Chekara in Narbonne, France.",
   },
   "classes.html": {
     title: "Our classes | Studio Pilates Narbonne",
@@ -747,6 +747,7 @@ function main() {
   require("./patch-classes-animations").main();
   require("./strip-kernel-footer").main();
   require("./patch-footer-kernel-credit").main();
+  require("./patch-homepage-seo").main();
   runFrResidueReport();
 }
 
