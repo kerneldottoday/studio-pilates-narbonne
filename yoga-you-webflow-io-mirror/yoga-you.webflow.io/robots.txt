@@ -3,5 +3,6 @@ Allow: /
 Disallow: /checkout
 Disallow: /search
 Disallow: /product/
+Disallow: /blog
 
 Sitemap: https://studiopilatesnarbonne.com/sitemap.xml

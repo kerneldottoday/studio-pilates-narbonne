@@ -748,6 +748,8 @@ function main() {
   require("./strip-kernel-footer").main();
   require("./patch-footer-kernel-credit").main();
   require("./patch-homepage-seo").main();
+  require("./patch-contact-seo").main();
+  require("./patch-seo-meta-sync").main();
   runFrResidueReport();
 }
 

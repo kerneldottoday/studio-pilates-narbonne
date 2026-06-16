@@ -15,6 +15,7 @@ const SKIP_PAGES = new Set([
   "checkout.html",
   "search.html",
   "index.html",
+  "blog.html",
 ]);
 
 const SKIP_PREFIXES = ["product/", "blog/"];
@@ -61,6 +62,7 @@ function generateRobots() {
     "Disallow: /checkout",
     "Disallow: /search",
     "Disallow: /product/",
+    "Disallow: /blog",
     "",
     "Sitemap: " + SITE_ORIGIN + "/sitemap.xml",
     "",
