@@ -750,6 +750,7 @@ function main() {
   require("./patch-homepage-seo").main();
   require("./patch-contact-seo").main();
   require("./patch-seo-meta-sync").main();
+  require("./ensure-vercel-analytics").main();
   runFrResidueReport();
 }
 
