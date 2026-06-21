@@ -5,6 +5,116 @@
   "outputDirectory": "yoga-you-webflow-io-mirror/yoga-you.webflow.io",
   "redirects": [
     {
+      "source": "/en/blog/release-toxins-and-rejuvenate-your-body",
+      "destination": "/en/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog/release-toxins-and-rejuvenate-your-body",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/en/blog/poses-and-practices-to-support-your-gut",
+      "destination": "/en/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog/poses-and-practices-to-support-your-gut",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/en/blog/nutrition-tips-for-yogis",
+      "destination": "/en/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog/nutrition-tips-for-yogis",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/en/blog/harnessing-the-power-of-awareness-at-the-table",
+      "destination": "/en/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog/harnessing-the-power-of-awareness-at-the-table",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/en/blog/finding-balance-for-optimal-health",
+      "destination": "/en/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog/finding-balance-for-optimal-health",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/en/blog/cultivating-mind-body-awareness",
+      "destination": "/en/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog/cultivating-mind-body-awareness",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/en/product/10-classes",
+      "destination": "/en/pricing",
+      "permanent": true
+    },
+    {
+      "source": "/en/product/5-classes",
+      "destination": "/en/pricing",
+      "permanent": true
+    },
+    {
+      "source": "/en/product/single-class",
+      "destination": "/en/pricing",
+      "permanent": true
+    },
+    {
+      "source": "/en/search",
+      "destination": "/en",
+      "permanent": true
+    },
+    {
+      "source": "/en/checkout",
+      "destination": "/en/pricing",
+      "permanent": true
+    },
+    {
+      "source": "/product/10-classes",
+      "destination": "/pricing",
+      "permanent": true
+    },
+    {
+      "source": "/product/5-classes",
+      "destination": "/pricing",
+      "permanent": true
+    },
+    {
+      "source": "/product/single-class",
+      "destination": "/pricing",
+      "permanent": true
+    },
+    {
+      "source": "/search",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/checkout",
+      "destination": "/pricing",
+      "permanent": true
+    },
+    {
       "source": "/homepage.html",
       "destination": "/",
       "permanent": true
@@ -562,34 +672,6 @@
       "destination": "/blog.html"
     },
     {
-      "source": "/blog/cultivating-mind-body-awareness",
-      "destination": "/blog/cultivating-mind-body-awareness.html"
-    },
-    {
-      "source": "/blog/finding-balance-for-optimal-health",
-      "destination": "/blog/finding-balance-for-optimal-health.html"
-    },
-    {
-      "source": "/blog/harnessing-the-power-of-awareness-at-the-table",
-      "destination": "/blog/harnessing-the-power-of-awareness-at-the-table.html"
-    },
-    {
-      "source": "/blog/nutrition-tips-for-yogis",
-      "destination": "/blog/nutrition-tips-for-yogis.html"
-    },
-    {
-      "source": "/blog/poses-and-practices-to-support-your-gut",
-      "destination": "/blog/poses-and-practices-to-support-your-gut.html"
-    },
-    {
-      "source": "/blog/release-toxins-and-rejuvenate-your-body",
-      "destination": "/blog/release-toxins-and-rejuvenate-your-body.html"
-    },
-    {
-      "source": "/checkout",
-      "destination": "/checkout.html"
-    },
-    {
       "source": "/classes",
       "destination": "/classes.html"
     },
@@ -654,22 +736,6 @@
       "destination": "/pricing.html"
     },
     {
-      "source": "/product/10-classes",
-      "destination": "/product/10-classes.html"
-    },
-    {
-      "source": "/product/5-classes",
-      "destination": "/product/5-classes.html"
-    },
-    {
-      "source": "/product/single-class",
-      "destination": "/product/single-class.html"
-    },
-    {
-      "source": "/search",
-      "destination": "/search.html"
-    },
-    {
       "source": "/type/breathwork",
       "destination": "/type/breathwork.html"
     },
@@ -692,34 +758,6 @@
     {
       "source": "/en/blog",
       "destination": "/en/blog.html"
-    },
-    {
-      "source": "/en/blog/cultivating-mind-body-awareness",
-      "destination": "/en/blog/cultivating-mind-body-awareness.html"
-    },
-    {
-      "source": "/en/blog/finding-balance-for-optimal-health",
-      "destination": "/en/blog/finding-balance-for-optimal-health.html"
-    },
-    {
-      "source": "/en/blog/harnessing-the-power-of-awareness-at-the-table",
-      "destination": "/en/blog/harnessing-the-power-of-awareness-at-the-table.html"
-    },
-    {
-      "source": "/en/blog/nutrition-tips-for-yogis",
-      "destination": "/en/blog/nutrition-tips-for-yogis.html"
-    },
-    {
-      "source": "/en/blog/poses-and-practices-to-support-your-gut",
-      "destination": "/en/blog/poses-and-practices-to-support-your-gut.html"
-    },
-    {
-      "source": "/en/blog/release-toxins-and-rejuvenate-your-body",
-      "destination": "/en/blog/release-toxins-and-rejuvenate-your-body.html"
-    },
-    {
-      "source": "/en/checkout",
-      "destination": "/en/checkout.html"
     },
     {
       "source": "/en/classes",
@@ -782,22 +820,6 @@
       "destination": "/en/pricing.html"
     },
     {
-      "source": "/en/product/10-classes",
-      "destination": "/en/product/10-classes.html"
-    },
-    {
-      "source": "/en/product/5-classes",
-      "destination": "/en/product/5-classes.html"
-    },
-    {
-      "source": "/en/product/single-class",
-      "destination": "/en/product/single-class.html"
-    },
-    {
-      "source": "/en/search",
-      "destination": "/en/search.html"
-    },
-    {
       "source": "/en/type/breathwork",
       "destination": "/en/type/breathwork.html"
     },
@@ -808,6 +830,14 @@
     {
       "source": "/en/type/yoga",
       "destination": "/en/type/yoga.html"
+    },
+    {
+      "source": "/sitemap.xml",
+      "destination": "/sitemap.xml"
+    },
+    {
+      "source": "/robots.txt",
+      "destination": "/robots.txt"
     }
   ]
 }

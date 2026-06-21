@@ -9,3 +9,6 @@ __pycache__/
 .env*.local
 
 .vercel
+
+# Dependencies
+node_modules/

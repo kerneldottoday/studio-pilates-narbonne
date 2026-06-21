@@ -229,6 +229,22 @@ function polishEnHtml(html, relPath) {
   return out;
 }
 
+function injectVercelAnalytics(html) {
+  // Skip if analytics is already injected
+  if (html.includes("/_vercel/insights/script.js")) {
+    return html;
+  }
+  
+  // Inject analytics script before closing body tag
+  const analyticsScript = `<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+`;
+  
+  return html.replace("</body>", analyticsScript + "</body>");
+}
+
 const EXTRA_MAP = {
   "Accueil": "Home",
   "Cours": "Classes",
@@ -683,6 +699,7 @@ function transformPage(html, relPath, textMap) {
   out = injectHreflang(out, relPath);
   out = injectCanonical(out, relPath, "en");
   out = injectOgUrl(out, relPath, "en");
+  out = injectVercelAnalytics(out);
 
   if (!out.includes('data-site-locale="en"')) {
     out = out.replace("<html", '<html data-site-locale="en"');
@@ -709,6 +726,56 @@ function syncIndexFiles() {
   const enIndex = path.join(EN_DIR, "index.html");
   if (fs.existsSync(enHome)) {
     fs.copyFileSync(enHome, enIndex);
+  }
+}
+
+function injectAnalyticsToAllPages() {
+  // Inject analytics into French pages
+  const frPages = [];
+  listHtmlPages(ROOT, ROOT, frPages);
+  
+  let frCount = 0;
+  for (const relPath of frPages) {
+    const filePath = path.join(ROOT, relPath);
+    try {
+      let html = fs.readFileSync(filePath, "utf8");
+      const updated = injectVercelAnalytics(html);
+      if (updated !== html) {
+        fs.writeFileSync(filePath, updated, "utf8");
+        frCount++;
+      }
+    } catch (err) {
+      // Skip errors, file might not exist
+    }
+  }
+  
+  // Inject analytics into English pages
+  const enPages = [];
+  if (fs.existsSync(EN_DIR)) {
+    listHtmlPages(EN_DIR, EN_DIR, enPages);
+    
+    let enCount = 0;
+    for (const relPath of enPages) {
+      const filePath = path.join(EN_DIR, relPath);
+      try {
+        let html = fs.readFileSync(filePath, "utf8");
+        const updated = injectVercelAnalytics(html);
+        if (updated !== html) {
+          fs.writeFileSync(filePath, updated, "utf8");
+          enCount++;
+        }
+      } catch (err) {
+        // Skip errors
+      }
+    }
+    
+    if (enCount > 0) {
+      console.log("Injected Vercel Analytics into " + enCount + " English page(s)");
+    }
+  }
+  
+  if (frCount > 0) {
+    console.log("Injected Vercel Analytics into " + frCount + " French page(s)");
   }
 }
 
@@ -750,6 +817,7 @@ function main() {
   require("./patch-homepage-seo").main();
   require("./patch-contact-seo").main();
   require("./patch-seo-meta-sync").main();
+  injectAnalyticsToAllPages();
   runFrResidueReport();
 }
 
