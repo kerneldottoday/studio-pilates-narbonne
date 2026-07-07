@@ -1,16 +1,13 @@
 /**
- * Injecte Vercel Web Analytics sur toutes les pages HTML.
- * Nécessite Web Analytics activé dans le dashboard Vercel + un redeploy.
+ * Retire l'injection directe de Vercel Analytics (consentement requis via cookie-consent.js).
  * Usage: node _vendor/tools/ensure-vercel-analytics.js
  */
 const fs = require("fs");
 const path = require("path");
 
 const root = path.join(__dirname, "..", "..");
-const MARKER = "_vercel/insights/script.js";
-const SNIPPET =
-  '<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>' +
-  '<script defer src="/_vercel/insights/script.js"></script>';
+const ANALYTICS_RE =
+  /<script>window\.va=window\.va\|\|function\(\)\{\(window\.vaq=window\.vaq\|\|\[\]\)\.push\(arguments\);\};<\/script><script defer src="\/_vercel\/insights\/script\.js"><\/script>/g;
 
 function walk(dir, changed) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -23,9 +20,9 @@ function walk(dir, changed) {
     if (!entry.name.endsWith(".html")) continue;
 
     let html = fs.readFileSync(full, "utf8");
-    if (!html.includes("<body") || html.includes(MARKER)) continue;
+    if (!ANALYTICS_RE.test(html)) continue;
 
-    html = html.replace("</body>", SNIPPET + "</body>");
+    html = html.replace(ANALYTICS_RE, "");
     fs.writeFileSync(full, html, "utf8");
     changed.push(path.relative(root, full));
   }
@@ -34,7 +31,11 @@ function walk(dir, changed) {
 function main() {
   const changed = [];
   walk(root, changed);
-  console.log("Added Vercel Analytics on " + changed.length + " page(s)");
+  if (changed.length) {
+    console.log("Removed direct Vercel Analytics from " + changed.length + " page(s)");
+  } else {
+    console.log("No direct Vercel Analytics snippets found");
+  }
 }
 
 if (require.main === module) {

@@ -751,6 +751,7 @@ function main() {
   require("./patch-contact-seo").main();
   require("./patch-seo-meta-sync").main();
   require("./ensure-vercel-analytics").main();
+  require("./ensure-cookie-consent").main();
   runFrResidueReport();
 }
 
