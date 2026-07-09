@@ -7,6 +7,7 @@ from PIL import Image, ImageEnhance, ImageFilter
 
 BRAND_DARK = (34, 34, 31, 255)  # #22221f
 BRAND_LIGHT = (255, 251, 240, 255)  # #fffbf0
+BRAND_YELLOW = (255, 225, 70, 255)  # #ffe146 — favicon background for Google legibility
 
 
 def load_lotus(src_path: Path) -> Image.Image:
@@ -50,7 +51,7 @@ def fit_square(icon: Image.Image, size: int, padding_ratio: float = 0.12) -> Ima
 
 
 def on_light_bg(icon: Image.Image, size: int) -> Image.Image:
-    canvas = Image.new("RGBA", (size, size), BRAND_LIGHT)
+    canvas = Image.new("RGBA", (size, size), BRAND_YELLOW)
     square = fit_square(icon, size, 0.18)
     canvas.alpha_composite(square)
     return canvas.convert("RGB")
