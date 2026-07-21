@@ -17,14 +17,14 @@
   ],
   "redirects": [
     {
-      "source": "/:path*",
+      "source": "/(.*)",
       "has": [
         {
           "type": "host",
           "value": "studiopilatesnarbonne.com"
         }
       ],
-      "destination": "https://www.studiopilatesnarbonne.com/:path*",
+      "destination": "https://www.studiopilatesnarbonne.com/$1",
       "permanent": true
     },
     {
@@ -195,6 +195,17 @@
     {
       "source": "/en/type/yoga.html",
       "destination": "/en/classes/yoga-ashtanga",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "studiopilatesnarbonne.com"
+        }
+      ],
+      "destination": "https://www.studiopilatesnarbonne.com/:path*",
       "permanent": true
     },
     {

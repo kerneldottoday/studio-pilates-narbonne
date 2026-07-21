@@ -24,7 +24,10 @@ function main() {
 
   // Remove rewrites that conflict with SEO redirects (redirect must win cleanly)
   const seoPaths = new Set(
-    SEO_REDIRECTS.map((r) => r.source).filter((s) => !s.endsWith(".html"))
+    SEO_REDIRECTS.map((r) => r.source)
+      .filter((s) => !s.endsWith(".html"))
+      // Ne jamais retirer les rewrites des pages cibles (/voyage, /legal, /classes…)
+      .filter((s) => !["/voyage", "/en/voyage", "/legal", "/en/legal", "/", "/en"].includes(s))
   );
   cfg.rewrites = (cfg.rewrites || []).filter((r) => !seoPaths.has(r.source));
 
@@ -36,9 +39,14 @@ function main() {
     cfg.rewrites.push({ source: "/en/voyage", destination: "/en/voyage.html" });
   }
 
-  // Drop old /expertises rewrite if still present
+  // Drop old /expertises rewrite + bogus self-redirects on /voyage
   cfg.rewrites = cfg.rewrites.filter(
     (r) => r.source !== "/expertises" && r.source !== "/en/expertises"
+  );
+  cfg.redirects = (cfg.redirects || []).filter(
+    (r) =>
+      !(r.source === "/voyage" && r.destination === "/voyage") &&
+      !(r.source === "/en/voyage" && r.destination === "/en/voyage")
   );
 
   // Prepend host + SEO redirects (dedupe by source)

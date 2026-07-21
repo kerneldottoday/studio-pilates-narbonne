@@ -57,9 +57,9 @@ const LEGACY_REDIRECTS = [
 /** Redirects SEO P0 — pages filtres / template / slugs trompeurs. */
 const SEO_REDIRECTS = [
   { source: "/expertises", destination: "/voyage" },
-  { source: "/voyage", destination: "/voyage" },
+  { source: "/expertises.html", destination: "/voyage" },
   { source: "/en/expertises", destination: "/en/voyage" },
-  { source: "/en/voyage", destination: "/en/voyage" },
+  { source: "/en/expertises.html", destination: "/en/voyage" },
   { source: "/mentions-legales", destination: "/legal" },
   { source: "/mentions-legales.html", destination: "/legal" },
   { source: "/blog", destination: "/" },
@@ -92,10 +92,11 @@ const SEO_REDIRECTS = [
   { source: "/en/type/yoga.html", destination: "/en/classes/yoga-ashtanga" },
 ];
 
+/** Redirect apex → www (pattern Vercel recommandé avec capture). */
 const HOST_WWW_REDIRECT = {
-  source: "/:path*",
+  source: "/(.*)",
   has: [{ type: "host", value: "studiopilatesnarbonne.com" }],
-  destination: "https://www.studiopilatesnarbonne.com/:path*",
+  destination: "https://www.studiopilatesnarbonne.com/$1",
   permanent: true,
 };
 

@@ -11,13 +11,21 @@ const DEST = path.join(ROOT, "voyage.html");
 
 function walkHtml(dir, fn) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    if (entry.name === "65939d1f139e1daa37da455f" || entry.name === "en") continue;
+    // Ne pas réécrire les outils de build (évite de corrompre SEO_REDIRECTS).
+    if (
+      entry.name === "65939d1f139e1daa37da455f" ||
+      entry.name === "en" ||
+      entry.name === "_vendor" ||
+      entry.name === "tools"
+    ) {
+      continue;
+    }
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) {
       walkHtml(full, fn);
       continue;
     }
-    if (!entry.name.endsWith(".html") && !entry.name.endsWith(".js")) continue;
+    if (!entry.name.endsWith(".html")) continue;
     fn(full);
   }
 }
