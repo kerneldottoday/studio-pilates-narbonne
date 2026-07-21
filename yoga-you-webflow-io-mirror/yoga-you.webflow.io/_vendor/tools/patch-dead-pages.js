@@ -54,8 +54,8 @@ const jobs = [
 ];
 
 for (const slug of BLOG_SLUGS) {
-  jobs.push(["blog/" + slug + ".html", "/blog", "Redirect to supplements"]);
-  jobs.push(["en/blog/" + slug + ".html", "/en/blog", "Redirect to supplements"]);
+  jobs.push(["blog/" + slug + ".html", "/", "Redirect to home"]);
+  jobs.push(["en/blog/" + slug + ".html", "/en", "Redirect to home"]);
 }
 
 let count = 0;

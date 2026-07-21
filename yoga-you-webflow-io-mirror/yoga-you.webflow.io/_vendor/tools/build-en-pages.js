@@ -10,7 +10,7 @@ const { injectClassBookingCta } = require("./inject-class-booking-cta");
 
 const ROOT = path.join(__dirname, "..", "..");
 const EN_DIR = path.join(ROOT, "en");
-const SITE_ORIGIN = "https://studiopilatesnarbonne.com";
+const { SITE_ORIGIN } = require("./site-config");
 
 const SKIP_DIRS = new Set(["65939d1f139e1daa37da455f", "en", "_vendor"]);
 const ASSET_ROOTS = ["_vendor/", "65939d1f139e1daa37da455f/"];
@@ -23,6 +23,7 @@ const I18N_EN = {
   "nav.planning": "Schedule",
   "nav.more": "More",
   "nav.expertises": "Retreat",
+  "nav.voyage": "Retreat",
   "nav.classPage": "Class detail",
   "nav.blog": "Supplements",
   "nav.pricing": "Pricing",
@@ -83,6 +84,11 @@ const PAGE_META = {
     title: "Legal notice | Studio Pilates Narbonne",
     description:
       "Legal information, privacy policy and terms and conditions for Studio Pilates Narbonne, Narbonne.",
+  },
+  "voyage.html": {
+    title: "Retreat | Studio Pilates Narbonne",
+    description:
+      "Pilates and yoga retreat with Souhila Chekara in the Moroccan desert. Trekking, yoga and reconnection.",
   },
   "expertises.html": {
     title: "Retreat | Studio Pilates Narbonne",
@@ -714,6 +720,7 @@ function syncIndexFiles() {
 
 function main() {
   const textMap = loadTextMap();
+  require("./rename-voyage-page").main();
   require("./patch-mentions-legales-page").main();
   const pages = [];
   listHtmlPages(ROOT, ROOT, pages);
@@ -737,10 +744,13 @@ function main() {
 
   console.log("Generated " + count + " English page(s) under /en/");
   patchFrenchSeo();
+  rewriteApexToWww();
   syncIndexFiles();
   require("./generate-sitemap").main();
   require("./patch-dead-pages");
   require("./patch-vercel-dead-routes");
+  require("./patch-seo-p0-vercel").main();
+  require("./patch-filter-links").main();
   require("./ensure-mobile-nav");
   require("./strip-class-play-button").main();
   require("./inject-class-booking-cta").main();
@@ -750,9 +760,41 @@ function main() {
   require("./patch-homepage-seo").main();
   require("./patch-contact-seo").main();
   require("./patch-seo-meta-sync").main();
+  rewriteApexToWww();
   require("./ensure-vercel-analytics").main();
   require("./ensure-cookie-consent").main();
   runFrResidueReport();
+}
+
+function rewriteApexToWww() {
+  const apex = "https://studiopilatesnarbonne.com";
+  const www = SITE_ORIGIN;
+  let changed = 0;
+  function walk(dir) {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      if (entry.name === "65939d1f139e1daa37da455f") continue;
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        walk(full);
+        continue;
+      }
+      if (!entry.name.endsWith(".html") && entry.name !== "sitemap.xml" && entry.name !== "robots.txt") {
+        continue;
+      }
+      const raw = fs.readFileSync(full, "utf8");
+      if (!raw.includes(apex)) continue;
+      // Ne pas toucher www. déjà correct ; remplacer apex nu uniquement.
+      const next = raw.replace(/https:\/\/studiopilatesnarbonne\.com(?![\w.-])/g, www);
+      if (next !== raw) {
+        fs.writeFileSync(full, next, "utf8");
+        changed++;
+      }
+    }
+  }
+  walk(ROOT);
+  if (changed) {
+    console.log("Rewrote apex → www on " + changed + " file(s)");
+  }
 }
 
 function runFrResidueReport() {

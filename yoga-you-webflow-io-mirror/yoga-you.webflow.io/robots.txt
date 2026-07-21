@@ -4,5 +4,7 @@ Disallow: /checkout
 Disallow: /search
 Disallow: /product/
 Disallow: /blog
+Disallow: /duration/
+Disallow: /type/
 
-Sitemap: https://studiopilatesnarbonne.com/sitemap.xml
+Sitemap: https://www.studiopilatesnarbonne.com/sitemap.xml

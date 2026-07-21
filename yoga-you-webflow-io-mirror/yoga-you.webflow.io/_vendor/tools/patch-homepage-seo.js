@@ -6,7 +6,7 @@ const fs = require("fs");
 const path = require("path");
 
 const ROOT = path.join(__dirname, "..", "..");
-const SITE_ORIGIN = "https://studiopilatesnarbonne.com";
+const { SITE_ORIGIN } = require("./site-config");
 const JSONLD_MARKER = 'id="homepage-jsonld"';
 
 const SEO = {

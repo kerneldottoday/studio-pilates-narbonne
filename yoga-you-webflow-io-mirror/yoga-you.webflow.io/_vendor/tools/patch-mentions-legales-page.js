@@ -4,6 +4,7 @@
  */
 const fs = require("fs");
 const path = require("path");
+const { SITE_ORIGIN } = require("./site-config");
 
 const root = path.join(__dirname, "..", "..");
 const legalPath = path.join(root, "legal.html");
@@ -40,25 +41,26 @@ function main() {
     /<meta content="Mentions légales \| Studio Pilates Narbonne" name="twitter:title"\/>/g,
     '<meta content="Mentions légales du site | Studio Pilates Narbonne" name="twitter:title"/>'
   );
+  // Page conservée pour historique, mais redirigée 301 → /legal (voir SEO_REDIRECTS).
   html = html.replace(
-    /<meta content="https:\/\/studiopilatesnarbonne\.com\/legal" property="og:url"\/>/,
-    '<meta content="https://studiopilatesnarbonne.com/mentions-legales" property="og:url"/>'
+    /<meta content="https:\/\/(?:www\.)?studiopilatesnarbonne\.com\/legal" property="og:url"\/>/,
+    '<meta content="' + SITE_ORIGIN + '/legal" property="og:url"/>'
   );
   html = html.replace(
-    /<link rel="alternate" hreflang="fr" href="https:\/\/studiopilatesnarbonne\.com\/legal" \/>/,
-    '<link rel="alternate" hreflang="fr" href="https://studiopilatesnarbonne.com/mentions-legales" />'
+    /<link rel="alternate" hreflang="fr" href="https:\/\/(?:www\.)?studiopilatesnarbonne\.com\/(?:mentions-legales|legal)" \/>/,
+    '<link rel="alternate" hreflang="fr" href="' + SITE_ORIGIN + '/legal" />'
   );
   html = html.replace(
-    /<link rel="alternate" hreflang="en" href="https:\/\/studiopilatesnarbonne\.com\/en\/legal" \/>/,
-    '<link rel="alternate" hreflang="en" href="https://studiopilatesnarbonne.com/mentions-legales" />'
+    /<link rel="alternate" hreflang="en" href="https:\/\/(?:www\.)?studiopilatesnarbonne\.com\/(?:en\/legal|mentions-legales)" \/>/,
+    '<link rel="alternate" hreflang="en" href="' + SITE_ORIGIN + '/en/legal" />'
   );
   html = html.replace(
-    /<link rel="alternate" hreflang="x-default" href="https:\/\/studiopilatesnarbonne\.com\/legal" \/>/,
-    '<link rel="alternate" hreflang="x-default" href="https://studiopilatesnarbonne.com/mentions-legales" />'
+    /<link rel="alternate" hreflang="x-default" href="https:\/\/(?:www\.)?studiopilatesnarbonne\.com\/(?:mentions-legales|legal)" \/>/,
+    '<link rel="alternate" hreflang="x-default" href="' + SITE_ORIGIN + '/legal" />'
   );
   html = html.replace(
-    /<link rel="canonical" href="https:\/\/studiopilatesnarbonne\.com\/legal" \/>/,
-    '<link rel="canonical" href="https://studiopilatesnarbonne.com/mentions-legales" />'
+    /<link rel="canonical" href="https:\/\/(?:www\.)?studiopilatesnarbonne\.com\/(?:mentions-legales|legal)" \/>/,
+    '<link rel="canonical" href="' + SITE_ORIGIN + '/legal" />'
   );
 
   fs.writeFileSync(outPath, html, "utf8");

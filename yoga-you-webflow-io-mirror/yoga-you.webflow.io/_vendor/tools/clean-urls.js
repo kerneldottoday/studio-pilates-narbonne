@@ -42,17 +42,62 @@ const LEGACY_REDIRECTS = [
   { source: "/Planning", destination: "/planning" },
   { source: "/Contact", destination: "/contact" },
   { source: "/Tarifs", destination: "/pricing" },
-  { source: "/Mentions-legales", destination: "/mentions-legales" },
-  { source: "/en/Mentions-legales", destination: "/mentions-legales" },
+  { source: "/Mentions-legales", destination: "/legal" },
+  { source: "/en/Mentions-legales", destination: "/en/legal" },
   { source: "/en/Home", destination: "/en" },
   { source: "/en/Classes", destination: "/en/classes" },
   { source: "/en/Schedule", destination: "/en/planning" },
   { source: "/en/Contact", destination: "/en/contact" },
   { source: "/en/Pricing", destination: "/en/pricing" },
   { source: "/en/Legal-notice", destination: "/en/legal" },
-  { source: "/en/mentions-legales", destination: "/mentions-legales" },
-  { source: "/en/mentions-legales.html", destination: "/mentions-legales" },
+  { source: "/en/mentions-legales", destination: "/en/legal" },
+  { source: "/en/mentions-legales.html", destination: "/en/legal" },
 ];
+
+/** Redirects SEO P0 — pages filtres / template / slugs trompeurs. */
+const SEO_REDIRECTS = [
+  { source: "/expertises", destination: "/voyage" },
+  { source: "/voyage", destination: "/voyage" },
+  { source: "/en/expertises", destination: "/en/voyage" },
+  { source: "/en/voyage", destination: "/en/voyage" },
+  { source: "/mentions-legales", destination: "/legal" },
+  { source: "/mentions-legales.html", destination: "/legal" },
+  { source: "/blog", destination: "/" },
+  { source: "/blog.html", destination: "/" },
+  { source: "/en/blog", destination: "/en" },
+  { source: "/en/blog.html", destination: "/en" },
+  { source: "/duration/1-hour", destination: "/classes" },
+  { source: "/duration/1-hour.html", destination: "/classes" },
+  { source: "/duration/30-minutes", destination: "/classes" },
+  { source: "/duration/30-minutes.html", destination: "/classes" },
+  { source: "/duration/10-minutes", destination: "/classes/cours-prive" },
+  { source: "/duration/10-minutes.html", destination: "/classes/cours-prive" },
+  { source: "/en/duration/1-hour", destination: "/en/classes" },
+  { source: "/en/duration/1-hour.html", destination: "/en/classes" },
+  { source: "/en/duration/30-minutes", destination: "/en/classes" },
+  { source: "/en/duration/30-minutes.html", destination: "/en/classes" },
+  { source: "/en/duration/10-minutes", destination: "/en/classes/cours-prive" },
+  { source: "/en/duration/10-minutes.html", destination: "/en/classes/cours-prive" },
+  { source: "/type/breathwork", destination: "/classes/reset" },
+  { source: "/type/breathwork.html", destination: "/classes/reset" },
+  { source: "/type/pilates", destination: "/classes" },
+  { source: "/type/pilates.html", destination: "/classes" },
+  { source: "/type/yoga", destination: "/classes/yoga-ashtanga" },
+  { source: "/type/yoga.html", destination: "/classes/yoga-ashtanga" },
+  { source: "/en/type/breathwork", destination: "/en/classes/reset" },
+  { source: "/en/type/breathwork.html", destination: "/en/classes/reset" },
+  { source: "/en/type/pilates", destination: "/en/classes" },
+  { source: "/en/type/pilates.html", destination: "/en/classes" },
+  { source: "/en/type/yoga", destination: "/en/classes/yoga-ashtanga" },
+  { source: "/en/type/yoga.html", destination: "/en/classes/yoga-ashtanga" },
+];
+
+const HOST_WWW_REDIRECT = {
+  source: "/:path*",
+  has: [{ type: "host", value: "studiopilatesnarbonne.com" }],
+  destination: "https://www.studiopilatesnarbonne.com/:path*",
+  permanent: true,
+};
 
 function listPublicHtmlPages(dir, base, out) {
   for (const name of fs.readdirSync(dir)) {
@@ -130,13 +175,14 @@ function buildVercelRoutes(pages) {
     { source: "/en", destination: "/en/homepage.html" },
   ];
   const redirects = [
+    { ...HOST_WWW_REDIRECT },
     { source: "/homepage.html", destination: "/", permanent: true },
     { source: "/index.html", destination: "/", permanent: true },
     { source: "/en/homepage.html", destination: "/en", permanent: true },
     { source: "/en/index.html", destination: "/en", permanent: true },
   ];
 
-  for (const rule of CLASS_SLUG_REDIRECTS.concat(LEGACY_REDIRECTS)) {
+  for (const rule of SEO_REDIRECTS.concat(CLASS_SLUG_REDIRECTS).concat(LEGACY_REDIRECTS)) {
     redirects.push({ source: rule.source, destination: rule.destination, permanent: true });
   }
 
@@ -176,6 +222,8 @@ module.exports = {
   SKIP_DIRS,
   FR_ONLY_PAGES,
   LEGACY_REDIRECTS,
+  SEO_REDIRECTS,
+  HOST_WWW_REDIRECT,
   listPublicHtmlPages,
   fileToCleanUrl,
   cleanUrlToFilePath,

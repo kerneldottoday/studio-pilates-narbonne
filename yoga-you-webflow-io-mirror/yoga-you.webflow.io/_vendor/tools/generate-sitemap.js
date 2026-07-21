@@ -5,9 +5,9 @@
 const fs = require("fs");
 const path = require("path");
 const { listPublicHtmlPages, hreflangUrl } = require("./clean-urls");
+const { SITE_ORIGIN } = require("./site-config");
 
 const ROOT = path.join(__dirname, "..", "..");
-const SITE_ORIGIN = "https://studiopilatesnarbonne.com";
 
 const SKIP_PAGES = new Set([
   "401.html",
@@ -16,14 +16,15 @@ const SKIP_PAGES = new Set([
   "search.html",
   "index.html",
   "blog.html",
+  "mentions-legales.html",
 ]);
 
-const SKIP_PREFIXES = ["product/", "blog/"];
+const SKIP_PREFIXES = ["product/", "blog/", "duration/", "type/"];
 
 function shouldSkipSitemap(rel) {
   if (SKIP_PAGES.has(rel)) return true;
   for (const prefix of SKIP_PREFIXES) {
-    if (rel.startsWith(prefix) && rel !== "blog.html") return true;
+    if (rel.startsWith(prefix)) return true;
   }
   return false;
 }
@@ -63,6 +64,8 @@ function generateRobots() {
     "Disallow: /search",
     "Disallow: /product/",
     "Disallow: /blog",
+    "Disallow: /duration/",
+    "Disallow: /type/",
     "",
     "Sitemap: " + SITE_ORIGIN + "/sitemap.xml",
     "",
@@ -73,7 +76,7 @@ function generateRobots() {
 function main() {
   generateSitemap();
   generateRobots();
-  console.log("Generated sitemap.xml and robots.txt");
+  console.log("Generated sitemap.xml and robots.txt (" + SITE_ORIGIN + ")");
 }
 
 if (require.main === module) {

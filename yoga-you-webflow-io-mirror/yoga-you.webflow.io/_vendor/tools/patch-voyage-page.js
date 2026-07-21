@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 
 const root = path.join(__dirname, "..", "..");
-const pagePath = path.join(root, "expertises.html");
+const pagePath = path.join(root, "voyage.html");
 const contentPath = path.join(root, "_vendor", "content", "voyage-main.html");
 
 let html = fs.readFileSync(pagePath, "utf8");
@@ -48,11 +48,11 @@ html = html.replace(
 
 html = html.replace(
   /<a href="expertises\.html" aria-current="page" class="dropdown-link w-dropdown-link w--current">Atouts<\/a>/,
-  '<a href="expertises.html" aria-current="page" class="dropdown-link w-dropdown-link w--current">Voyage</a>'
+  '<a href="/voyage" aria-current="page" class="dropdown-link w-dropdown-link w--current">Voyage</a>'
 );
 html = html.replace(
   /<a href="expertises\.html" aria-current="page" class="footer-link w--current">Atouts<\/a>/,
-  '<a href="expertises.html" aria-current="page" class="footer-link w--current">Voyage</a>'
+  '<a href="/voyage" aria-current="page" class="footer-link w--current">Voyage</a>'
 );
 
 if (!html.includes('href="_vendor/css/voyage.css"')) {
@@ -63,4 +63,4 @@ if (!html.includes('href="_vendor/css/voyage.css"')) {
 }
 
 fs.writeFileSync(pagePath, html, "utf8");
-console.log("expertises.html updated to voyage page");
+console.log("voyage.html updated to voyage page");

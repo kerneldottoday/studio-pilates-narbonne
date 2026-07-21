@@ -49,8 +49,8 @@ function buildDeadRedirects() {
     { source: "/en/product/10-classes", destination: "/en/pricing", permanent: true },
   ];
   for (const slug of BLOG_SLUGS) {
-    out.push({ source: "/blog/" + slug, destination: "/blog", permanent: true });
-    out.push({ source: "/en/blog/" + slug, destination: "/en/blog", permanent: true });
+    out.push({ source: "/blog/" + slug, destination: "/", permanent: true });
+    out.push({ source: "/en/blog/" + slug, destination: "/en", permanent: true });
   }
   return out;
 }

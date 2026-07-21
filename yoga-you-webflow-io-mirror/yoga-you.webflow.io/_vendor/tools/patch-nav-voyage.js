@@ -14,7 +14,7 @@ function walk(dir, changed) {
 
       html = html.replace(
         /<a href="(\.\.\/)?expertises\.html"([^>]*)>Atouts<\/a>/g,
-        '<a href="$1expertises.html"$2>Voyage</a>'
+        '<a href="$1voyage.html"$2>Voyage</a>'
       );
 
       if (html !== original) {
