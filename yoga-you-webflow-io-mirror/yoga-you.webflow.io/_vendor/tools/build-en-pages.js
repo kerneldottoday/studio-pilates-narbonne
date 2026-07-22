@@ -763,6 +763,8 @@ function main() {
   rewriteApexToWww();
   require("./ensure-vercel-analytics").main();
   require("./ensure-cookie-consent").main();
+  require("./ensure-rentree-banner").main();
+  require("./patch-planning-rentree");
   runFrResidueReport();
 }
 

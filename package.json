@@ -1,0 +1,15 @@
+{
+  "name": "studio-pilates-narbonne",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Studio Pilates Narbonne — site statique + cron rapport analytics mensuel",
+  "scripts": {
+    "build": "node yoga-you-webflow-io-mirror/yoga-you.webflow.io/_vendor/tools/build-en-pages.js",
+    "report:dry": "node scripts/monthly-report-dry-run.js",
+    "report:test": "node scripts/send-monthly-report-test.js"
+  },
+  "dependencies": {
+    "pdfkit": "^0.19.1",
+    "resend": "^6.17.2"
+  }
+}

@@ -1,0 +1,12 @@
+backups/
+reference/
+.audit-tmp/
+.firecrawl/
+.tmp-media/
+Studio/
+.env
+.env.local
+.env*.local
+*.zip
+docs/
+agent-transcripts/
