@@ -30,8 +30,8 @@ function patchPlanning(relFile, gridRel, isEn) {
   html = html.replace(
     /name="description" content="[^"]*"/,
     isEn
-      ? 'name="description" content="Current weekly schedule at Studio Pilates Narbonne, plus the new timetable from 15 September 2026."'
-      : 'name="description" content="Planning hebdomadaire actuel du Studio Pilates Narbonne, et nouveau planning dès le 15 septembre 2026."'
+      ? 'name="description" content="New weekly schedule at Studio Pilates Narbonne from 15 September 2026 — Reformer, RESET, Yoga and Stretching."'
+      : 'name="description" content="Nouveau planning hebdomadaire du Studio Pilates Narbonne à partir du 15 septembre 2026 — Reformer, RESET, Yoga et Stretching."'
   );
 
   fs.writeFileSync(file, html, "utf8");
@@ -40,8 +40,8 @@ function patchPlanning(relFile, gridRel, isEn) {
 
 function softHtml(isEn) {
   return isEn
-    ? `<section class="spn-rentree-soft"><div class="spn-rentree-soft__inner">New back-to-school schedule — from 15 September → <a href="/en/planning">View schedule</a></div></section>`
-    : `<section class="spn-rentree-soft"><div class="spn-rentree-soft__inner">Nouveau planning rentrée — dès le 15 septembre → <a href="/planning">Voir le planning</a></div></section>`;
+    ? `<section class="spn-rentree-soft"><div class="spn-rentree-soft__inner">New schedule — from 15 September → <a href="/en/planning">View schedule</a></div></section>`
+    : `<section class="spn-rentree-soft"><div class="spn-rentree-soft__inner">Nouveau planning — dès le 15 septembre → <a href="/planning">Voir le planning</a></div></section>`;
 }
 
 function patchHomepageSoft(relFile, isEn) {

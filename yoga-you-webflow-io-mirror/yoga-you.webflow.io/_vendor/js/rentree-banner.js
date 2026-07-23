@@ -17,8 +17,22 @@
     return isEn() ? "/en/planning" : "/planning";
   }
 
+  function isLocalhost() {
+    var h = location.hostname;
+    return h === "localhost" || h === "127.0.0.1";
+  }
+
   function shouldShow() {
     if (Date.now() > EXPIRES.getTime()) return false;
+    // Always show on local so QA isn't blocked by a prior dismiss
+    if (isLocalhost()) {
+      try {
+        localStorage.removeItem(STORAGE_KEY);
+      } catch (e) {
+        /* ignore */
+      }
+      return true;
+    }
     try {
       if (localStorage.getItem(STORAGE_KEY) === "1") return false;
     } catch (e) {
@@ -96,8 +110,8 @@
     var text = document.createElement("p");
     text.className = "spn-rentree-banner__text";
     text.textContent = en
-      ? "Back to school 2026 — new schedule from Monday 15 September"
-      : "Rentrée 2026 — nouveau planning dès le lundi 15 septembre";
+      ? "Back to school 2026 — new schedule from 15 September"
+      : "Rentrée 2026 — nouveau planning dès le 15 septembre";
 
     var link = document.createElement("a");
     link.className = "spn-rentree-banner__link";
