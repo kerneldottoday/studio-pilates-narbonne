@@ -34,25 +34,26 @@ body.page-voyage {
 @media (max-width: 991px) {
   .page-voyage .voyage-hero .right-hero-expertises {
     width: 100%;
-    max-width: 440px;
+    max-width: 420px;
     margin-inline: auto;
-    align-items: stretch;
-    padding-bottom: 56px;
+    align-items: center;
+    padding-bottom: 0;
+    gap: 0.75rem;
   }
 
-  .page-voyage .voyage-hero .image-expertises-under {
-    width: 86%;
-    margin-left: auto;
-    height: 280px;
-    object-fit: cover;
-  }
-
+  .page-voyage .voyage-hero .image-expertises-under,
   .page-voyage .voyage-hero .image-expertises-above {
-    width: 38%;
-    height: 168px;
+    position: relative;
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: 220px;
+    margin: 0;
+    left: auto;
+    right: auto;
+    top: auto;
+    bottom: auto;
     object-fit: cover;
-    left: 0;
-    bottom: 0;
   }
 
   body.page-voyage.scroll-reveal-ready .voyage-hero .right-hero-expertises.reveal-on-scroll {
@@ -62,19 +63,13 @@ body.page-voyage {
 
 @media (max-width: 479px) {
   .page-voyage .voyage-hero .right-hero-expertises {
-    padding-bottom: 36px;
+    max-width: 100%;
+    gap: 0.65rem;
   }
 
-  .page-voyage .voyage-hero .image-expertises-under {
-    width: 100%;
-    height: 210px;
-  }
-
+  .page-voyage .voyage-hero .image-expertises-under,
   .page-voyage .voyage-hero .image-expertises-above {
-    width: 36%;
-    height: 124px;
-    left: 10px;
-    bottom: 0;
+    height: 200px;
   }
 }
 
