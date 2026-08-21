@@ -86,9 +86,9 @@ const PAGE_META = {
       "Legal information, privacy policy and terms and conditions for Studio Pilates Narbonne, Narbonne.",
   },
   "voyage.html": {
-    title: "Retreat | Studio Pilates Narbonne",
+    title: "Tassili n’Ajjer | Studio Pilates Narbonne",
     description:
-      "Pilates and yoga retreat with Souhila Chekara in the Moroccan desert. Trekking, yoga and reconnection.",
+      "12-day Tassili n’Ajjer circuit with Studio Pilates Narbonne: Tuareg camel trek to Essendilène and 4×4 in the Tadrat Rouge. €1,590, departs Marseille.",
   },
   "expertises.html": {
     title: "Retreat | Studio Pilates Narbonne",

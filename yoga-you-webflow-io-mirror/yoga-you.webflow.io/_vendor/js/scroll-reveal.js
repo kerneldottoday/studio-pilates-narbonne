@@ -1,8 +1,8 @@
 (function () {
   var path = window.location.pathname.toLowerCase();
   var isTargetPage =
-    /(^|\/)(pricing|legal|classes)(?:\.html)?(?:$|[?#])/i.test(path) ||
-    /\/en\/(pricing|legal|classes)(?:\.html)?(?:$|[?#])/i.test(path);
+    /(^|\/)(pricing|legal|classes|voyage)(?:\.html)?(?:$|[?#])/i.test(path) ||
+    /\/en\/(pricing|legal|classes|voyage)(?:\.html)?(?:$|[?#])/i.test(path);
 
   if (!isTargetPage) {
     return;
