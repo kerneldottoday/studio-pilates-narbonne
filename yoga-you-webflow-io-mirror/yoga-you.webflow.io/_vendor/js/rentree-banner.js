@@ -1,9 +1,9 @@
 /**
- * Barre annonce rentrée 2026 — dismissible, auto-off après le 20/09/2026.
+ * Barre annonce voyage Tassili — dismissible.
+ * Masquée sur la page voyage (déjà sur place).
  */
 (function () {
-  var STORAGE_KEY = "spn-rentree-banner-dismissed-2026";
-  var EXPIRES = new Date("2026-09-20T23:59:59+02:00");
+  var STORAGE_KEY = "spn-voyage-banner-dismissed-2026";
 
   function isEn() {
     var html = document.documentElement;
@@ -13,8 +13,12 @@
     return /\/en(\/|$)/.test(location.pathname);
   }
 
-  function planningHref() {
-    return isEn() ? "/en/planning" : "/planning";
+  function voyageHref() {
+    return isEn() ? "/en/voyage" : "/voyage";
+  }
+
+  function isVoyagePage() {
+    return /(?:^|\/)voyage(?:\.html)?\/?$/.test(location.pathname);
   }
 
   function isLocalhost() {
@@ -23,7 +27,7 @@
   }
 
   function shouldShow() {
-    if (Date.now() > EXPIRES.getTime()) return false;
+    if (isVoyagePage()) return false;
     // Always show on local so QA isn't blocked by a prior dismiss
     if (isLocalhost()) {
       try {
@@ -101,7 +105,7 @@
     banner.setAttribute("role", "region");
     banner.setAttribute(
       "aria-label",
-      en ? "Back-to-school schedule announcement" : "Annonce planning rentrée"
+      en ? "Studio trip announcement" : "Annonce voyage du studio"
     );
 
     var inner = document.createElement("div");
@@ -110,13 +114,13 @@
     var text = document.createElement("p");
     text.className = "spn-rentree-banner__text";
     text.textContent = en
-      ? "Back to school 2026 — new schedule from 15 September"
-      : "Rentrée 2026 — nouveau planning dès le 15 septembre";
+      ? "Tassili n’Ajjer — 12 days in the Sahara"
+      : "Tassili n’Ajjer — 12 jours dans le Sahara";
 
     var link = document.createElement("a");
     link.className = "spn-rentree-banner__link";
-    link.href = planningHref();
-    link.textContent = en ? "View schedule" : "Voir le planning";
+    link.href = voyageHref();
+    link.textContent = en ? "See the trip" : "Découvrir le voyage";
 
     var close = document.createElement("button");
     close.type = "button";
@@ -177,9 +181,6 @@
       } else {
         document.body.insertBefore(banner, document.body.firstChild);
       }
-    } else {
-      var soft = document.querySelector(".spn-rentree-soft");
-      if (soft && Date.now() > EXPIRES.getTime()) soft.hidden = true;
     }
 
     initLightbox();

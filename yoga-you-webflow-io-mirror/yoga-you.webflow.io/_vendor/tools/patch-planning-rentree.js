@@ -40,8 +40,8 @@ function patchPlanning(relFile, gridRel, isEn) {
 
 function softHtml(isEn) {
   return isEn
-    ? `<section class="spn-rentree-soft"><div class="spn-rentree-soft__inner">New schedule — from 15 September → <a href="/en/planning">View schedule</a></div></section>`
-    : `<section class="spn-rentree-soft"><div class="spn-rentree-soft__inner">Nouveau planning — dès le 15 septembre → <a href="/planning">Voir le planning</a></div></section>`;
+    ? `<section class="spn-rentree-soft"><div class="spn-rentree-soft__inner">New studio trip — Tassili n’Ajjer, 12 days → <a href="/en/voyage">See the trip</a></div></section>`
+    : `<section class="spn-rentree-soft"><div class="spn-rentree-soft__inner">Nouveau voyage studio — Tassili n’Ajjer, 12 jours → <a href="/voyage">Découvrir le voyage</a></div></section>`;
 }
 
 function patchHomepageSoft(relFile, isEn) {
