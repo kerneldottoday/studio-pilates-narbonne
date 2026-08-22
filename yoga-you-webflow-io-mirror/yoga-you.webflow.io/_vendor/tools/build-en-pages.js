@@ -278,6 +278,7 @@ const EXTRA_MAP = {
   "Rechercher | Studio Pilates Narbonne": "Search | Studio Pilates Narbonne",
   "Panier": "Cart",
   "Voyage": "Retreat",
+  "Voyages": "Retreat",
   "Compléments alimentaires": "Supplements",
   "Sommaire juridique": "Legal contents",
   "aria-label=\"Sommaire juridique\"": 'aria-label="Legal contents"',

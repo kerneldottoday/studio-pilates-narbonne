@@ -77,6 +77,11 @@ function buildNavbar(options) {
       'href="/" class="nav-link w-nav-link" data-i18n="nav.home"',
       'href="/" aria-current="page" class="nav-link w-nav-link w--current" data-i18n="nav.home"'
     );
+  } else if (options.active === "voyage") {
+    navbar = navbar.replace(
+      'href="/voyage" class="dropdown-link w-dropdown-link" data-i18n="nav.voyage"',
+      'href="/voyage" aria-current="page" class="dropdown-link w-dropdown-link w--current" data-i18n="nav.voyage"'
+    );
   }
 
   if (classSlug) {
@@ -103,6 +108,7 @@ function buildFooter(options) {
     contact: "/contact",
     planning: "/planning",
     pricing: "/pricing",
+    voyage: "/voyage",
     legal: "/legal",
   };
 
@@ -149,6 +155,7 @@ function detectActive(relPath) {
   if (base === "contact.html") return "contact";
   if (base === "planning.html") return "planning";
   if (base === "pricing.html") return "pricing";
+  if (base === "voyage.html") return "voyage";
   if (base === "legal.html") return "legal";
   if (relPath.startsWith("classes" + path.sep)) return "classes";
   return null;

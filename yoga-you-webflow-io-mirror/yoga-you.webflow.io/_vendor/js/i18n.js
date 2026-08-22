@@ -8,7 +8,7 @@
       "nav.planning": "Planning",
       "nav.more": "Plus",
       "nav.expertises": "Voyage",
-      "nav.voyage": "Voyage",
+      "nav.voyage": "Voyages",
       "nav.classPage": "Détail cours",
       "nav.blog": "Compléments alimentaires",
       "nav.pricing": "Tarifs",

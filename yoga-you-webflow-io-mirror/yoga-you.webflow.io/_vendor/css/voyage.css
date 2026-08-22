@@ -87,17 +87,26 @@ body.page-voyage {
 .page-voyage .voyage-stats {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1px;
+  gap: 0;
   margin: 0 auto 3.5rem;
-  overflow: hidden;
-  border: 1px solid rgba(34, 34, 31, 0.1);
-  background: rgba(34, 34, 31, 0.1);
+  background: #fffbf0;
 }
 
 .page-voyage .voyage-stat {
+  position: relative;
   padding: 1.35rem 1rem;
   text-align: center;
   background: #fffbf0;
+}
+
+.page-voyage .voyage-stat + .voyage-stat::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(34, 34, 31, 0.1);
 }
 
 .page-voyage .voyage-stat strong {
@@ -259,6 +268,14 @@ body.page-voyage.scroll-reveal-ready .image-expertise-wide.reveal-on-scroll {
 @media (max-width: 991px) {
   .page-voyage .voyage-stats {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .page-voyage .voyage-stat:nth-child(3)::before {
+    display: none;
+  }
+
+  .page-voyage .voyage-stat:nth-child(-n+2) {
+    border-bottom: 1px solid rgba(34, 34, 31, 0.1);
   }
 
   .page-voyage .voyage-gallery {
