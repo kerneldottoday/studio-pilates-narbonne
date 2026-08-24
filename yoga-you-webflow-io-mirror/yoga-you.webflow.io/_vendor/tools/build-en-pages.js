@@ -30,6 +30,7 @@ const I18N_EN = {
   "nav.legal": "Legal notice",
   "nav.allPages": "All pages",
   "nav.cart": "Cart",
+  "nav.shop": "Supplements",
   "footer.navigation": "Navigation",
   "footer.information": "Information",
   "hero.location": "Studio Pilates Narbonne",
@@ -52,6 +53,7 @@ const I18N_EN = {
   "legal.navInfo": "Legal information",
   "legal.navPrivacy": "Privacy policy",
   "legal.navTerms": "Terms and conditions",
+  "legal.navShop": "Online sale",
 };
 
 const PAGE_META = {
@@ -89,6 +91,27 @@ const PAGE_META = {
     title: "Tassili n’Ajjer | Studio Pilates Narbonne",
     description:
       "12-day Tassili n’Ajjer circuit with Studio Pilates Narbonne: Tuareg camel trek to Essendilène and 4×4 in the Tadrat Rouge. €1,590, departs Marseille.",
+  },
+  "boutique.html": {
+    title: "Shop | Studio Pilates Narbonne",
+    description:
+      "Food supplements from Studio Pilates Narbonne: order online, shipped by Souhila or picked up at the studio.",
+  },
+  "boutique/panier.html": {
+    title: "Cart | Studio Pilates Narbonne",
+    description: "Your supplements cart, Studio Pilates Narbonne.",
+  },
+  "boutique/produit.html": {
+    title: "Product | Studio Pilates Narbonne",
+    description: "Product page for the Studio Pilates Narbonne supplements shop.",
+  },
+  "boutique/commande-ok.html": {
+    title: "Order confirmed | Studio Pilates Narbonne",
+    description: "Your supplements order has been received.",
+  },
+  "boutique/commande-annulee.html": {
+    title: "Payment cancelled | Studio Pilates Narbonne",
+    description: "Payment was cancelled. Nothing was charged.",
   },
   "expertises.html": {
     title: "Retreat | Studio Pilates Narbonne",
@@ -723,6 +746,7 @@ function main() {
   const textMap = loadTextMap();
   require("./rename-voyage-page").main();
   require("./patch-mentions-legales-page").main();
+  require("./patch-boutique-pages").main();
   const pages = [];
   listHtmlPages(ROOT, ROOT, pages);
 
@@ -751,6 +775,8 @@ function main() {
   require("./patch-dead-pages");
   require("./patch-vercel-dead-routes");
   require("./patch-seo-p0-vercel").main();
+  require("./ensure-shop-routes").main();
+  require("./patch-nav-shop").main();
   require("./patch-filter-links").main();
   require("./ensure-mobile-nav");
   require("./strip-class-play-button").main();

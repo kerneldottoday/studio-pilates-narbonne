@@ -212,6 +212,16 @@ function buildVercelRoutes(pages) {
     }
   }
 
+  const shopRewrites = [
+    { source: "/boutique/:slug", destination: "/boutique/produit.html" },
+    { source: "/en/boutique/:slug", destination: "/en/boutique/produit.html" },
+  ];
+  for (const rule of shopRewrites) {
+    if (!rewrites.find((r) => r.source === rule.source)) {
+      rewrites.push(rule);
+    }
+  }
+
   return { rewrites, redirects };
 }
 

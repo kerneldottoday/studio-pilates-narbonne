@@ -17,9 +17,10 @@ const SKIP_PAGES = new Set([
   "index.html",
   "blog.html",
   "mentions-legales.html",
+  "boutique.html",
 ]);
 
-const SKIP_PREFIXES = ["product/", "blog/", "duration/", "type/"];
+const SKIP_PREFIXES = ["product/", "blog/", "duration/", "type/", "boutique/"];
 
 function shouldSkipSitemap(rel) {
   if (SKIP_PAGES.has(rel)) return true;
@@ -64,6 +65,7 @@ function generateRobots() {
     "Disallow: /search",
     "Disallow: /product/",
     "Disallow: /blog",
+    "Disallow: /boutique",
     "Disallow: /duration/",
     "Disallow: /type/",
     "",

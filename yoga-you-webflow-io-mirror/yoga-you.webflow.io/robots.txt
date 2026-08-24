@@ -4,6 +4,7 @@ Disallow: /checkout
 Disallow: /search
 Disallow: /product/
 Disallow: /blog
+Disallow: /boutique
 Disallow: /duration/
 Disallow: /type/
 

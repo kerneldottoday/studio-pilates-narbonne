@@ -15,6 +15,7 @@
       "nav.legal": "Mentions légales",
       "nav.allPages": "Toutes les pages",
       "nav.cart": "Panier",
+      "nav.shop": "Compléments",
       "footer.navigation": "Navigation",
       "footer.information": "Informations",
       "hero.location": "Studio Pilates Narbonne",
@@ -38,6 +39,7 @@
       "legal.navInfo": "Informations légales",
       "legal.navPrivacy": "Politique de confidentialité",
       "legal.navTerms": "Conditions générales",
+      "legal.navShop": "Vente en ligne",
     },
     en: {
       "nav.home": "Home",
@@ -54,6 +56,7 @@
       "nav.legal": "Legal notice",
       "nav.allPages": "All pages",
       "nav.cart": "Cart",
+      "nav.shop": "Supplements",
       "footer.navigation": "Navigation",
       "footer.information": "Information",
       "hero.location": "Studio Pilates Narbonne",
@@ -76,6 +79,7 @@
       "legal.navInfo": "Legal information",
       "legal.navPrivacy": "Privacy policy",
       "legal.navTerms": "Terms and conditions",
+      "legal.navShop": "Online sale",
     },
   };
 

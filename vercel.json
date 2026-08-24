@@ -7,6 +7,17 @@
     "api/cron/monthly-report/index.js": {
       "includeFiles": "{api/cron/monthly-report/**,lib/monthly-report/**}",
       "maxDuration": 60
+    },
+    "api/checkout/index.js": {
+      "includeFiles": "lib/shop/**",
+      "maxDuration": 30
+    },
+    "api/webhooks/stripe/index.js": {
+      "includeFiles": "lib/shop/**",
+      "maxDuration": 30
+    },
+    "api/shop/catalog/index.js": {
+      "includeFiles": "lib/shop/**"
     }
   },
   "crons": [
@@ -777,6 +788,56 @@
       "source": "/en/voyage.html",
       "destination": "/en/voyage",
       "permanent": true
+    },
+    {
+      "source": "/boutique.html",
+      "destination": "/boutique",
+      "permanent": true
+    },
+    {
+      "source": "/boutique/panier.html",
+      "destination": "/boutique/panier",
+      "permanent": true
+    },
+    {
+      "source": "/boutique/produit.html",
+      "destination": "/boutique",
+      "permanent": true
+    },
+    {
+      "source": "/boutique/commande-ok.html",
+      "destination": "/boutique/commande-ok",
+      "permanent": true
+    },
+    {
+      "source": "/boutique/commande-annulee.html",
+      "destination": "/boutique/commande-annulee",
+      "permanent": true
+    },
+    {
+      "source": "/en/boutique.html",
+      "destination": "/en/boutique",
+      "permanent": true
+    },
+    {
+      "source": "/en/boutique/panier.html",
+      "destination": "/en/boutique/panier",
+      "permanent": true
+    },
+    {
+      "source": "/en/boutique/produit.html",
+      "destination": "/en/boutique",
+      "permanent": true
+    },
+    {
+      "source": "/en/boutique/commande-ok.html",
+      "destination": "/en/boutique/commande-ok",
+      "permanent": true
+    },
+    {
+      "source": "/en/boutique/commande-annulee.html",
+      "destination": "/en/boutique/commande-annulee",
+      "permanent": true
     }
   ],
   "rewrites": [
@@ -907,6 +968,46 @@
     {
       "source": "/en/voyage",
       "destination": "/en/voyage.html"
+    },
+    {
+      "source": "/boutique",
+      "destination": "/boutique.html"
+    },
+    {
+      "source": "/boutique/panier",
+      "destination": "/boutique/panier.html"
+    },
+    {
+      "source": "/boutique/commande-ok",
+      "destination": "/boutique/commande-ok.html"
+    },
+    {
+      "source": "/boutique/commande-annulee",
+      "destination": "/boutique/commande-annulee.html"
+    },
+    {
+      "source": "/boutique/:slug",
+      "destination": "/boutique/produit.html"
+    },
+    {
+      "source": "/en/boutique",
+      "destination": "/en/boutique.html"
+    },
+    {
+      "source": "/en/boutique/panier",
+      "destination": "/en/boutique/panier.html"
+    },
+    {
+      "source": "/en/boutique/commande-ok",
+      "destination": "/en/boutique/commande-ok.html"
+    },
+    {
+      "source": "/en/boutique/commande-annulee",
+      "destination": "/en/boutique/commande-annulee.html"
+    },
+    {
+      "source": "/en/boutique/:slug",
+      "destination": "/en/boutique/produit.html"
     }
   ]
 }

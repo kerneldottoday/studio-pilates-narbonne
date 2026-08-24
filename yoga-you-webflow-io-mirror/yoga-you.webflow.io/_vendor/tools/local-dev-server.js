@@ -11,6 +11,24 @@ const ROOT = path.join(__dirname, "..", "..");
 const REPO_ROOT = path.join(ROOT, "..", "..");
 const PORT = Number(process.argv[2]) || 8000;
 const vercelPath = path.join(REPO_ROOT, "vercel.json");
+const { loadEnv } = require(path.join(REPO_ROOT, "lib", "shop", "load-env"));
+
+loadEnv(REPO_ROOT);
+if (!process.env.STRIPE_SECRET_KEY && process.env.SHOP_MOCK_CHECKOUT == null) {
+  process.env.SHOP_MOCK_CHECKOUT = "true";
+}
+
+const API_HANDLERS = {
+  "/api/checkout": path.join(REPO_ROOT, "api", "checkout", "index.js"),
+  "/api/webhooks/stripe": path.join(
+    REPO_ROOT,
+    "api",
+    "webhooks",
+    "stripe",
+    "index.js"
+  ),
+  "/api/shop/catalog": path.join(REPO_ROOT, "api", "shop", "catalog", "index.js"),
+};
 
 const MIME = {
   ".html": "text/html; charset=utf-8",
@@ -44,9 +62,43 @@ function normalizePathname(pathname) {
   return p || "/";
 }
 
+function vercelPatternToRegex(source) {
+  const names = [];
+  const parts = String(source).split(/(:[A-Za-z0-9_]+)/g);
+  let pattern = "^";
+  for (const part of parts) {
+    if (part.charAt(0) === ":") {
+      names.push(part.slice(1));
+      pattern += "([^/]+)";
+    } else {
+      pattern += part.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    }
+  }
+  pattern += "$";
+  return { regex: new RegExp(pattern), names };
+}
+
+function matchVercelPath(source, pathname) {
+  if (source === pathname) {
+    return { params: {} };
+  }
+  if (!source.includes(":")) {
+    return null;
+  }
+  const converted = vercelPatternToRegex(source);
+  const match = converted.regex.exec(pathname);
+  if (!match) return null;
+  const params = {};
+  converted.names.forEach(function (name, i) {
+    params[name] = match[i + 1];
+  });
+  return { params };
+}
+
 function matchRedirect(pathname, vercel) {
   for (const rule of vercel.redirects || []) {
-    if (normalizePathname(rule.source) === pathname) {
+    if (rule.has) continue;
+    if (matchVercelPath(rule.source, pathname)) {
       return rule.destination;
     }
   }
@@ -55,7 +107,7 @@ function matchRedirect(pathname, vercel) {
 
 function applyRewrite(pathname, vercel) {
   for (const rule of vercel.rewrites || []) {
-    if (normalizePathname(rule.source) === pathname) {
+    if (matchVercelPath(rule.source, pathname)) {
       return rule.destination;
     }
   }
@@ -135,10 +187,43 @@ function servePath(res, urlPath) {
   sendFile(res, filePath);
 }
 
+function dispatchApi(req, res, pathname) {
+  const handlerPath = API_HANDLERS[pathname];
+  if (!handlerPath) {
+    res.writeHead(404, { "Content-Type": "application/json; charset=utf-8" });
+    res.end(JSON.stringify({ error: "API inconnue" }));
+    return;
+  }
+  let handler;
+  try {
+    delete require.cache[require.resolve(handlerPath)];
+    handler = require(handlerPath);
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error("[local-api]", pathname, message);
+    res.writeHead(500, { "Content-Type": "application/json; charset=utf-8" });
+    res.end(JSON.stringify({ error: "Erreur API" }));
+    return;
+  }
+  Promise.resolve(handler(req, res)).catch(function (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error("[local-api]", pathname, message);
+    if (!res.headersSent) {
+      res.writeHead(500, { "Content-Type": "application/json; charset=utf-8" });
+      res.end(JSON.stringify({ error: "Erreur API" }));
+    }
+  });
+}
+
 const server = http.createServer(function (req, res) {
   const vercel = loadVercelConfig();
   const url = new URL(req.url, "http://localhost");
   let pathname = normalizePathname(url.pathname);
+
+  if (pathname.indexOf("/api/") === 0) {
+    dispatchApi(req, res, pathname);
+    return;
+  }
 
   const redirect = matchRedirect(pathname, vercel);
   if (redirect) {
@@ -158,5 +243,6 @@ server.listen(PORT, function () {
   console.log("http://localhost:" + PORT + "/classes");
   console.log("http://localhost:" + PORT + "/planning");
   console.log("http://localhost:" + PORT + "/en/classes");
+  console.log("http://localhost:" + PORT + "/boutique");
   console.log("Racine: " + ROOT);
 });

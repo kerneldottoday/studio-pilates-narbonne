@@ -35,6 +35,28 @@ function injectAssets(html, prefix, isEn) {
       html = html.replace("</body>", tag + "</body>");
     }
   }
+  if (!html.includes("voyage-gallery.js")) {
+    const marker =
+      '<script src="' + prefix + '_vendor/js/scroll-reveal.js" defer></script>';
+    const tag =
+      '<script src="' + prefix + '_vendor/js/voyage-gallery.js" defer></script>';
+    if (html.includes(marker)) {
+      html = html.replace(marker, marker + tag);
+    } else {
+      html = html.replace("</body>", tag + "</body>");
+    }
+  }
+  if (!html.includes("voyage-film.js")) {
+    const marker =
+      '<script src="' + prefix + '_vendor/js/voyage-gallery.js" defer></script>';
+    const tag =
+      '<script src="' + prefix + '_vendor/js/voyage-film.js" defer></script>';
+    if (html.includes(marker)) {
+      html = html.replace(marker, marker + tag);
+    } else {
+      html = html.replace("</body>", tag + "</body>");
+    }
+  }
   html = html.replace(/<body(?![^>]*page-voyage)/, '<body class="page-voyage"');
   if (html.includes('<body class="page-voyage" class=')) {
     html = html.replace('<body class="page-voyage" class="', '<body class="page-voyage ');

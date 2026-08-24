@@ -109,6 +109,7 @@ function buildFooter(options) {
     planning: "/planning",
     pricing: "/pricing",
     voyage: "/voyage",
+    shop: "/boutique",
     legal: "/legal",
   };
 
@@ -156,6 +157,9 @@ function detectActive(relPath) {
   if (base === "planning.html") return "planning";
   if (base === "pricing.html") return "pricing";
   if (base === "voyage.html") return "voyage";
+  if (base === "boutique.html" || relPath.replace(/\\/g, "/").startsWith("boutique/")) {
+    return "shop";
+  }
   if (base === "legal.html") return "legal";
   if (relPath.startsWith("classes" + path.sep)) return "classes";
   return null;
