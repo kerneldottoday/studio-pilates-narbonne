@@ -1,5 +1,5 @@
-const { publicCatalog } = require("../../../lib/shop/catalog");
 const { json } = require("../../../lib/shop/http");
+const { publicSessions } = require("../../../lib/studio/booking");
 const { withStudioStore } = require("../../../lib/studio/with-store");
 
 async function handler(req, res) {
@@ -13,11 +13,11 @@ async function handler(req, res) {
     return json(res, 405, { error: "Method Not Allowed" });
   }
   try {
-    return json(res, 200, publicCatalog());
+    return json(res, 200, publicSessions());
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
-    console.error("[shop/catalog]", message);
-    return json(res, 500, { error: "Catalogue indisponible" });
+    console.error("[studio/sessions]", message);
+    return json(res, 500, { error: "Planning indisponible" });
   }
 }
 

@@ -2,6 +2,7 @@ const { getStripe } = require("../../../lib/shop/stripe-client");
 const { orderEmailTo, formatEUR } = require("../../../lib/shop/catalog");
 const { sendOrderEmails, formatAddress } = require("../../../lib/shop/email");
 const { readRawBody, json } = require("../../../lib/shop/http");
+const { withStudioStore } = require("../../../lib/studio/with-store");
 
 function parseItems(session) {
   const fromMeta = String((session.metadata && session.metadata.items) || "");
@@ -61,7 +62,7 @@ async function handleCheckoutCompleted(stripe, session) {
   });
 }
 
-module.exports = async function handler(req, res) {
+async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return json(res, 405, { error: "Method Not Allowed" });
@@ -92,7 +93,14 @@ module.exports = async function handler(req, res) {
 
   try {
     if (event.type === "checkout.session.completed") {
-      await handleCheckoutCompleted(stripe, event.data.object);
+      const session = event.data.object;
+      const kind = session && session.metadata && session.metadata.type;
+      if (kind === "class-pass") {
+        const { recordPaidSession } = require("../../../lib/studio/paid");
+        await recordPaidSession(stripe, session.id);
+      } else {
+        await handleCheckoutCompleted(stripe, session);
+      }
     }
     return json(res, 200, { received: true, type: event.type });
   } catch (err) {
@@ -100,4 +108,9 @@ module.exports = async function handler(req, res) {
     console.error("[shop/webhook]", message);
     return json(res, 500, { error: "Traitement impossible" });
   }
-};
+}
+
+// Le store studio n'est utilisé que pour les sessions "class-pass", mais
+// l'enveloppe est sans effet en mode fichiers et ne coûte qu'une lecture en
+// mode supabase — on garde un seul chemin.
+module.exports = withStudioStore(handler);

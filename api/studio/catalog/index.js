@@ -1,6 +1,6 @@
-const { publicCatalog } = require("../../../lib/shop/catalog");
-const { json } = require("../../../lib/shop/http");
+const { publicCatalog } = require("../../../lib/studio/store");
 const { withStudioStore } = require("../../../lib/studio/with-store");
+const { json } = require("../../../lib/shop/http");
 
 async function handler(req, res) {
   if (req.method === "OPTIONS") {
@@ -16,7 +16,7 @@ async function handler(req, res) {
     return json(res, 200, publicCatalog());
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
-    console.error("[shop/catalog]", message);
+    console.error("[studio/catalog]", message);
     return json(res, 500, { error: "Catalogue indisponible" });
   }
 }

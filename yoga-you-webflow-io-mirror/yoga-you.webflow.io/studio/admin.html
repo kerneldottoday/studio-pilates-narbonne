@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="robots" content="noindex, nofollow, noarchive"/>
+  <title>Espace Souhila | Studio Pilates Narbonne</title>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <link href="../65939d1f139e1daa37da455f/css/yoga-you.webflow.7d97343ae.css" rel="stylesheet" type="text/css"/>
+  <link href="../_vendor/media/favicon.svg" rel="icon" type="image/svg+xml"/>
+  <link href="../_vendor/css/studio-crm.css" rel="stylesheet" type="text/css"/>
+</head>
+<body class="page-studio-admin">
+  <header class="studio-admin-bar">
+    <strong>Espace Souhila</strong>
+    <div class="studio-bar-links">
+      <a href="/studio/acheter">Formules</a>
+      <a href="/studio/reserver">Réservations</a>
+      <a href="/">Site public</a>
+      <button type="button" data-logout hidden>Déconnexion</button>
+    </div>
+  </header>
+
+  <main class="studio-admin">
+    <section class="studio-login" data-login>
+      <h1>Connexion</h1>
+      <p>Changer les prix des formules et voir les paiements. Page locale, pas encore en ligne.</p>
+      <form class="studio-form" data-login-form>
+        <label>Mot de passe<input type="password" data-password autocomplete="current-password" required/></label>
+        <p class="studio-hint" data-login-error></p>
+        <button type="submit" class="cta w-button">Entrer</button>
+      </form>
+    </section>
+
+    <section data-app hidden>
+      <p class="studio-lead">Coche « Ouvrir la vente » puis Enregistrer : les boutons Réserver et Acheter du site public pointent vers /studio/reserver et /studio/acheter. Décoche : retour à bsport. Rien n’est en ligne tant que tu ne déploies pas.</p>
+      <p class="studio-hint" data-admin-hint></p>
+
+      <div class="studio-toolbar">
+        <label class="studio-live">
+          <input type="checkbox" data-live/>
+          Ouvrir la vente (CTA publics → studio)
+        </label>
+        <label class="studio-live">
+          Annulation jusqu’à
+          <input type="number" min="0" max="168" step="1" data-cancel-hours/>
+          h avant le cours
+        </label>
+        <div class="studio-actions">
+          <button type="button" class="cta w-button" data-save>Enregistrer</button>
+          <button type="button" class="studio-ghost" data-reset>Tarifs d’origine</button>
+        </div>
+      </div>
+
+      <div class="studio-tabs" role="tablist">
+        <button type="button" data-tab="prix" aria-selected="true">Prix</button>
+        <button type="button" data-tab="boutique" aria-selected="false">Boutique</button>
+        <button type="button" data-tab="commandes" aria-selected="false">Commandes</button>
+        <button type="button" data-tab="eleves" aria-selected="false">Élèves</button>
+        <button type="button" data-tab="messages" aria-selected="false">Messages</button>
+        <button type="button" data-tab="planning" aria-selected="false">Planning</button>
+        <button type="button" data-tab="bilan" aria-selected="false">Bilan</button>
+      </div>
+
+      <div data-panel="prix">
+        <div class="studio-table-wrap">
+          <table class="studio-table">
+            <thead>
+              <tr>
+                <th>Formule</th>
+                <th>Prix €</th>
+                <th>Crédits</th>
+                <th>Mois</th>
+                <th>Groupe</th>
+                <th>Visible</th>
+                <th>Populaire</th>
+                <th>Texte</th>
+              </tr>
+            </thead>
+            <tbody data-products></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div data-panel="boutique" hidden>
+        <p class="studio-note">Les compléments vendus sur la page Boutique du site public. Change un prix, un texte, le stock, ou décoche « Visible » pour retirer un produit de la vente : c’est appliqué immédiatement, sans mise à jour du site. La version anglaise garde ses textes actuels, et l’ajout d’un nouveau produit (photo comprise) passe encore par Yankel.</p>
+        <form data-shop-form>
+          <div data-shop-products></div>
+          <h2>Livraison</h2>
+          <div data-shop-shipping></div>
+          <p class="studio-hint" data-shop-hint></p>
+          <p><button type="submit" class="cta w-button">Enregistrer la boutique</button></p>
+        </form>
+      </div>
+
+      <div data-panel="commandes" hidden>
+        <div class="studio-table-wrap">
+          <table class="studio-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Cliente</th>
+                <th>Formule</th>
+                <th>Total</th>
+                <th>Statut</th>
+                <th>Suivi</th>
+              </tr>
+            </thead>
+            <tbody data-orders></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div data-panel="eleves" hidden>
+        <p class="studio-note">Toutes les élèves qui ont acheté ou réservé. Pour une migration bsport : ajoute les crédits à la main, puis l’élève réserve avec le même e-mail.</p>
+        <label>Recherche<input type="search" data-student-search placeholder="Nom ou e-mail" autocomplete="off"/></label>
+        <div class="studio-table-wrap">
+          <table class="studio-table">
+            <thead>
+              <tr>
+                <th>Élève</th>
+                <th>Reformer</th>
+                <th>Mat / Yoga</th>
+                <th>À venir</th>
+                <th>Achats</th>
+              </tr>
+            </thead>
+            <tbody data-students></tbody>
+          </table>
+        </div>
+        <div data-student-detail></div>
+        <h2>Ajouter des crédits</h2>
+        <form class="studio-form" data-credit-form>
+          <label>Nom<input name="name" required minlength="2"/></label>
+          <label>E-mail<input name="email" type="email" required/></label>
+          <label>Type
+            <select name="kind">
+              <option value="reformer">Reformer</option>
+              <option value="mat">Mat / Yoga</option>
+            </select>
+          </label>
+          <label>Crédits<input name="amount" type="number" min="1" max="40" value="1" required/></label>
+          <label>Note<textarea name="note" rows="2" placeholder="Ex. reprise carte bsport"></textarea></label>
+          <button type="submit" class="cta w-button">Créditer</button>
+        </form>
+      </div>
+
+      <div data-panel="messages" hidden>
+        <p class="studio-note">Brouillons de ce que l’élève recevrait (achat, réservation, file, annulation, crédits, rappels). Rien n’est envoyé tant que tu n’actives pas les e-mails. Les inscriptions admin sans crédit ne génèrent pas de message. En ligne, les rappels des cours du lendemain se préparent tout seuls chaque jour à 18 h — le bouton sert à le faire à la main.</p>
+        <p><button type="button" class="studio-ghost" data-run-reminders>Préparer les rappels de demain</button></p>
+        <div class="studio-table-wrap">
+          <table class="studio-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>À</th>
+                <th>Sujet</th>
+                <th>Texte</th>
+                <th>Envoi</th>
+              </tr>
+            </thead>
+            <tbody data-notices></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div data-panel="planning" hidden>
+        <p class="studio-note">Agenda réel à partir du 15 septembre 2026. Présent consomme le crédit. Absente aussi (no-show), mais libère la place — la première de la file avec un crédit est inscrite. À l’heure du cours, la file expire. À la fin, les inscrites non pointées passent absentes toutes seules (tu peux encore les passer présentes). Retirer rend le crédit. Cours complet : « Inscrire à la main » ajoute à la file. L’élève ne peut plus annuler toute seule une fois le délai dépassé (quitter la file reste possible avant le début).</p>
+        <div class="studio-week-nav">
+          <button type="button" class="studio-ghost" data-prev-week>Semaine précédente</button>
+          <h2 data-week-label>Planning</h2>
+          <button type="button" class="studio-ghost" data-next-week>Semaine suivante</button>
+        </div>
+        <div data-week-board></div>
+        <h2>Inscrire à la main</h2>
+        <form class="studio-form" data-booking-form>
+          <label>Nom<input name="name" required minlength="2"/></label>
+          <label>E-mail<input name="email" type="email" required/></label>
+          <label>Téléphone<input name="phone" type="tel"/></label>
+          <label>Cours<select name="occurrenceId" data-occ-select></select></label>
+          <label class="studio-live"><input type="checkbox" name="skipCredit" checked/> Sans débiter un crédit</label>
+          <label>Note<textarea name="note" rows="2"></textarea></label>
+          <button type="submit" class="cta w-button">Inscrire</button>
+        </form>
+        <h2>Fermetures (vacances, séances annulées)</h2>
+        <p class="studio-note">Ferme une période entière ou un seul cours : les élèves inscrites sont retirées et re-créditées automatiquement, la file est vidée, et un message est préparé pour chacune (onglet Messages). Réouvrir ne réinscrit personne — les élèves réservent à nouveau. Astuce : chaque séance du planning a aussi un bouton « annuler la séance ».</p>
+        <form class="studio-form studio-closure-form" data-closure-form>
+          <label>Du<input name="from" type="date" required/></label>
+          <label>Au (inclus, vide = un seul jour)<input name="to" type="date"/></label>
+          <label>Cours
+            <select name="slotId" data-closure-slot>
+              <option value="">Tous les cours</option>
+            </select>
+          </label>
+          <label>Motif (visible par les élèves)<input name="reason" maxlength="120" placeholder="Ex. congés, formation…"/></label>
+          <button type="submit" class="cta w-button">Fermer ces dates</button>
+        </form>
+        <div class="studio-table-wrap">
+          <table class="studio-table">
+            <thead>
+              <tr>
+                <th>Période</th>
+                <th>Cours</th>
+                <th>Motif</th>
+                <th>Réouvrir</th>
+              </tr>
+            </thead>
+            <tbody data-closures></tbody>
+          </table>
+        </div>
+        <h2>Modèle de semaine</h2>
+        <div class="studio-table-wrap">
+          <table class="studio-table">
+            <thead>
+              <tr>
+                <th>Jour</th>
+                <th>Début</th>
+                <th>Fin</th>
+                <th>Cours</th>
+                <th>Niveau</th>
+                <th>Places</th>
+              </tr>
+            </thead>
+            <tbody data-schedule></tbody>
+          </table>
+        </div>
+      </div>
+      <div data-panel="bilan" hidden>
+        <p class="studio-note">Le mois en un coup d’œil : encaissements, séances, remplissage, présences et crédits encore valides (des séances déjà payées mais pas encore prises). Les achats « essai » du prototype sont comptés à part.</p>
+        <div class="studio-week-nav">
+          <button type="button" class="studio-ghost" data-prev-month>Mois précédent</button>
+          <h2 data-report-label>Bilan</h2>
+          <button type="button" class="studio-ghost" data-next-month>Mois suivant</button>
+        </div>
+        <div class="studio-stats" data-report-cards></div>
+        <h2>Par créneau</h2>
+        <div class="studio-table-wrap">
+          <table class="studio-table">
+            <thead>
+              <tr>
+                <th>Créneau</th>
+                <th>Séances</th>
+                <th>Remplissage</th>
+                <th>Présences</th>
+                <th>Absences</th>
+                <th>Annulées</th>
+              </tr>
+            </thead>
+            <tbody data-report-slots></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="../_vendor/js/studio-admin.js"></script>
+</body>
+</html>

@@ -2,6 +2,7 @@ const { validateCart } = require("../../lib/shop/validate-cart");
 const { getStripe } = require("../../lib/shop/stripe-client");
 const { isTestStripe, allowMockCheckout } = require("../../lib/shop/catalog");
 const { readJsonBody, json, siteOrigin, isAllowedOrigin } = require("../../lib/shop/http");
+const { withStudioStore } = require("../../lib/studio/with-store");
 
 function successPath(locale) {
   return locale === "en" ? "/en/boutique/commande-ok" : "/boutique/commande-ok";
@@ -13,7 +14,7 @@ function cancelPath(locale) {
     : "/boutique/commande-annulee";
 }
 
-module.exports = async function handler(req, res) {
+async function handler(req, res) {
   if (req.method === "OPTIONS") {
     res.setHeader("Allow", "POST, OPTIONS");
     res.statusCode = 204;
@@ -122,4 +123,6 @@ module.exports = async function handler(req, res) {
     console.error("[shop/checkout]", message);
     return json(res, 500, { error: "Impossible d’ouvrir le paiement" });
   }
-};
+}
+
+module.exports = withStudioStore(handler);

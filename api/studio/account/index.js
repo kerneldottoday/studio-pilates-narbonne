@@ -1,5 +1,5 @@
-const { publicCatalog } = require("../../../lib/shop/catalog");
 const { json } = require("../../../lib/shop/http");
+const { accountFor } = require("../../../lib/studio/booking");
 const { withStudioStore } = require("../../../lib/studio/with-store");
 
 async function handler(req, res) {
@@ -12,13 +12,12 @@ async function handler(req, res) {
     res.setHeader("Allow", "GET, OPTIONS");
     return json(res, 405, { error: "Method Not Allowed" });
   }
-  try {
-    return json(res, 200, publicCatalog());
-  } catch (err) {
-    const message = err instanceof Error ? err.message : String(err);
-    console.error("[shop/catalog]", message);
-    return json(res, 500, { error: "Catalogue indisponible" });
+  const url = new URL(req.url, "http://localhost");
+  const result = accountFor(url.searchParams.get("email"));
+  if (!result.ok) {
+    return json(res, result.status, { error: result.error });
   }
+  return json(res, 200, result);
 }
 
 module.exports = withStudioStore(handler);
