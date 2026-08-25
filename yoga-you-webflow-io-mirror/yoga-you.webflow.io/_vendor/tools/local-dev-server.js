@@ -12,10 +12,14 @@ const REPO_ROOT = path.join(ROOT, "..", "..");
 const PORT = Number(process.argv[2]) || 8000;
 const vercelPath = path.join(REPO_ROOT, "vercel.json");
 const { loadEnv } = require(path.join(REPO_ROOT, "lib", "shop", "load-env"));
+const { adminPassword } = require(path.join(REPO_ROOT, "lib", "studio", "auth"));
 
 loadEnv(REPO_ROOT);
 if (!process.env.STRIPE_SECRET_KEY && process.env.SHOP_MOCK_CHECKOUT == null) {
   process.env.SHOP_MOCK_CHECKOUT = "true";
+}
+if (!process.env.STRIPE_SECRET_KEY && process.env.STUDIO_MOCK_CHECKOUT == null) {
+  process.env.STUDIO_MOCK_CHECKOUT = "true";
 }
 
 const API_HANDLERS = {
@@ -28,6 +32,116 @@ const API_HANDLERS = {
     "index.js"
   ),
   "/api/shop/catalog": path.join(REPO_ROOT, "api", "shop", "catalog", "index.js"),
+  "/api/studio/catalog": path.join(REPO_ROOT, "api", "studio", "catalog", "index.js"),
+  "/api/studio/checkout": path.join(
+    REPO_ROOT,
+    "api",
+    "studio",
+    "checkout",
+    "index.js"
+  ),
+  "/api/studio/admin/session": path.join(
+    REPO_ROOT,
+    "api",
+    "studio",
+    "admin",
+    "session",
+    "index.js"
+  ),
+  "/api/studio/admin/catalog": path.join(
+    REPO_ROOT,
+    "api",
+    "studio",
+    "admin",
+    "catalog",
+    "index.js"
+  ),
+  "/api/studio/admin/orders": path.join(
+    REPO_ROOT,
+    "api",
+    "studio",
+    "admin",
+    "orders",
+    "index.js"
+  ),
+  "/api/studio/admin/schedule": path.join(
+    REPO_ROOT,
+    "api",
+    "studio",
+    "admin",
+    "schedule",
+    "index.js"
+  ),
+  "/api/studio/admin/students": path.join(
+    REPO_ROOT,
+    "api",
+    "studio",
+    "admin",
+    "students",
+    "index.js"
+  ),
+  "/api/studio/admin/notices": path.join(
+    REPO_ROOT,
+    "api",
+    "studio",
+    "admin",
+    "notices",
+    "index.js"
+  ),
+  "/api/studio/admin/closures": path.join(
+    REPO_ROOT,
+    "api",
+    "studio",
+    "admin",
+    "closures",
+    "index.js"
+  ),
+  "/api/studio/cron/reminders": path.join(
+    REPO_ROOT,
+    "api",
+    "studio",
+    "cron",
+    "reminders",
+    "index.js"
+  ),
+  "/api/studio/admin/report": path.join(
+    REPO_ROOT,
+    "api",
+    "studio",
+    "admin",
+    "report",
+    "index.js"
+  ),
+  "/api/studio/admin/shop": path.join(
+    REPO_ROOT,
+    "api",
+    "studio",
+    "admin",
+    "shop",
+    "index.js"
+  ),
+  "/api/studio/sessions": path.join(
+    REPO_ROOT,
+    "api",
+    "studio",
+    "sessions",
+    "index.js"
+  ),
+  "/api/studio/account": path.join(
+    REPO_ROOT,
+    "api",
+    "studio",
+    "account",
+    "index.js"
+  ),
+  "/api/studio/book": path.join(REPO_ROOT, "api", "studio", "book", "index.js"),
+};
+
+const LOCAL_REWRITES = {
+  "/studio/acheter": "/studio/acheter.html",
+  "/studio/admin": "/studio/admin.html",
+  "/studio/ok": "/studio/ok.html",
+  "/studio/reserver": "/studio/reserver.html",
 };
 
 const MIME = {
@@ -197,6 +311,11 @@ function dispatchApi(req, res, pathname) {
   let handler;
   try {
     delete require.cache[require.resolve(handlerPath)];
+    Object.keys(require.cache).forEach(function (key) {
+      if (key.replace(/\\/g, "/").indexOf("/lib/studio/") !== -1) {
+        delete require.cache[key];
+      }
+    });
     handler = require(handlerPath);
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
@@ -234,6 +353,9 @@ const server = http.createServer(function (req, res) {
   }
 
   pathname = normalizePathname(applyRewrite(pathname, vercel));
+  if (LOCAL_REWRITES[pathname]) {
+    pathname = LOCAL_REWRITES[pathname];
+  }
   servePath(res, pathname);
 });
 
@@ -244,5 +366,12 @@ server.listen(PORT, function () {
   console.log("http://localhost:" + PORT + "/planning");
   console.log("http://localhost:" + PORT + "/en/classes");
   console.log("http://localhost:" + PORT + "/boutique");
+  console.log("Formules (essai local, pas en prod) :");
+  console.log("http://localhost:" + PORT + "/studio/acheter");
+  console.log("http://localhost:" + PORT + "/studio/reserver");
+  console.log("http://localhost:" + PORT + "/studio/admin");
+  if (!process.env.STUDIO_ADMIN_PASSWORD) {
+    console.log("Mot de passe admin local : " + adminPassword());
+  }
   console.log("Racine: " + ROOT);
 });

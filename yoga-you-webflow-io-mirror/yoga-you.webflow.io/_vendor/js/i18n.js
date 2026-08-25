@@ -39,6 +39,7 @@
       "legal.navInfo": "Informations légales",
       "legal.navPrivacy": "Politique de confidentialité",
       "legal.navTerms": "Conditions générales",
+      "legal.navClasses": "Formules de cours",
       "legal.navShop": "Vente en ligne",
     },
     en: {
@@ -79,6 +80,7 @@
       "legal.navInfo": "Legal information",
       "legal.navPrivacy": "Privacy policy",
       "legal.navTerms": "Terms and conditions",
+      "legal.navClasses": "Class packs",
       "legal.navShop": "Online sale",
     },
   };

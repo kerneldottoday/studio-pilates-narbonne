@@ -18,12 +18,20 @@
     },
     "api/shop/catalog/index.js": {
       "includeFiles": "lib/shop/**"
+    },
+    "api/studio/**/index.js": {
+      "includeFiles": "lib/shop/**",
+      "maxDuration": 30
     }
   },
   "crons": [
     {
       "path": "/api/cron/monthly-report",
       "schedule": "0 7 1 * *"
+    },
+    {
+      "path": "/api/studio/cron/reminders",
+      "schedule": "0 16 * * *"
     }
   ],
   "redirects": [
@@ -1008,6 +1016,22 @@
     {
       "source": "/en/boutique/:slug",
       "destination": "/en/boutique/produit.html"
+    },
+    {
+      "source": "/studio/acheter",
+      "destination": "/studio/acheter.html"
+    },
+    {
+      "source": "/studio/reserver",
+      "destination": "/studio/reserver.html"
+    },
+    {
+      "source": "/studio/admin",
+      "destination": "/studio/admin.html"
+    },
+    {
+      "source": "/studio/ok",
+      "destination": "/studio/ok.html"
     }
   ]
 }

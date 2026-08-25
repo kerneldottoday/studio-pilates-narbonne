@@ -6,6 +6,7 @@
   "scripts": {
     "build": "node yoga-you-webflow-io-mirror/yoga-you.webflow.io/_vendor/tools/build-en-pages.js",
     "shop:pages": "node yoga-you-webflow-io-mirror/yoga-you.webflow.io/_vendor/tools/patch-boutique-pages.js",
+    "studio:local": "node yoga-you-webflow-io-mirror/yoga-you.webflow.io/_vendor/tools/local-dev-server.js 8822",
     "report:dry": "node scripts/monthly-report-dry-run.js",
     "report:test": "node scripts/send-monthly-report-test.js"
   },

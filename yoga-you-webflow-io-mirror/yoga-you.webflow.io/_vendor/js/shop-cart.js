@@ -1,6 +1,9 @@
 (function () {
   var STORAGE_KEY = "spn-shop-cart-v1";
-  var CATALOG_URL = "/_vendor/shop/catalog.json";
+  // Servi par l'API pour refléter les éditions de Souhila (Espace admin)
+  // sans redéploiement. L'ancien /_vendor/shop/catalog.json reste un artefact
+  // de build non consommé.
+  var CATALOG_URL = "/api/shop/catalog";
   var catalogPromise = null;
 
   function isEn() {

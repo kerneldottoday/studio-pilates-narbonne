@@ -12,7 +12,7 @@ const ROOT = path.join(__dirname, "..", "..");
 const EN_DIR = path.join(ROOT, "en");
 const { SITE_ORIGIN } = require("./site-config");
 
-const SKIP_DIRS = new Set(["65939d1f139e1daa37da455f", "en", "_vendor"]);
+const SKIP_DIRS = new Set(["65939d1f139e1daa37da455f", "en", "_vendor", "studio"]);
 const ASSET_ROOTS = ["_vendor/", "65939d1f139e1daa37da455f/"];
 
 const I18N_EN = {
@@ -53,6 +53,7 @@ const I18N_EN = {
   "legal.navInfo": "Legal information",
   "legal.navPrivacy": "Privacy policy",
   "legal.navTerms": "Terms and conditions",
+  "legal.navClasses": "Class packs",
   "legal.navShop": "Online sale",
 };
 
