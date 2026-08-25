@@ -115,5 +115,16 @@ function patchPage(relFile, gridRel, prefix, isEn) {
   console.log("patched", relFile);
 }
 
-patchPage("voyage.html", "_vendor/content/voyage-main.html", "", false);
-patchPage("en/voyage.html", "_vendor/content/voyage-main-en.html", "../", true);
+function main() {
+  patchPage("voyage.html", "_vendor/content/voyage-main.html", "", false);
+  const enVoyage = path.join(root, "en", "voyage.html");
+  if (fs.existsSync(enVoyage)) {
+    patchPage("en/voyage.html", "_vendor/content/voyage-main-en.html", "../", true);
+  }
+}
+
+if (require.main === module) {
+  main();
+}
+
+module.exports = { main };

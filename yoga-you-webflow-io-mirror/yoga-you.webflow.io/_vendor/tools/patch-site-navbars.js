@@ -12,7 +12,13 @@ const NAVBAR_MARKER = 'class="navbar w-nav"';
 
 function walk(dir, changed) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    if (entry.name === "65939d1f139e1daa37da455f") continue;
+    if (
+      entry.name === "65939d1f139e1daa37da455f" ||
+      entry.name === "en" ||
+      entry.name === "_vendor"
+    ) {
+      continue;
+    }
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) {
       walk(full, changed);
@@ -41,6 +47,15 @@ function walk(dir, changed) {
   }
 }
 
-const changed = [];
-walk(root, changed);
-console.log("Updated navbar on " + changed.length + " page(s)");
+function main() {
+  const changed = [];
+  walk(root, changed);
+  console.log("Updated navbar on " + changed.length + " page(s)");
+  return changed;
+}
+
+if (require.main === module) {
+  main();
+}
+
+module.exports = { main };

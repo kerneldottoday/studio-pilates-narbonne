@@ -8,6 +8,11 @@
   function play() {
     var src = root.getAttribute("data-embed");
     if (!src) return;
+    if (/autoplay=/.test(src)) {
+      src = src.replace(/autoplay=false/g, "autoplay=true");
+    } else {
+      src += (src.indexOf("?") >= 0 ? "&" : "?") + "autoplay=true";
+    }
     var frame = document.createElement("iframe");
     frame.src = src;
     frame.title = root.getAttribute("data-title") || "Film";

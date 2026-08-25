@@ -168,6 +168,13 @@
       return;
     }
     document.title = window.SPNShop.productName(product) + " | Studio Pilates Narbonne";
+    var canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) {
+      canonical.setAttribute(
+        "href",
+        window.location.origin + window.SPNShop.shopPath("product", product.slug)
+      );
+    }
     var badge =
       product.status === "placeholder"
         ? '<span class="shop-badge">' + escapeHtml(t().example) + "</span>"

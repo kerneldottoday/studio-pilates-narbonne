@@ -530,6 +530,28 @@ body.voyage-lightbox-open .spn-rentree-banner {
   padding-bottom: 4rem;
 }
 
+.page-voyage .voyage-book {
+  margin: 1.75rem 0 0;
+  padding: 1.25rem 1.35rem;
+  border: 1px solid rgba(255, 251, 240, 0.18);
+  background: rgba(255, 251, 240, 0.06);
+}
+
+.page-voyage .voyage-book h3 {
+  margin: 0 0 0.65rem;
+  font-size: 1.15rem;
+}
+
+.page-voyage .voyage-book p {
+  margin: 0 0 0.75rem;
+  line-height: 1.65;
+  opacity: 0.9;
+}
+
+.page-voyage .voyage-book p:last-child {
+  margin-bottom: 0;
+}
+
 .page-voyage .voyage-contact .single-contact-list-icon-one div {
   word-break: break-word;
 }

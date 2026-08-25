@@ -6,12 +6,12 @@
   var TEXT = {
     fr: {
       fab: "Personnaliser les préférences",
-      bannerTitle: "Nous respectons votre vie privée",
+      bannerTitle: "Cookies",
       bannerText:
-        "Nous utilisons des cookies pour vous aider à naviguer efficacement et à exécuter certaines fonctionnalités. Vous pouvez accepter, refuser ou personnaliser vos choix.",
-      customize: "Personnaliser les préférences",
-      rejectAll: "Tout refuser",
-      acceptAll: "Accepter tout",
+        "Mesure d’audience uniquement si vous acceptez.",
+      customize: "Préférences",
+      rejectAll: "Refuser",
+      acceptAll: "Accepter",
       save: "Enregistrer mes préférences",
       modalTitle: "Personnaliser les préférences en matière de consentement",
       modalIntro:
@@ -47,12 +47,12 @@
     },
     en: {
       fab: "Cookie preferences",
-      bannerTitle: "We respect your privacy",
+      bannerTitle: "Cookies",
       bannerText:
-        "We use cookies to help you navigate efficiently and perform certain features. You can accept, reject, or customize your choices.",
-      customize: "Customize preferences",
-      rejectAll: "Reject all",
-      acceptAll: "Accept all",
+        "Audience measurement only if you accept.",
+      customize: "Preferences",
+      rejectAll: "Reject",
+      acceptAll: "Accept",
       save: "Save my preferences",
       modalTitle: "Customize consent preferences",
       modalIntro:
@@ -227,26 +227,27 @@
     state.banner = el("div", "spn-cookie-banner");
     state.banner.setAttribute("role", "dialog");
     state.banner.setAttribute("aria-live", "polite");
+    state.banner.setAttribute("aria-label", copy.bannerTitle);
     state.banner.appendChild(el("h2", "spn-cookie-banner__title", copy.bannerTitle));
     state.banner.appendChild(el("p", "spn-cookie-banner__text", copy.bannerText));
 
     var bannerActions = el("div", "spn-cookie-actions");
-    var customizeBtn = el("button", "spn-cookie-btn", copy.customize);
-    customizeBtn.type = "button";
-    customizeBtn.addEventListener("click", openModal);
-    var rejectBtn = el("button", "spn-cookie-btn", copy.rejectAll);
-    rejectBtn.type = "button";
-    rejectBtn.addEventListener("click", function () {
-      commit(defaultConsent());
-    });
     var acceptBtn = el("button", "spn-cookie-btn spn-cookie-btn--primary", copy.acceptAll);
     acceptBtn.type = "button";
     acceptBtn.addEventListener("click", function () {
       commit(allConsent());
     });
-    bannerActions.appendChild(customizeBtn);
-    bannerActions.appendChild(rejectBtn);
+    var rejectBtn = el("button", "spn-cookie-btn", copy.rejectAll);
+    rejectBtn.type = "button";
+    rejectBtn.addEventListener("click", function () {
+      commit(defaultConsent());
+    });
+    var customizeBtn = el("button", "spn-cookie-btn spn-cookie-btn--ghost", copy.customize);
+    customizeBtn.type = "button";
+    customizeBtn.addEventListener("click", openModal);
     bannerActions.appendChild(acceptBtn);
+    bannerActions.appendChild(rejectBtn);
+    bannerActions.appendChild(customizeBtn);
     state.banner.appendChild(bannerActions);
 
     state.modal = el("div", "spn-cookie-modal");

@@ -747,6 +747,7 @@ function main() {
   require("./rename-voyage-page").main();
   require("./patch-mentions-legales-page").main();
   require("./patch-boutique-pages").main();
+  require("./patch-site-navbars").main();
   const pages = [];
   listHtmlPages(ROOT, ROOT, pages);
 
@@ -768,6 +769,7 @@ function main() {
   }
 
   console.log("Generated " + count + " English page(s) under /en/");
+  require("./patch-voyage-page").main();
   patchFrenchSeo();
   rewriteApexToWww();
   syncIndexFiles();
@@ -785,6 +787,7 @@ function main() {
   require("./strip-kernel-footer").main();
   require("./patch-footer-kernel-credit").main();
   require("./patch-homepage-seo").main();
+  require("./patch-homepage-showreel").main();
   require("./patch-contact-seo").main();
   require("./patch-seo-meta-sync").main();
   rewriteApexToWww();
@@ -792,6 +795,9 @@ function main() {
   require("./ensure-cookie-consent").main();
   require("./ensure-rentree-banner").main();
   require("./patch-planning-rentree");
+  require("./patch-voyage-page").main();
+  require("./patch-homepage-showreel").main();
+  syncIndexFiles();
   runFrResidueReport();
 }
 

@@ -125,6 +125,7 @@ window.STUDIO_TEXT_MAP = {
   "Séance de relâchement et de recentrage : mobilité douce, respiration et lâcher-prise, accessible à tous.": "Relaxation and recentring: gentle mobility, breath and release, open to all.",
   "Un travail profond sur les muscles stabilisateurs améliore votre alignement et votre confort physique. Vous gagnez en mobilité, en force et en fluidité pour mieux bouger au quotidien.": "Deep stabiliser work improves alignment and physical comfort. You gain mobility, strength and flow for everyday movement.",
   "Note 5/5 sur Google — des retours authentiques de nos élèves au studio.": "5/5 on Google — genuine feedback from our students at the studio.",
+  "Voir les avis sur Google": "See Google reviews",
   "Brigitte P., avis Google": "Brigitte P., Google review",
   "Amel D., avis Google": "Amel D., Google review",
   "Olivier J., avis Google": "Olivier J., Google review",

@@ -15,6 +15,22 @@ const contactFooterStart = contactHtml.indexOf('<section class="footer">');
 const contactFooterEnd =
   contactHtml.indexOf("</section>", contactFooterStart) + "</section>".length;
 
+function ensurePricingInPrimaryNav(navbar) {
+  if (!/class="nav-link w-nav-link"[^>]*data-i18n="nav.pricing"/.test(navbar) &&
+      !/data-i18n="nav.pricing"[^>]*class="nav-link/.test(navbar) &&
+      !/<a href="\/pricing" class="nav-link/.test(navbar)) {
+    navbar = navbar.replace(
+      /(<a href="\/planning"[^>]*>[^<]*<\/a>)/,
+      '$1<a href="/pricing" class="nav-link w-nav-link" data-i18n="nav.pricing">Tarifs</a>'
+    );
+  }
+  navbar = navbar.replace(
+    /<a href="(?:\/en)?\/pricing" class="dropdown-link w-dropdown-link"[^>]*>[^<]*<\/a>/,
+    ""
+  );
+  return navbar;
+}
+
 function getBaseNavbar() {
   return contactHtml.slice(contactBodyStart, contactFirstSection);
 }
@@ -38,23 +54,12 @@ function buildNavbar(options) {
   const prefix = options.prefix || "";
   const classSlug = options.classSlug;
   let navbar = getBaseNavbar();
-  navbar = prefixRootPaths(navbar, prefix);
-
+  navbar = ensurePricingInPrimaryNav(navbar);
+  navbar = navbar.replace(/ aria-current="page"/g, "");
+  navbar = navbar.replace(/nav-link w-nav-link w--current/g, "nav-link w-nav-link");
   navbar = navbar.replace(
-    /href="[^"]*\/contact(?:\.html)?" aria-current="page" class="nav-link w-nav-link w--current"/g,
-    'href="/contact" class="nav-link w-nav-link"'
-  );
-  navbar = navbar.replace(
-    /href="[^"]*\/classes(?:\.html)?" aria-current="page" class="nav-link w-nav-link w--current"/g,
-    'href="/classes" class="nav-link w-nav-link" data-i18n="nav.classes"'
-  );
-  navbar = navbar.replace(
-    /href="[^"]*(?:\/homepage\.html|\/index\.html|\/)" aria-current="page" class="nav-link w-nav-link w--current"/g,
-    'href="/" class="nav-link w-nav-link" data-i18n="nav.home"'
-  );
-  navbar = navbar.replace(
-    /href="[^"]*\/planning(?:\.html)?" aria-current="page" class="nav-link w-nav-link w--current"/g,
-    'href="/planning" class="nav-link w-nav-link"'
+    /dropdown-link w-dropdown-link w--current/g,
+    "dropdown-link w-dropdown-link"
   );
 
   if (options.active === "classes") {
@@ -67,7 +72,16 @@ function buildNavbar(options) {
       'href="/contact" class="nav-link w-nav-link"',
       'href="/contact" aria-current="page" class="nav-link w-nav-link w--current"'
     );
+  } else if (options.active === "pricing") {
+    navbar = navbar.replace(
+      'href="/pricing" class="nav-link w-nav-link" data-i18n="nav.pricing"',
+      'href="/pricing" aria-current="page" class="nav-link w-nav-link w--current" data-i18n="nav.pricing"'
+    );
   } else if (options.active === "planning") {
+    navbar = navbar.replace(
+      'href="/planning" class="nav-link w-nav-link" data-i18n="nav.planning"',
+      'href="/planning" aria-current="page" class="nav-link w-nav-link w--current" data-i18n="nav.planning"'
+    );
     navbar = navbar.replace(
       'href="/planning" class="nav-link w-nav-link"',
       'href="/planning" aria-current="page" class="nav-link w-nav-link w--current"'
@@ -91,6 +105,7 @@ function buildNavbar(options) {
     );
   }
 
+  navbar = prefixRootPaths(navbar, prefix);
   return navbar;
 }
 

@@ -128,15 +128,24 @@ function patchFile(relPath, locale, pageUrl) {
   }
 
   let html = fs.readFileSync(filePath, "utf8");
+  const original = html;
   html = html.replace(
     /<title>Contact\s+\|\s+Studio Pilates Narbonne<\/title>/,
     "<title>Contact | Studio Pilates Narbonne</title>"
   );
-  const next = injectJsonLd(html, locale, pageUrl);
-  if (next === html) {
+  html = html.replace(
+    '<h2 class="no-margins">Une question ? Échangeons avant votre premier cours.</h2>',
+    '<h1 class="no-margins">Une question ? Échangeons avant votre premier cours.</h1>'
+  );
+  html = html.replace(
+    '<h2 class="no-margins">Have a question? Let\'s talk before your first class.</h2>',
+    '<h1 class="no-margins">Have a question? Let\'s talk before your first class.</h1>'
+  );
+  html = injectJsonLd(html, locale, pageUrl);
+  if (html === original) {
     return false;
   }
-  fs.writeFileSync(filePath, next, "utf8");
+  fs.writeFileSync(filePath, html, "utf8");
   return true;
 }
 

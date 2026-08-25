@@ -30,11 +30,9 @@
   pointer-events: none;
 }
 
-/* Cours : filtres Durée / Type non cliquables */
+/* Cours : filtres Durée / Type hérités Webflow, masqués */
 .page-classes .dropdown-filter.filter-disabled {
-  pointer-events: none;
-  cursor: default;
-  opacity: 0.62;
+  display: none !important;
 }
 
 .page-classes .dropdown-filter.filter-disabled .dropdown-toggle-filter {
@@ -44,6 +42,35 @@
 .page-classes .dropdown-filter.filter-disabled .dropdown-list {
   display: none !important;
   visibility: hidden;
+}
+
+.master-hero-home .title-text {
+  color: #fffbf0;
+  background: rgba(34, 34, 31, 0.48);
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  letter-spacing: 0.08em;
+}
+
+.master-hero-home .wrap-content-hero-home h1,
+.master-hero-home .wrap-content-hero-home .subtitle {
+  text-shadow: 0 2px 22px rgba(34, 34, 31, 0.62);
+}
+
+.reviews-google {
+  margin: 0.65rem 0 0;
+}
+
+.reviews-google-link {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.14em;
+}
+
+.reviews-google-link:hover,
+.reviews-google-link:focus-visible {
+  opacity: 0.78;
 }
 
 /* Header & footer : nom du studio visible (texte, pas logo) */
